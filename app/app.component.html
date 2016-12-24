@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3">
+        <h3>Choose View</h3>
+    </div>
+    <div class="col-lg-3">
+        <h3>Stress Echo</h3>
+    </div>
+    <div class="col-lg-3">
+        <h3>Legend</h3>
+    </div>
+    <div class="col-lg-3">
+        <h3>Events</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-3">
+        <ul class="bullEyes">
+            <li *ngFor="let key of keys" (click)="onSelect(key)">
+                {{ bullEyeTypes[key] }}
+            </li>    
+        </ul>
+    </div>
+    <div class="col-lg-3">
+        <stress-echo [BullEyeType]="selectedBullEyeType" (segmentScoreChanged)="onSegmentScoreChanged($event)"></stress-echo>
+    </div>
+    <div class="col-lg-3">
+        <legend></legend>
+    </div>
+    <div class="col-lg-3">
+        <button (click)="onClear()">Clear</button>
+        <event-list [events]="events"></event-list>
+    </div>
+  </div>
+</div>
