@@ -1,0 +1,1077 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewDescriptor xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<isVisited>false</isVisited>
+	<PathImg>LeftVentricularSegmentation.bmp</PathImg>
+	<ViewID>LEFT_VENTRICAL</ViewID>
+	<SegmentCollection>
+
+		<!--A 237 27-->
+		<SegmentItem value="2" name="A">
+
+			<StartPoint>
+				<Point>
+					<X>136</X>
+					<Y>44</Y>
+				</Point>
+			</StartPoint>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>238</X>
+						<Y>202</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>136</X>
+						<Y>45</Y>
+					</Point>
+				</Start>
+				<Angle>60</Angle>
+				<Direction>Clockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>338</X>
+					<Y>44</Y>
+				</Point>
+				<Point>
+					<X>312</X>
+					<Y>85</Y>
+				</Point>
+			</Points>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>312</X>
+						<Y>85</Y>
+					</Point>
+				</Start>
+				<Angle>-64</Angle>
+				<Direction>CounterClockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>161</X>
+					<Y>85</Y>
+				</Point>
+				<Point>
+					<X>136</X>
+					<Y>45</Y>
+				</Point>
+			</Points>
+
+			<InternalPoints>
+				<X>237</X>
+				<Y>27</Y>
+			</InternalPoints>
+			<Score>NotVisited</Score>
+			<RegionID>BasalAnt</RegionID>
+			<isVisited>false</isVisited>
+		</SegmentItem>
+
+		<SegmentItem value="1" name="B">
+
+			<StartPoint>
+				<Point>
+					<X>337</X>
+					<Y>44</Y>
+				</Point>
+			</StartPoint>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>337</X>
+						<Y>44</Y>
+					</Point>
+				</Start>
+				<Angle>58</Angle>
+				<Direction>Clockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>425</X>
+					<Y>203</Y>
+				</Point>
+				<Point>
+					<X>377</X>
+					<Y>203</Y>
+				</Point>
+			</Points>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>377</X>
+						<Y>203</Y>
+					</Point>
+				</Start>
+				<Angle>-58</Angle>
+				<Direction>CounterClockwise</Direction>
+			</Points>
+
+			<InternalPoints>
+				<X>373</X>
+				<Y>105</Y>
+			</InternalPoints>
+			<Score>NotVisited</Score>
+			<RegionID>BasalLat</RegionID>
+			<isVisited>false</isVisited>
+		</SegmentItem>
+		<SegmentItem value="6" name="C">
+
+			<StartPoint>
+				<Point>
+					<X>425</X>
+					<Y>203</Y>
+				</Point>
+			</StartPoint>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>425</X>
+						<Y>203</Y>
+					</Point>
+				</Start>
+				<Angle>58</Angle>
+				<Direction>Clockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>337</X>
+					<Y>361</Y>
+				</Point>
+				<Point>
+					<X>313</X>
+					<Y>321</Y>
+				</Point>
+			</Points>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>313</X>
+						<Y>321</Y>
+					</Point>
+				</Start>
+				<Angle>-58</Angle>
+				<Direction>CounterClockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>377</X>
+					<Y>203</Y>
+				</Point>
+				<Point>
+					<X>425</X>
+					<Y>203</Y>
+				</Point>
+			</Points>
+
+			<InternalPoints>
+				<X>373</X>
+				<Y>272</Y>
+			</InternalPoints>
+			<Score>NotVisited</Score>
+			<RegionID>BasalPost</RegionID>
+			<isVisited>false</isVisited>
+		</SegmentItem>
+
+		<!--D 237 352-->
+		<SegmentItem value="5" name="D">
+
+			<StartPoint>
+				<Point>
+					<X>337</X>
+					<Y>361</Y>
+				</Point>
+			</StartPoint>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>337</X>
+						<Y>361</Y>
+					</Point>
+				</Start>
+				<Angle>64</Angle>
+				<Direction>Clockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>136</X>
+					<Y>361</Y>
+				</Point>
+				<Point>
+					<X>163</X>
+					<Y>322</Y>
+				</Point>
+			</Points>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>163</X>
+						<Y>322</Y>
+					</Point>
+				</Start>
+				<Angle>-64</Angle>
+				<Direction>CounterClockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>313</X>
+					<Y>321</Y>
+				</Point>
+				<Point>
+					<X>337</X>
+					<Y>361</Y>
+				</Point>
+			</Points>
+
+			<InternalPoints>
+				<X>237</X>
+				<Y>352</Y>
+			</InternalPoints>
+			<Score>NotVisited</Score>
+			<RegionID>BasalInf</RegionID>
+			<isVisited>false</isVisited>
+		</SegmentItem>
+
+		<SegmentItem value="4" name="E">
+
+			<StartPoint>
+				<Point>
+					<X>138</X>
+					<Y>362</Y>
+				</Point>
+			</StartPoint>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>138</X>
+						<Y>362</Y>
+					</Point>
+				</Start>
+				<Angle>58</Angle>
+				<Direction>Clockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>50</X>
+					<Y>203</Y>
+				</Point>
+				<Point>
+					<X>96</X>
+					<Y>203</Y>
+				</Point>
+			</Points>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>96</X>
+						<Y>203</Y>
+					</Point>
+				</Start>
+				<Angle>-58</Angle>
+				<Direction>CounterClockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>163</X>
+					<Y>322</Y>
+				</Point>
+				<Point>
+					<X>136</X>
+					<Y>361</Y>
+				</Point>
+			</Points>
+
+			<InternalPoints>
+				<X>92</X>
+				<Y>272</Y>
+			</InternalPoints>
+			<Score>NotVisited</Score>
+			<RegionID>BasalSept</RegionID>
+			<isVisited>false</isVisited>
+		</SegmentItem>
+		<SegmentItem value="3" name="F">
+
+			<StartPoint>
+				<Point>
+					<X>50</X>
+					<Y>202</Y>
+				</Point>
+			</StartPoint>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>236</X>
+						<Y>202</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>50</X>
+						<Y>202</Y>
+					</Point>
+				</Start>
+				<Angle>57</Angle>
+				<Direction>Clockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>136</X>
+					<Y>45</Y>
+				</Point>
+				<Point>
+					<X>161</X>
+					<Y>85</Y>
+				</Point>
+			</Points>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>161</X>
+						<Y>85</Y>
+					</Point>
+				</Start>
+				<Angle>-58</Angle>
+				<Direction>CounterClockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>96</X>
+					<Y>203</Y>
+				</Point>
+				<Point>
+					<X>50</X>
+					<Y>203</Y>
+				</Point>
+			</Points>
+
+
+			<InternalPoints>
+				<X>92</X>
+				<Y>105</Y>
+			</InternalPoints>
+			<Score>NotVisited</Score>
+			<RegionID>BasalAntSept</RegionID>
+			<isVisited>false</isVisited>
+		</SegmentItem>
+
+		<!--G 237 75-->
+		<SegmentItem value="8" name="G">
+
+			<StartPoint>
+				<Point>
+					<X>161</X>
+					<Y>85</Y>
+				</Point>
+			</StartPoint>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>161</X>
+						<Y>85</Y>
+					</Point>
+				</Start>
+				<Angle>64</Angle>
+				<Direction>Clockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>312</X>
+					<Y>85</Y>
+				</Point>
+				<Point>
+					<X>285</X>
+					<Y>129</Y>
+				</Point>
+			</Points>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>285</X>
+						<Y>129</Y>
+					</Point>
+				</Start>
+				<Angle>-64</Angle>
+				<Direction>CounterClockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>189</X>
+					<Y>128</Y>
+				</Point>
+				<Point>
+					<X>161</X>
+					<Y>85</Y>
+				</Point>
+			</Points>
+
+			<InternalPoints>
+				<X>237</X>
+				<Y>75</Y>
+			</InternalPoints>
+			<Score>NotVisited</Score>
+			<RegionID>MidAnt</RegionID>
+			<isVisited>false</isVisited>
+		</SegmentItem>
+
+		<!--H 333 131-->
+		<SegmentItem value="7" name="H">
+
+			<StartPoint>
+				<Point>
+					<X>312</X>
+					<Y>85</Y>
+				</Point>
+			</StartPoint>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>312</X>
+						<Y>85</Y>
+					</Point>
+				</Start>
+				<Angle>57</Angle>
+				<Direction>Clockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>377</X>
+					<Y>203</Y>
+				</Point>
+				<Point>
+					<X>325</X>
+					<Y>203</Y>
+				</Point>
+			</Points>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>325</X>
+						<Y>203</Y>
+					</Point>
+				</Start>
+				<Angle>-58</Angle>
+				<Direction>CounterClockwise</Direction>
+			</Points>
+
+			<InternalPoints>
+				<X>333</X>
+				<Y>131</Y>
+			</InternalPoints>
+			<Score>NotVisited</Score>
+			<RegionID>MidLat</RegionID>
+			<isVisited>false</isVisited>
+		</SegmentItem>
+
+		<!--I 333 238-->
+		<SegmentItem value="12" name="I">
+
+			<StartPoint>
+				<Point>
+					<X>377</X>
+					<Y>203</Y>
+				</Point>
+			</StartPoint>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>377</X>
+						<Y>203</Y>
+					</Point>
+				</Start>
+				<Angle>57</Angle>
+				<Direction>Clockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>313</X>
+					<Y>321</Y>
+				</Point>
+				<Point>
+					<X>285</X>
+					<Y>277</Y>
+				</Point>
+			</Points>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>285</X>
+						<Y>277</Y>
+					</Point>
+				</Start>
+				<Angle>-58</Angle>
+				<Direction>CounterClockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>325</X>
+					<Y>203</Y>
+				</Point>
+				<Point>
+					<X>377</X>
+					<Y>203</Y>
+				</Point>
+			</Points>
+
+			<InternalPoints>
+				<X>333</X>
+				<Y>248</Y>
+			</InternalPoints>
+			<Score>NotVisited</Score>
+			<RegionID>MidPost</RegionID>
+			<isVisited>false</isVisited>
+		</SegmentItem>
+
+
+		<!--L 237 307-->
+		<SegmentItem value="11" name="L">
+
+			<StartPoint>
+				<Point>
+					<X>313</X>
+					<Y>321</Y>
+				</Point>
+			</StartPoint>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>313</X>
+						<Y>321</Y>
+					</Point>
+				</Start>
+				<Angle>64</Angle>
+				<Direction>Clockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>163</X>
+					<Y>322</Y>
+				</Point>
+				<Point>
+					<X>190</X>
+					<Y>277</Y>
+				</Point>
+			</Points>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>190</X>
+						<Y>277</Y>
+					</Point>
+				</Start>
+				<Angle>-64</Angle>
+				<Direction>CounterClockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>285</X>
+					<Y>277</Y>
+				</Point>
+				<Point>
+					<X>313</X>
+					<Y>321</Y>
+				</Point>
+			</Points>
+
+			<InternalPoints>
+				<X>237</X>
+				<Y>307</Y>
+			</InternalPoints>
+			<Score>NotVisited</Score>
+			<RegionID>MidInf</RegionID>
+			<isVisited>false</isVisited>
+		</SegmentItem>
+		<!--M 134 248-->
+		<SegmentItem value="10" name="M">
+
+			<StartPoint>
+				<Point>
+					<X>163</X>
+					<Y>322</Y>
+				</Point>
+			</StartPoint>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>163</X>
+						<Y>322</Y>
+					</Point>
+				</Start>
+				<Angle>58</Angle>
+				<Direction>Clockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>96</X>
+					<Y>203</Y>
+				</Point>
+				<Point>
+					<X>149</X>
+					<Y>203</Y>
+				</Point>
+			</Points>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>149</X>
+						<Y>203</Y>
+					</Point>
+				</Start>
+				<Angle>-58</Angle>
+				<Direction>CounterClockwise</Direction>
+			</Points>
+
+			<InternalPoints>
+				<X>134</X>
+				<Y>248</Y>
+			</InternalPoints>
+			<Score>NotVisited</Score>
+			<RegionID>MidSept</RegionID>
+			<isVisited>false</isVisited>
+		</SegmentItem>
+
+		<SegmentItem value="9" name="N">
+
+			<StartPoint>
+				<Point>
+					<X>96</X>
+					<Y>202</Y>
+				</Point>
+			</StartPoint>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>96</X>
+						<Y>202</Y>
+					</Point>
+				</Start>
+				<Angle>58</Angle>
+				<Direction>Clockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>161</X>
+					<Y>85</Y>
+				</Point>
+				<Point>
+					<X>189</X>
+					<Y>128</Y>
+				</Point>
+			</Points>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>239</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>189</X>
+						<Y>128</Y>
+					</Point>
+				</Start>
+				<Angle>-56</Angle>
+				<Direction>CounterClockwise</Direction>
+			</Points>
+			
+			<Points type="line">
+				<Point>
+					<X>149</X>
+					<Y>203</Y>
+				</Point>
+				<Point>
+					<X>96</X>
+					<Y>203</Y>
+				</Point>
+			</Points>
+
+			<InternalPoints>
+				<X>132</X>
+				<Y>131</Y>
+			</InternalPoints>
+			<Score>NotVisited</Score>
+			<RegionID>MidAntSept</RegionID>
+			<isVisited>false</isVisited>
+		</SegmentItem>
+		<!--O 273 158-->
+		<SegmentItem value="13" name="O">
+
+			<StartPoint>
+				<Point>
+					<X>237</X>
+					<Y>115</Y>
+				</Point>
+			</StartPoint>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>237</X>
+						<Y>115</Y>
+					</Point>
+				</Start>
+				<Angle>90</Angle>
+				<Direction>Clockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>325</X>
+					<Y>203</Y>
+				</Point>
+				<Point>
+					<X>237</X>
+					<Y>203</Y>
+				</Point>
+			</Points>
+
+			<InternalPoints>
+				<X>273</X>
+				<Y>158</Y>
+			</InternalPoints>
+			<Score>NotVisited</Score>
+			<RegionID>ApicalLat</RegionID>
+			<isVisited>false</isVisited>
+		</SegmentItem>
+
+		<!--P 273 225-->
+		<SegmentItem value="16" name="P">
+
+			<StartPoint>
+				<Point>
+					<X>325</X>
+					<Y>203</Y>
+				</Point>
+			</StartPoint>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>325</X>
+						<Y>203</Y>
+					</Point>
+				</Start>
+				<Angle>90</Angle>
+				<Direction>Clockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>237</X>
+					<Y>291</Y>
+				</Point>
+				<Point>
+					<X>237</X>
+					<Y>203</Y>
+				</Point>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>237</X>
+					<Y>203</Y>
+				</Point>
+				<Point>
+					<X>325</X>
+					<Y>203</Y>
+				</Point>
+			</Points>
+
+			<InternalPoints>
+				<X>273</X>
+				<Y>225</Y>
+			</InternalPoints>
+			<Score>NotVisited</Score>
+			<RegionID>ApicalInf</RegionID>
+			<isVisited>false</isVisited>
+		</SegmentItem>
+		<!--Q 195 225-->
+		<SegmentItem value="15" name="Q">
+
+			<StartPoint>
+				<Point>
+					<X>237</X>
+					<Y>291</Y>
+				</Point>
+			</StartPoint>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>237</X>
+						<Y>291</Y>
+					</Point>
+				</Start>
+				<Angle>90</Angle>
+				<Direction>Clockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>149</X>
+					<Y>203</Y>
+				</Point>
+				<Point>
+					<X>237</X>
+					<Y>203</Y>
+				</Point>
+			</Points>
+
+			<InternalPoints>
+				<X>195</X>
+				<Y>225</Y>
+			</InternalPoints>
+			<Score>NotVisited</Score>
+			<RegionID>ApicalSept</RegionID>
+			<isVisited>false</isVisited>
+		</SegmentItem>
+		<!--R 195 158-->
+		<SegmentItem value="14" name="R">
+
+			<StartPoint>
+				<Point>
+					<X>149</X>
+					<Y>202</Y>
+				</Point>
+			</StartPoint>
+
+			<Points type="arc">
+				<Center>
+					<Point>
+						<X>237</X>
+						<Y>203</Y>
+					</Point>
+				</Center>
+				<Start>
+					<Point>
+						<X>149</X>
+						<Y>203</Y>
+					</Point>
+				</Start>
+				<Angle>90</Angle>
+				<Direction>Clockwise</Direction>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>237</X>
+					<Y>115</Y>
+				</Point>
+				<Point>
+					<X>237</X>
+					<Y>203</Y>
+				</Point>
+			</Points>
+
+			<Points type="line">
+				<Point>
+					<X>237</X>
+					<Y>203</Y>
+				</Point>
+				<Point>
+					<X>149</X>
+					<Y>203</Y>
+				</Point>
+			</Points>
+
+			<InternalPoints>
+				<X>195</X>
+				<Y>158</Y>
+			</InternalPoints>
+			<Score>NotVisited</Score>
+			<RegionID>ApicalAnt</RegionID>
+			<isVisited>false</isVisited>
+		</SegmentItem>
+
+	</SegmentCollection>
+</ViewDescriptor>
