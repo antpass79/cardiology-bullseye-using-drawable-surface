@@ -2,6 +2,8 @@
 
 This repository holds the TypeScript source code of the cardiology bullseye component, based on [angular.io quickstart](https://angular.io/docs/ts/latest/quickstart.html), so I recommend to visit https://github.com/angular/quickstart.
 
+this is a working project. I would like to add other functionalities and a better user interface.
+
 ## Prerequisites
 
 Node.js and npm are essential to Angular development. 
@@ -47,6 +49,16 @@ Grab its address (e.g. *`https://github.com/<my-org>/my-proj.git`*) and push the
 git remote add origin <repo-address>
 git push -u origin master
 ```
+## Install additional packages
+
+Install bootstrap package:
+
+npm install bootstrap@4.0.0-alpha.5
+
+Install xml to json converter library:
+
+npm install x2json
+
 ## Install npm packages
 
 > See npm and nvm version notes above
@@ -64,16 +76,6 @@ Both the compiler and the server watch for file changes.
 
 Shut it down manually with `Ctrl-C`.
 
-## Install additional packages
-Install bootstrap package:
-
-npm install bootstrap@4.0.0-alpha.5
-
-Install xml to json converter library:
-
-npm install x2json
-
-You're ready to run the application.
 
 ### Other functionalities
 
