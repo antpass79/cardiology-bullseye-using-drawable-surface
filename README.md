@@ -1,5 +1,4 @@
 # Based on Angular 2 QuickStart Source Template
-[![Build Status][travis-badge]][travis-badge-url]
 
 This repository holds the TypeScript source code of the cardiology bullseye component, based on [angular.io quickstart](https://angular.io/docs/ts/latest/quickstart.html), so I recommend to visit https://github.com/angular/quickstart.
 
@@ -66,10 +65,12 @@ Both the compiler and the server watch for file changes.
 Shut it down manually with `Ctrl-C`.
 
 ## Install additional packages
-Install bootstrap package
+Install bootstrap package:
+
 npm install bootstrap@4.0.0-alpha.5
 
-Install xml to json converter library
+Install xml to json converter library:
+
 npm install x2json
 
 You're ready to run the application.
