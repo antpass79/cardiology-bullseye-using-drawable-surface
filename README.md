@@ -60,6 +60,11 @@ Both the compiler and the server watch for file changes.
 
 Shut it down manually with `Ctrl-C`.
 
+## How it works
+
+- Choose a view from the list on the left (summary_16, summary_17, summary_6 don't work yet).
+- Wheel the mouse on segments.
+- See colors change on the current segment and the event fires on the right list.
 
 ### Notes
 
