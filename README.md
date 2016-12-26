@@ -1,6 +1,6 @@
 # Based on Angular 2 QuickStart Source Template
 
-This repository holds the TypeScript source code of the cardiology bullseye component, based on [angular.io quickstart](https://angular.io/docs/ts/latest/quickstart.html, on GitHub https://github.com/angular/quickstart).
+This repository holds the TypeScript source code of the cardiology bullseye component, based on https://github.com/angular/quickstart.
 
 ## Prerequisites
 
