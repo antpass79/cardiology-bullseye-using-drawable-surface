@@ -64,6 +64,6 @@ Shut it down manually with `Ctrl-C`.
 ### Notes
 
 - this is a working project. I would like to add other functionalities and a better user interface.
-- For details about the project structure and functionalities (e2e, tests etc.) see https://github.com/angular/quickstart.
+- For details about the project structure and functionalities (compile, tests etc.) see https://github.com/angular/quickstart.
 - Summary_16, Summary_17 and Summary_6 don't work yet.
 
