@@ -1,8 +1,6 @@
 # Based on Angular 2 QuickStart Source Template
 
-This repository holds the TypeScript source code of the cardiology bullseye component, based on [angular.io quickstart](https://angular.io/docs/ts/latest/quickstart.html), so I recommend to visit https://github.com/angular/quickstart.
-
-this is a working project. I would like to add other functionalities and a better user interface.
+This repository holds the TypeScript source code of the cardiology bullseye component, based on [angular.io quickstart](https://angular.io/docs/ts/latest/quickstart.html, on GitHub https://github.com/angular/quickstart).
 
 ## Prerequisites
 
@@ -15,7 +13,7 @@ Get it now</a> if it's not already installed on your machine.
 by running `node -v` and `npm -v` in a terminal/console window.
 Older versions produce errors.
 
-We recommend [nvm](https://github.com/creationix/nvm) for managing multiple versions of node and npm.
+I recommend [nvm](https://github.com/creationix/nvm) for managing multiple versions of node and npm.
 
 ## Download the project
 
@@ -31,33 +29,19 @@ rm -rf .git  # non-Windows
 rd .git /S/Q # windows
 ```
 
-### Create a new git repo
-You could [start writing code](#start-development) now and throw it all away when you're done.
-If you'd rather preserve your work under source control, consider taking the following steps.
-
-Initialize this project as a *local git repo* and make the first commit:
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-```
-
-Create a *remote repository* for this project on the service of your choice.
-
-Grab its address (e.g. *`https://github.com/<my-org>/my-proj.git`*) and push the *local repo* to the *remote*.
-```bash
-git remote add origin <repo-address>
-git push -u origin master
-```
-## Install additional packages
+## Install packages
 
 Install bootstrap package:
 
+```bash
 npm install bootstrap@4.0.0-alpha.5
+```
 
 Install xml to json converter library:
 
+```bash
 npm install x2json
+```
 
 ## Install npm packages
 
@@ -77,8 +61,9 @@ Both the compiler and the server watch for file changes.
 Shut it down manually with `Ctrl-C`.
 
 
-### Other functionalities
+### Notes
 
-For details about the project structure and functionalities (e2e, tests etc.) see https://github.com/angular/quickstart.
-
+- this is a working project. I would like to add other functionalities and a better user interface.
+- For details about the project structure and functionalities (e2e, tests etc.) see https://github.com/angular/quickstart.
+- Summary_16, Summary_17 and Summary_6 don't work yet.
 
