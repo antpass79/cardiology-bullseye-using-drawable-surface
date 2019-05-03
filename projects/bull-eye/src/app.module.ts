@@ -7,7 +7,7 @@ import { DataService }  from './StressEchoComponent/data.service';
 import { AppComponent }  from './app.component';
 import { StressEchoComponent }  from './StressEchoComponent/stress-echo.component';
 import { EventListComponent }  from './EventList/event-list.component';
-import { Legend }  from './legend/legend';
+import { Legend }  from './Legend/legend';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
