@@ -25,5 +25,5 @@ steps:
 
 - task: PublishPipelineArtifact@0
   inputs:
-    artifactName: 'Publish Artifact: bull-eye'
+    artifactName: 'bull-eye'
     targetPath: 'dist/bull-eye'
