@@ -5,10 +5,6 @@
 
 trigger:
 - master
-- task: PublishPipelineArtifact@0
-  inputs:
-    artifactName: 'Publish Artifact: bull-eye'
-    targetPath: 'dist'
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -26,3 +22,8 @@ steps:
 - script: |
     npm run build
   displayName: 'npm run build'
+
+- task: PublishPipelineArtifact@0
+  inputs:
+    artifactName: 'Publish Artifact: bull-eye'
+    targetPath: 'dist'
