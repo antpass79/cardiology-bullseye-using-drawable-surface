@@ -21,7 +21,7 @@
                         "tsConfig": "projects/bull-eye/tsconfig.app.json",
                         "assets": [
                             "projects/bull-eye/src/favicon.ico",
-                            "projects/bull-eye/src/assets",
+                            "projects/bull-eye/src/assets"
                         ],
                         "styles": [
                             "projects/bull-eye/styles.css"
