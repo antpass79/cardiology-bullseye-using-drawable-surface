@@ -28,35 +28,26 @@ steps:
     artifactName: 'bull-eye'
     targetPath: 'dist/bull-eye'
 
-# - script: |
-#     docker build -t bulleye:v1 .
-#   displayName: 'docker - build'
-
 - task: Docker@2
   inputs:
     command: 'login'    
     containerRegistry: 'DockerHub'
   displayName: "docker - login"
 
-# - task: Docker@2
-#   inputs:
-#     command: 'buildAndPush'
-#     containerRegistry: 'DockerHub'
-#     Dockerfile: '**/Dockerfile'
-#   displayName: "docker - build and push"
-
 - task: Docker@2
   inputs:
-    containerRegistry: 'DockerHub'
     command: 'build'
     Dockerfile: '**/Dockerfile'
+    containerRegistry: 'DockerHub'
   displayName: "docker - build"
 
 - task: Docker@2
   inputs:
+    command: 'push'
     repository: $(dockerId)/$(dockerRepositoryTest)
     containerRegistry: 'DockerHub'
-    command: 'push'
+    tags: |
+      bulleye
   displayName: "docker - push"
     
 - task: Docker@2
