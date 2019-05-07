@@ -34,6 +34,7 @@ steps:
 
 - script: |
     docker login --username $(dockerId) --password-stdin $(dockerPassword)
-    docker push $(dockerId)/bulleye
+    docker tag bulleye:v1 $(dockerId)/$(dockerRepositoryTest):bulleye
+    docker push $(dockerId)/$(dockerRepositoryTest):bulleye
   displayName: 'push image on the hub'
 
