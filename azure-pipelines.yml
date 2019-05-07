@@ -46,10 +46,5 @@ steps:
 
 - task: Docker@2
   inputs:
-    command: 'login'
-    repository: $(dockerId)/$(dockerRepositoryTest)
-    arguments: --username $(dockerId) --password-stdin $(dockerPassword)
-  env:
-    dockerId: $(dockerId)
-    dockerPassword: $(dockerPassword)
-    dockerRepositoryTest: $(dockerRepositoryTest)
+    command: 'login'    
+    containerRegistry: DockerHub
