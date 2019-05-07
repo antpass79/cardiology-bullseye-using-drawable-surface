@@ -36,6 +36,6 @@ steps:
   displayName: 'build image'
 
 - script: |
-    docker login --username $docker.dockerId --password $docker.dockerPassword
-  displayName: 'push on the hub'
+    docker login --username $(docker.dockerId) --password-stdin $(docker.dockerPassword)
+  displayName: 'push image on the hub'
 
