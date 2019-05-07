@@ -38,13 +38,26 @@ steps:
     containerRegistry: 'DockerHub'
   displayName: "docker - login"
 
+# - task: Docker@2
+#   inputs:
+#     command: 'buildAndPush'
+#     containerRegistry: 'DockerHub'
+#     Dockerfile: '**/Dockerfile'
+#   displayName: "docker - build and push"
+
 - task: Docker@2
   inputs:
-    command: 'buildAndPush'
     containerRegistry: 'DockerHub'
+    command: 'build'
     Dockerfile: '**/Dockerfile'
-  displayName: "docker - build and push"
+  displayName: "docker - build"
 
+- task: Docker@2
+  inputs:
+    containerRegistry: 'DockerHub'
+    command: 'push'
+  displayName: "docker - push"
+    
 - task: Docker@2
   inputs:
     command: 'logout'
