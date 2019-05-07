@@ -4,8 +4,10 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 variables:
+- group: docker
 - name: dockerId
 - name: dockerPassword
+- name: dockerRepositoryTest
 
 trigger:
 - master
