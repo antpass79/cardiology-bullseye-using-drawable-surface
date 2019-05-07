@@ -27,3 +27,12 @@ steps:
   inputs:
     artifactName: 'bull-eye'
     targetPath: 'dist/bull-eye'
+
+- script: |
+    docker build -t bulleye:v1 .
+  displayName: 'build image'
+
+# - task: DockerInstaller@0
+#   inputs:
+#     dockerVersion: '17.09.0-ce'
+
