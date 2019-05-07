@@ -3,6 +3,9 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
+variables:
+- group: docker
+
 trigger:
 - master
 
@@ -32,7 +35,7 @@ steps:
     docker build -t bulleye:v1 .
   displayName: 'build image'
 
-# - task: DockerInstaller@0
-#   inputs:
-#     dockerVersion: '17.09.0-ce'
+- script: |
+    docker login --username $(docker).dockerId --password $(docker).dockerPassword
+  displayName: 'push on the hub'
 
