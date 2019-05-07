@@ -3,11 +3,6 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
-# variables:
-# - group: docker
-#   - name: dockerId
-#   - name: dockerPassword
-
 trigger:
 - master
 
@@ -38,6 +33,6 @@ steps:
   displayName: 'build image'
 
 - script: |
-    docker login --username $(dockerId) --password-stdin $(dockerPassword)
+    docker login --username $(docker.dockerId) --password-stdin $(docker.dockerPassword)
   displayName: 'push image on the hub'
 
