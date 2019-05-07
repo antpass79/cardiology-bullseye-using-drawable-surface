@@ -36,19 +36,13 @@ steps:
 
 - task: Docker@2
   inputs:
-    command: 'build'
+    command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
-    containerRegistry: 'DockerHub'
-  displayName: "docker - build"
-
-- task: Docker@2
-  inputs:
-    command: 'push'
     repository: $(dockerId)/$(dockerRepositoryTest)
     containerRegistry: 'DockerHub'
     tags: |
       bulleye
-  displayName: "docker - push"
+  displayName: "docker - build and push"
     
 - task: Docker@2
   inputs:
