@@ -42,7 +42,6 @@ steps:
   inputs:
     command: 'buildAndPush'
     containerRegistry: 'DockerHub'
-    repository: 'test'
     Dockerfile: '**/Dockerfile'
   displayName: "docker - build and push"
 
