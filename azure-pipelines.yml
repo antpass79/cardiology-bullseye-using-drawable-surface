@@ -54,7 +54,7 @@ steps:
 
 - task: Docker@2
   inputs:
-    repository: 'test'
+    repository: $(dockerId)/$(dockerRepositoryTest)
     containerRegistry: 'DockerHub'
     command: 'push'
   displayName: "docker - push"
