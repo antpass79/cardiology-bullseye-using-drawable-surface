@@ -30,16 +30,26 @@ steps:
 
 - script: |
     docker build -t bulleye:v1 .
-  displayName: 'build image'
+  displayName: 'docker - build'
 
-- script: |
-    docker login --username $(dockerId) --password-stdin $(dockerPassword)
-  displayName: 'docker - login'
+# - script: |
+#     docker login --username $(dockerId) --password-stdin $(dockerPassword)
+#   displayName: 'docker - login'
 
-- script: |
-    docker tag bulleye:v1 $(dockerId)/$(dockerRepositoryTest):bulleye
-  displayName: 'docker - tag'
+# - script: |
+#     docker tag bulleye:v1 $(dockerId)/$(dockerRepositoryTest):bulleye
+#   displayName: 'docker - tag'
 
-- script: |
-    docker push $(dockerId)/$(dockerRepositoryTest):bulleye
-  displayName: 'docker - push'
+# - script: |
+#     docker push $(dockerId)/$(dockerRepositoryTest):bulleye
+#   displayName: 'docker - push'
+
+- task: Docker@2
+  inputs:
+    command: 'login'
+    repository: $(dockerId)/$(dockerRepositoryTest)
+    arguments: --username $(dockerId) --password-stdin $(dockerPassword)
+  env:
+    dockerId: $(dockerId)
+    dockerPassword: $(dockerPassword)
+    dockerRepositoryTest: $(dockerRepositoryTest)
