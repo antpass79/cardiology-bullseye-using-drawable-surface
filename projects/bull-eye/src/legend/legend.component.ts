@@ -1,16 +1,11 @@
 import { Component } from '@angular/core';
-
-import { SegmentScore } from './../StressEchoComponent/segment-score';
-import { EchoUtils } from './../StressEchoComponent/echo-utils';
+import { EchoUtils } from './../stress-echo/utils/echo-utils';
 
 @Component({
-
-    moduleId: module.id,
     selector: 'legend',
-    templateUrl: './legend.html'
+    templateUrl: './legend.component.html'
 })
-
-export class Legend {
+export class LegendComponent {
 
   scores = EchoUtils.getInstance().scoreColorPair.items;
   keys: string[] = EchoUtils.getInstance().scoreColorPair.Keys();
@@ -20,7 +15,6 @@ export class Legend {
   }
 
   getColor(key: string) {
-
       return EchoUtils.getInstance().scoreColorPair.Item(key).color;
   }
 }

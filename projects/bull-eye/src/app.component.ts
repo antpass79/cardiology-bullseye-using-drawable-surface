@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
-import { BullEyeType }  from './StressEchoComponent/bull-eye-type';
+import { BullEyeType }  from './stress-echo/utils/bull-eye-type';
 
 @Component({
-
-  moduleId: module.id,
   selector: 'my-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-
 export class AppComponent {
   
   bullEyeTypes = BullEyeType;

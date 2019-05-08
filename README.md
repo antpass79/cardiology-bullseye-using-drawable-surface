@@ -1,7 +1,7 @@
 # cardiology-bullseye
 
 Bullseye is a component used in echocardiology.
-This component is written in Angular 2 and updated to Angular 7, in order to run it.
+This component is written in Angular 2 and updated to Angular 7.
 Refactoring must be done.
 
 ## Run
@@ -20,5 +20,7 @@ One the program is running, you can see 4 sections:
 
 - Choose View: for choosing the view to show (not all work)
 - Strees Echo: through interactive component, you can change the color of each segment wheeling the mouse
-- Legend: the meaning of colors
+- Legend: the meaning of the colors
 - Events: events fired
+
+One the application runs, choosing a view on the left section, the related rappresentation will appear in the Stress Echo section. You can interact with each segment wheeling the mouse.

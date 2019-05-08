@@ -1,12 +1,12 @@
-import { EventManager } from './../../EventAggregator/event-manager';
+import { EventManager } from './../../event-aggregator/event-manager';
 
 import { Shape } from './shape';
-import { SegmentPart, Polygon } from './segment-part';
+import { SegmentPart } from './segment-part';
 import { Point } from './point';
 
-import { EchoUtils } from './../echo-utils';
-import { SegmentScore } from './../segment-score';
-import { ScoreColorPair } from './../score-color-pair';
+import { EchoUtils } from './../utils/echo-utils';
+import { SegmentScore } from './../utils/segment-score';
+import { ScoreColorPair } from './../utils/score-color-pair';
 
 export class Segment extends Shape {
 
@@ -19,7 +19,6 @@ export class Segment extends Shape {
 	isMouseOver: boolean = false;
 
 	constructor () {
-
 		super();
 
 		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.Item(SegmentScore[SegmentScore.Ak_Scar]));
@@ -40,7 +39,6 @@ export class Segment extends Shape {
 	}
 
 	isPointInPath(canvas: any, context: any, point: Point): boolean {
-
 		context.beginPath();
 		this.parts.forEach((part: SegmentPart) => { part.draw(canvas, context) });
 		context.closePath();
@@ -49,7 +47,6 @@ export class Segment extends Shape {
 	}
 
 	draw(canvas: any, context: any) {
-
 		context.beginPath();
 		context.fillStyle = this.fill;
 
@@ -61,31 +58,24 @@ export class Segment extends Shape {
 	}
 
 	mouseMove(canvas: any, e: MouseEvent) {
-
 	}
 
 	mouseEnter(canvas: any, e: MouseEvent) {
-
 		this.isMouseOver = true;
-
 		this.draw(canvas, canvas.getContext('2d'));
 	}
 
 	mouseLeave(canvas: any, e: MouseEvent) {
-
 		this.isMouseOver = false;
-
 		this.draw(canvas, canvas.getContext('2d'));
 	}
 
 	mouseUp(canvas: any, e: MouseEvent) {
-
 		canvas.getContext('2d').fillStyle = 'blue';
 		this.draw(canvas, canvas.getContext('2d'));
 	}
 
 	mouseWheel(canvas: any, e: MouseWheelEvent) {
-
 		if (e.deltaY < 0 && this._selectedIndex < this._scoreValueMap.length - 1)
 			this._selectedIndex++;
 		if (e.deltaY > 0 && this._selectedIndex > 0)

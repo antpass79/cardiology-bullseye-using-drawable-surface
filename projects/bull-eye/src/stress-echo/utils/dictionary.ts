@@ -1,5 +1,4 @@
 export interface IDictionary<T> {
-
     Add(key: string, value: T): void;
     ContainsKey(key: string): boolean;
     Count(): number;
@@ -16,23 +15,19 @@ export class Dictionary<T> implements IDictionary<T> {
     private count: number = 0;
  
     public ContainsKey(key: string): boolean {
-
         return this.items.hasOwnProperty(key);
     }
  
     public Count(): number {
-
         return this.count;
     }
  
     public Add(key: string, value: T): void {
-
         this.items[key] = value;
         this.count++;
     }
  
     public Remove(key: string): T {
-
         var val = this.items[key];
         delete this.items[key];
         this.count--;
@@ -40,14 +35,12 @@ export class Dictionary<T> implements IDictionary<T> {
     }
  
     public Item(key: string): T {
-
         return this.items[key];
     }
  
     public Keys(): string[] {
-
         var keySet: string[] = [];
- 
+
         for (var prop in this.items) {
             if (this.items.hasOwnProperty(prop)) {
                 keySet.push(prop);
@@ -58,7 +51,6 @@ export class Dictionary<T> implements IDictionary<T> {
     }
  
     public Values(): T[] {
-
         var values: T[] = [];
  
         for (var prop in this.items) {
