@@ -1,6 +1,5 @@
 import { Point } from './point';
 import { Segment } from './segment';
-import { SegmentPart } from './segment-part';
 
 export class SummarySegment extends Segment {
 

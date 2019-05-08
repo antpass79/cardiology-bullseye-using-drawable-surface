@@ -1,19 +1,10 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 
 import { DataService } from './utils/data.service';
-import { X2JS } from 'x2json';
-
 import { ViewBox } from './utils/view-box';
-
 import { Dictionary } from './utils/dictionary';
 import { EventManager } from './../event-aggregator/event-manager';
-
-import { Summary } from './shapes/summary';
-import { SummarySegment } from './shapes/summary-segment';
-import { Polygon, Line, Arc } from './shapes/segment-part';
 import { BullEye } from './shapes/bull-eye';
-import { Segment } from './shapes/segment';
-import { Point } from './shapes/point';
 
 @Component({
 	selector: 'stress-echo',
