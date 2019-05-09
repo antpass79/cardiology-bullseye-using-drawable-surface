@@ -58,7 +58,7 @@ Changing some small things on the yaml file, type:
 
     kubectl apply -f k8s.yaml
 
-At this point, after a short time, you can browse you the application on Internet. To see what ip you have to use, type:
+At this point, after a short time, you can browse the application on Internet. To see what ip you have to use, type:
 
     kubectl get service bulleye --watch
 
