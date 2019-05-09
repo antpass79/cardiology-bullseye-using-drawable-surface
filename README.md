@@ -27,7 +27,7 @@ One the application runs, choosing a view on the left section, the related rappr
 
 ## Some words on Kubernetes
 
-The question is "What does this have to do with this"?
+The question is "What does this have to do with k8s"?
 
 Nothing, but I took this project as a starting point to deploy on Kubernetes, through Azure DevOps in a Continous Deployment Environment.
 So in the following there will be some considerations.
@@ -48,7 +48,7 @@ If you are not logged, type:
 
 and pass the right credentials.
 
-Now you have an image with the defalut tag "latest" as the version.
+Now you have an image with the default tag "latest" as the version.
 
 Now you can read this article to publish on Kubernetes:
 
@@ -63,3 +63,18 @@ At this point, after a short time, you can browse you the application on Interne
     kubectl get service bulleye --watch
 
 Wait for EXTERNAL-IP has a valid value (not "pending").
+
+### About private repository
+
+If you have a private repository on Docker Hub, you have to create a secret key to pull the image from k8s.
+
+    kubectl create secret docker-registry <<secretname>> --docker-server=https://index.docker.io/v1/ --docker-username=<<username>> --docker-password=<<password>> --docker-email=<<email>>
+
+The "secretname" must be lowercase.
+
+In the yaml file, add
+
+        imagePullSecrets:
+        - name: <<yoursecret>>
+
+under Deployment definition (uncommented the lines).

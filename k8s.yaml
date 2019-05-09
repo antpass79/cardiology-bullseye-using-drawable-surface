@@ -26,6 +26,8 @@ spec:
             memory: 256Mi
         ports:
         - containerPort: 80
+      # imagePullSecrets:
+      # - name: <<yoursecret>>
 ---
 apiVersion: v1
 kind: Service
