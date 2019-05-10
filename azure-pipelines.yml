@@ -50,9 +50,14 @@ steps:
     containerRegistry: 'DockerHub'
   displayName: "docker - logout"
 
+- task: CopyFiles@2
+  inputs:
+    contents: 'k8s.yaml'
+    targetFolder: '$(Build.ArtifactStagingDirectory)/yaml'
+  displayName: 'yaml file - copy'
+
 - task: PublishBuildArtifacts@1
-  displayName: 'publish yaml folder as an artifact'
   inputs:
     artifactName: 'yaml'
-    PathtoPublish: '$(System.DefaultWorkingDirectory)'
-    TargetPath: 'k8s.yaml'
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/yaml'
+  displayName: 'yaml file - publish as an artifact'
