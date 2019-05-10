@@ -41,7 +41,7 @@ steps:
     repository: $(dockerId)/$(dockerRepositoryTest)
     containerRegistry: 'DockerHub'
     tags: |
-      bulleye
+      latest
   displayName: "docker - build and push"
     
 - task: Docker@2
