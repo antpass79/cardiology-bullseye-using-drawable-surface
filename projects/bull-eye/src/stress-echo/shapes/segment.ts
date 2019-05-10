@@ -87,4 +87,17 @@ export class Segment extends Shape {
 
 		EventManager.getInstance().publish("segmentScoreChanged", { eventName: "segmentScoreChanged", scoreColorPair: this.selectedScoreColorPair });
 	}
+
+	mouseDoubleClick(canvas: any, e: MouseEvent) {
+		if (this._selectedIndex < this._scoreValueMap.length - 1)
+			this._selectedIndex++;
+		else
+			this._selectedIndex = 0;
+
+		this.fill = this._scoreValueMap[this._selectedIndex].color;	
+		this.selectedScoreColorPair = this._scoreValueMap[this._selectedIndex];
+		this.draw(canvas, canvas.getContext('2d'));
+
+		EventManager.getInstance().publish("segmentScoreChanged", { eventName: "segmentScoreChanged", scoreColorPair: this.selectedScoreColorPair });
+	}
 }

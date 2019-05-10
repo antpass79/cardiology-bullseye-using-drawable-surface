@@ -75,6 +75,14 @@ export class StressEchoComponent implements OnInit {
 				this.SelectedBullEye.mouseWheel(this.canvas, e);
 
 		}, false);
+
+		this.canvas.addEventListener('dblclick', (e: MouseEvent) => {
+			e.preventDefault();
+
+			if (this.SelectedBullEye != null)
+				this.SelectedBullEye.mouseDoubleClick(this.canvas, e);
+
+		}, false);
 	}
 
 	private updateViewBox() {
