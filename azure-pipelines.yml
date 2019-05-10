@@ -53,5 +53,5 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'publish yaml folder as an artifact'
   inputs:
-    artifactName: 'yaml'
-    pathToPublish: 'yaml'
+    artifactName: 'k8s.yaml'
+    TargetPath: 'yaml/k8s.yaml'
