@@ -88,7 +88,7 @@ export class Segment extends Shape {
 		EventManager.getInstance().publish("segmentScoreChanged", { eventName: "segmentScoreChanged", scoreColorPair: this.selectedScoreColorPair });
 	}
 
-	mouseDoubleClick(canvas: any, e: MouseEvent) {
+	mouseClick(canvas: any, e: MouseEvent) {
 		if (this._selectedIndex < this._scoreValueMap.length - 1)
 			this._selectedIndex++;
 		else

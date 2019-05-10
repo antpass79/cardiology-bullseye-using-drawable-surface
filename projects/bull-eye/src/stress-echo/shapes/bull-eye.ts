@@ -76,12 +76,12 @@ export class BullEye extends Shape {
 			segment.mouseWheel(canvas, e);
 	}
 
-	mouseDoubleClick(canvas: any, e: MouseEvent) {
+	mouseClick(canvas: any, e: MouseEvent) {
 
 		var location = this.getMousePosition(canvas, e);
 		let segment = this.getSegmentByPoint(canvas, location);
 		if (segment != null)
-			segment.mouseDoubleClick(canvas, e);
+			segment.mouseClick(canvas, e);
 	}
 
 	getSegmentByPoint(canvas: any, point: Point): Segment {

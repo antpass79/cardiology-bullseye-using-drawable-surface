@@ -76,11 +76,11 @@ export class StressEchoComponent implements OnInit {
 
 		}, false);
 
-		this.canvas.addEventListener('dblclick', (e: MouseEvent) => {
+		this.canvas.addEventListener('click', (e: MouseEvent) => {
 			e.preventDefault();
 
 			if (this.SelectedBullEye != null)
-				this.SelectedBullEye.mouseDoubleClick(this.canvas, e);
+				this.SelectedBullEye.mouseClick(this.canvas, e);
 
 		}, false);
 	}
