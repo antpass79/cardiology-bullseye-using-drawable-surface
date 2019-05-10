@@ -53,8 +53,7 @@ steps:
 - task: CopyFiles@2
   inputs:
     contents: 'k8s.yaml'
-    targetFolder: '$(Build.ArtifactStagingDirectory)'
-    CleanTargetFolder: true
+    targetFolder: '$(Build.ArtifactStagingDirectory)\yaml'
   displayName: 'yaml file - copy'
 
 - task: PublishBuildArtifacts@1
