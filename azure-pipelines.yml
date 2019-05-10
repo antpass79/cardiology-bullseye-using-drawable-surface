@@ -56,8 +56,8 @@ steps:
     targetFolder: $(Build.ArtifactStagingDirectory)/yaml
   displayName: "yaml file - copy"
 
-- task: PublishBuildArtifacts@1
+- task: PublishPipelineArtifact@0
   inputs:
     artifactName: yaml
-    PathtoPublish: $(Build.ArtifactStagingDirectory)/yaml
+    targetPath: $(Build.ArtifactStagingDirectory)/yaml
   displayName: "yaml file - publish as an artifact"
