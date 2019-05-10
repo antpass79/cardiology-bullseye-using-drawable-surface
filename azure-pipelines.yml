@@ -41,7 +41,7 @@ steps:
     repository: $(dockerId)/$(dockerRepositoryTest)
     containerRegistry: 'DockerHub'
     tags: |
-      bulleye
+      latest
   displayName: "docker - build and push"
     
 - task: Docker@2
@@ -49,3 +49,15 @@ steps:
     command: 'logout'
     containerRegistry: 'DockerHub'
   displayName: "docker - logout"
+
+- task: CopyFiles@2
+  inputs:
+    contents: k8s.yaml
+    targetFolder: $(Build.ArtifactStagingDirectory)/yaml
+  displayName: "yaml file - copy"
+
+- task: PublishPipelineArtifact@0
+  inputs:
+    artifactName: yaml
+    targetPath: $(Build.ArtifactStagingDirectory)/yaml
+  displayName: "yaml file - publish as an artifact"
