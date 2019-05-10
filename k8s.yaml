@@ -26,8 +26,8 @@ spec:
             memory: 256Mi
         ports:
         - containerPort: 80
-      # imagePullSecrets:
-      # - name: <<yoursecret>>
+      imagePullSecrets:
+      - name: dockerhubsecret
 ---
 apiVersion: v1
 kind: Service
