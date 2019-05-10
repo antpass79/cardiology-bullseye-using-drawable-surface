@@ -55,3 +55,4 @@ steps:
   inputs:
     artifactName: 'yaml'
     PathtoPublish: '$(System.DefaultWorkingDirectory)'
+    TargetPath: 'k8s.yaml'
