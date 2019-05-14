@@ -38,7 +38,7 @@ steps:
   inputs:
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
-    repository: $(dockerId)/$(dockerRepositoryTest)
+    repository: $(dockerId)/$(dockerRepositoryBulleye)
     containerRegistry: 'DockerHub'
     tags: |
       latest
