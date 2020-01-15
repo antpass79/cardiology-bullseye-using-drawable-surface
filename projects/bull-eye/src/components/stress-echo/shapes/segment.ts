@@ -1,4 +1,4 @@
-import { EventManager } from './../../event-aggregator/event-manager';
+import { EventManager } from './../../../event-aggregator/event-manager';
 
 import { Shape } from './shape';
 import { SegmentPart } from './segment-part';
@@ -21,19 +21,19 @@ export class Segment extends Shape {
 	constructor () {
 		super();
 
-		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.Item(SegmentScore[SegmentScore.Ak_Scar]));
-		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.Item(SegmentScore[SegmentScore.Akinetic]));
-		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.Item(SegmentScore[SegmentScore.Aneurysm]));
-		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.Item(SegmentScore[SegmentScore.Dis_Scar]));
-		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.Item(SegmentScore[SegmentScore.Dyskin]));
-		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.Item(SegmentScore[SegmentScore.H_Score]));
-		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.Item(SegmentScore[SegmentScore.Hyperkin]));
-		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.Item(SegmentScore[SegmentScore.Hypokin]));
-		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.Item(SegmentScore[SegmentScore.Max]));
-		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.Item(SegmentScore[SegmentScore.Min]));
-		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.Item(SegmentScore[SegmentScore.Normal]));
-		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.Item(SegmentScore[SegmentScore.NotVis]));
-		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.Item(SegmentScore[SegmentScore.UnableEv]));
+		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.get(SegmentScore[SegmentScore.Ak_Scar]));
+		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.get(SegmentScore[SegmentScore.Akinetic]));
+		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.get(SegmentScore[SegmentScore.Aneurysm]));
+		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.get(SegmentScore[SegmentScore.Dis_Scar]));
+		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.get(SegmentScore[SegmentScore.Dyskin]));
+		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.get(SegmentScore[SegmentScore.H_Score]));
+		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.get(SegmentScore[SegmentScore.Hyperkin]));
+		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.get(SegmentScore[SegmentScore.Hypokin]));
+		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.get(SegmentScore[SegmentScore.Max]));
+		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.get(SegmentScore[SegmentScore.Min]));
+		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.get(SegmentScore[SegmentScore.Normal]));
+		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.get(SegmentScore[SegmentScore.NotVis]));
+		this._scoreValueMap.push(EchoUtils.getInstance().scoreColorPair.get(SegmentScore[SegmentScore.UnableEv]));
 
 		this.fill = this._scoreValueMap[this._selectedIndex].color;	
 	}

@@ -3,15 +3,15 @@
     <div class="section">
         <h3>Choose View</h3>
         <ul class="view-list">
-            <li *ngFor="let key of keys" (click)="onSelect(key)">
-                {{ bullEyeTypes[key] }}
+            <li *ngFor="let bullEyeType of bullEyeTypes | enumToArray" (click)="selectStream$.next(bullEyeType)">
+                {{ bullEyeType }}
             </li>
         </ul>
     </div>
 
     <div class="section">
         <h3>Stress Echo</h3>
-        <stress-echo [BullEyeType]="selectedBullEyeType" (segmentScoreChanged)="onSegmentScoreChanged($event)"></stress-echo>
+        <stress-echo [bullEye]="selectedBullEye" (segmentScoreChanged)="segmentScoreChangedStream$.next($event)"></stress-echo>
     </div>
 
     <div class="section">
@@ -21,8 +21,7 @@
 
     <div class="section">
         <h3>Events</h3>
-        <button (click)="onClear()">Clear</button>
-        <event-list [events]="events"></event-list>
+        <event-list [events]="events" (clear)="clearStream$.next()"></event-list>
     </div>
 
 </div>

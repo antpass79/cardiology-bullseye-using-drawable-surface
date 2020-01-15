@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { X2JS } from 'x2json';
 import { BullEye } from '../shapes/bull-eye';
-import { Dictionary } from './dictionary';
 import { Line, Arc, Polygon } from '../shapes/segment-part';
 import { Point } from '../shapes/point';
 import { SummarySegment } from '../shapes/summary-segment';
@@ -12,8 +11,8 @@ import { Segment } from '../shapes/segment';
 @Injectable()
 export class DataService {
 
-	private _bullEyes = new Dictionary<BullEye>();
-	get bullEyes() {
+	private _bullEyes = new Map<String, BullEye>();
+	get bullEyes(): Map<String, BullEye> {
 		return this._bullEyes;
 	}
 
@@ -56,7 +55,7 @@ export class DataService {
 				bullEye.setImageBackground(image);
 
 				let key = filename.slice(0, filename.indexOf('.xml'));
-				this._bullEyes.Add(key, bullEye);
+				this._bullEyes.set(key, bullEye);
 			});
 	}
 
@@ -83,7 +82,7 @@ export class DataService {
 				//summary.setImageBackground(image);
 
 				let key = filename.slice(0, filename.indexOf('.xml'));
-				this._bullEyes.Add(key, summary);
+				this._bullEyes.set(key, summary);
 			});
 	}
 

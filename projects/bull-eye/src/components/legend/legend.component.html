@@ -1,0 +1,5 @@
+<ul>
+    <li class="legend-item" *ngFor="let score of scores" (click)="this.selectStream$.next(score)">
+        <a [style.color]='score.color'>{{ score.description }}</a>
+    </li>
+</ul>

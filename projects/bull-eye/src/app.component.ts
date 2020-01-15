@@ -1,31 +1,32 @@
-import { Component } from '@angular/core';
-import { BullEyeType }  from './stress-echo/utils/bull-eye-type';
+import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+
+import { BullEyeType }  from './components/stress-echo/utils/bull-eye-type';
+import { DataService } from './components/stress-echo/utils/data.service';
+import { BullEye } from './components/stress-echo/shapes/bull-eye';
 
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
-  
+export class AppComponent implements OnInit {
+  selectStream$ = new Subject<BullEyeType>();
+  clearStream$ = new Subject<any>();
+  segmentScoreChangedStream$ = new Subject<any>();
+
   bullEyeTypes = BullEyeType;
-  keys: string[] = Object.keys(this.bullEyeTypes).filter(Number);
-  
-  events = new Array<string>();
-  selectedBullEyeType: BullEyeType;
+  events = [];
+  selectedBullEye: BullEye;
 
-  onSelect(key: string) {
-
-    this.selectedBullEyeType = BullEyeType[key];
+  constructor(private dataService: DataService) {
   }
 
-  onClear() {
-
-    this.events = new Array<string>();
-  }
-
-  onSegmentScoreChanged(payload?: any): void {
-
-    this.events.push(payload.scoreColorPair.description);
+  ngOnInit() {
+    this.selectStream$.subscribe((bullEyeType: BullEyeType) => {
+      this.selectedBullEye = this.dataService.bullEyes.get(bullEyeType.toString());
+    });
+    this.clearStream$.subscribe(() => this.events = []);
+    this.segmentScoreChangedStream$.subscribe((payload) => this.events.push(payload.scoreColorPair.description));
   }
 }
