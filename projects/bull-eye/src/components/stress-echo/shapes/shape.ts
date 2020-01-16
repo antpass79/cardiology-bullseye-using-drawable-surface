@@ -1,4 +1,4 @@
-import { Point } from './point';
+import { Point } from '../../../services/drawing-map-models';
 
 export class Shape {
 	
@@ -8,7 +8,10 @@ export class Shape {
 	protected getMousePosition(canvas: any, e: MouseEvent): Point {
 		
 		var rect = canvas.getBoundingClientRect();
-		return new Point(e.clientX - rect.left, e.clientY - rect.top);
+		return {
+            X: e.clientX - rect.left,
+            Y: e.clientY - rect.top
+        };
 	}
 
     get Points(): Point[] {
@@ -22,9 +25,9 @@ export class Shape {
         context.beginPath();
 
         for (var i = 0; i < points.length; i++) {
-            context.lineTo(points[i].x, points[i].y);
+            context.lineTo(points[i].X, points[i].Y);
         }
 
-        return context.isPointInPath(location.x, location.y);
+        return context.isPointInPath(location.X, location.Y);
     }
 }

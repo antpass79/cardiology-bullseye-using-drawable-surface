@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 
-import { BullEyeDataService, BullEyeType } from './services/bull-eye-data.service';
+import { DrawableMapDataService, BullEyeType } from './services/drawable-map-data.service';
 import { BullEye } from './components/stress-echo/shapes/bull-eye';
 import { ScoreColorPairMapService } from './components/stress-echo/services/score-color-pair-map.service';
 
@@ -24,13 +24,13 @@ export class AppComponent implements OnInit {
   private selectedScoreIndex = 0;
 
   constructor(
-    private bullEyeDataService: BullEyeDataService,
+    private drawableMapDataService: DrawableMapDataService,
     private scoreColorPairMapService: ScoreColorPairMapService) {
   }
 
   ngOnInit() {
     this.selectStream$.subscribe((bullEyeType: BullEyeType) => {
-      this.selectedBullEye = this.bullEyeDataService.bullEyes.get(bullEyeType.toString());
+      this.selectedBullEye = this.drawableMapDataService.bullEyes.get(bullEyeType.toString());
     });
     this.clearStream$.subscribe(() => this.events = []);
 

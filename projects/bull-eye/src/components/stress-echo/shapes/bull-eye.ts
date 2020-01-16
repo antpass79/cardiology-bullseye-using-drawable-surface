@@ -1,6 +1,6 @@
 import { Shape } from './shape';
 import { Segment } from './segment';
-import { Point } from './point';
+import { Point } from '../../../services/drawing-map-models';
 
 export class BullEye extends Shape {
 	

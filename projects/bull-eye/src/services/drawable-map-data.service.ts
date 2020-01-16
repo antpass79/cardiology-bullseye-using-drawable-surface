@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { X2JS } from 'x2json';
 import { BullEye } from '../components/stress-echo/shapes/bull-eye';
-import { Line, Arc, Polygon } from '../components/stress-echo/shapes/segment-part';
-import { Point } from '../components/stress-echo/shapes/point';
+import { Line, Arc } from '../components/stress-echo/shapes/segment-part';
 import { SummarySegment } from '../components/stress-echo/shapes/summary-segment';
 import { Summary } from '../components/stress-echo/shapes/summary';
-import { Segment } from '../components/stress-echo/shapes/segment';
+import { ViewDescriptor, SegmentItem } from './drawing-map-models';
+import { SegmentBuilderFactoryService } from './segment-builder-factory.service';
 
 export enum BullEyeType {
 	
@@ -32,18 +32,17 @@ export enum BullEyeType {
 @Injectable({
     providedIn: 'root',
 })
-export class BullEyeDataService {
+export class DrawableMapDataService {
 
 	private _bullEyes = new Map<String, BullEye>();
 	get bullEyes(): Map<String, BullEye> {
 		return this._bullEyes;
 	}
 
-	constructor(private http: Http) {
+	constructor(private http: Http, private segmentBuilderFactoryService: SegmentBuilderFactoryService) {
 	}
 
 	public async preLoadBullEyes(): Promise<void> {
-
 		await this.preLoad('twoC_16.xml');
 		await this.preLoad('twoC_17.xml');
 		await this.preLoad('fourC_16.xml');
@@ -64,16 +63,15 @@ export class BullEyeDataService {
 	}
 
 	private preLoad(filename: string): Promise<any> {
-
 		return this.load(filename)
 			.then((xml) => {
 
 				var x2js = new X2JS();
-				var json = x2js.xml_str2json(xml);
+				let viewDescriptor: ViewDescriptor = x2js.xml_str2json(xml).ViewDescriptor;
 
-				var bullEye = this.exctractBullEye(json);
+				var bullEye = this.exctractBullEye(viewDescriptor);
 
-				let imageName = filename.replace('_16.xml', '').replace('_17.xml', '') + '.png';
+				let imageName = viewDescriptor.PathImg + '.png';
 				let image = './assets/images/' + imageName;
 				bullEye.setImageBackground(image);
 
@@ -90,17 +88,15 @@ export class BullEyeDataService {
 	}
 
 	private preLoadSummary(filename: string): Promise<any> {
-
 		return this.load(filename)
 			.then((xml) => {
 
 				var x2js = new X2JS();
-				var json = x2js.xml_str2json(xml);
+				let viewDescriptor: ViewDescriptor = x2js.xml_str2json(xml).ViewDescriptor;
 
-				var summary = this.exctractSummary(json);
+				var summary = this.exctractSummary(viewDescriptor);
 
-				let imageName = filename.replace('_16.xml', '').replace('_17.xml', '');
-				imageName = imageName + (filename.indexOf('6') != -1 ? '_6.png' : '.png');
+				let imageName = viewDescriptor.PathImg + '.png';
 				let image = './assets/images/' + imageName;
 				//summary.setImageBackground(image);
 
@@ -109,53 +105,60 @@ export class BullEyeDataService {
 			});
 	}
 
-	private exctractBullEye(json: any): BullEye {
-
+	private exctractBullEye(viewDescriptor: ViewDescriptor): BullEye {
 		let bullEye: BullEye = new BullEye();
 
-		json.ViewDescriptor.SegmentCollection.SegmentItem.forEach((jsonSegment: any) => {
-
-			let points = new Array<Point>();
-
-			jsonSegment.Points.Point.forEach((jsonPoint: any) => {
-
-				points.push(new Point(Number(jsonPoint.X), Number(jsonPoint.Y)));
-			});
-
-			let polygon = new Polygon(points);
-			let segment = new Segment();
-			segment.parts.push(polygon);
+		viewDescriptor.SegmentCollection.SegmentItem.forEach((segmentItem: SegmentItem) => {
+			let segmentBuilder = this.segmentBuilderFactoryService.create(segmentItem.Points._type);
+			let segment = segmentBuilder.build(segmentItem.Points);
 			bullEye.segments.push(segment);
 		});
 
 		return bullEye;
 	}
 
-	private exctractSummary(json: any): Summary {
-
+	private exctractSummary(viewDescriptor: ViewDescriptor): Summary {
 		let summary = new Summary();
 
-		json.ViewDescriptor.SegmentCollection.SegmentItem.forEach((jsonSegment: any) => {
+		viewDescriptor.SegmentCollection.SegmentItem.forEach((jsonSegment: any) => {
 
 			let summarySegment: SummarySegment = new SummarySegment();
 
-			summarySegment.startPoint = new Point(Number(jsonSegment.StartPoint.Point.X), Number(jsonSegment.StartPoint.Point.Y));
-			summarySegment.internalPoint = new Point(Number(jsonSegment.InternalPoints.X), Number(jsonSegment.InternalPoints.Y));
+			summarySegment.startPoint = {
+				X: Number(jsonSegment.StartPoint.Point.X),
+				Y: Number(jsonSegment.StartPoint.Point.Y)
+			};
+			summarySegment.internalPoint = {
+				X: Number(jsonSegment.InternalPoints.X),
+				Y: Number(jsonSegment.InternalPoints.Y)
+			};
 
 			jsonSegment.Points.forEach((jsonPoint: any) => {
 
 				if (jsonPoint._type == 'line') {
 
 					let line = new Line();
-					line.startPoint = new Point(Number(jsonPoint.Point[0].X), Number(jsonPoint.Point[0].Y));
-					line.endPoint = new Point(Number(jsonPoint.Point[1].X), Number(jsonPoint.Point[1].Y));
+					line.startPoint = {
+						X: Number(jsonPoint.Point[0].X),
+						Y: Number(jsonPoint.Point[0].Y)
+					};
+					line.endPoint = {
+						X: Number(jsonPoint.Point[1].X),
+						Y: Number(jsonPoint.Point[1].Y)
+					};
 					summarySegment.parts.push(line);
 				}
 				if (jsonPoint._type == 'arc') {
 
 					let arc = new Arc();
-					arc.centerPoint = new Point(Number(jsonPoint.Center.Point.X), Number(jsonPoint.Center.Point.Y));
-					arc.startPoint = new Point(Number(jsonPoint.Start.Point.X), Number(jsonPoint.Start.Point.Y));
+					arc.centerPoint = {
+						X: Number(jsonPoint.Center.Point.X),
+						Y: Number(jsonPoint.Center.Point.Y)
+					};
+					arc.startPoint = {
+						X: Number(jsonPoint.Start.Point.X),
+						Y: Number(jsonPoint.Start.Point.Y)
+					};
 					arc.angle = Number(jsonPoint.Angle);
 					arc.direction = jsonPoint.Direction;
 					summarySegment.parts.push(arc);

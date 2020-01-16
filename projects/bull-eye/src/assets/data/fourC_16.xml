@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ViewDescriptor xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <isVisited>false</isVisited>
-  <PathImg>4C</PathImg>
+  <PathImg>fourC</PathImg>
   <ViewID>C4</ViewID>
   <SegmentCollection>
     <SegmentItem value="3" name="C">

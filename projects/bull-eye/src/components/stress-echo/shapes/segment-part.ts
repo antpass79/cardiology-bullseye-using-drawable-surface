@@ -1,5 +1,5 @@
 import { Shape } from './shape';
-import { Point } from './point';
+import { Point } from '../../../services/drawing-map-models';
 
 export class SegmentPart extends Shape {
 }
@@ -19,27 +19,39 @@ export class Polygon extends SegmentPart {
 
 		this.points.forEach((point: Point) => {
 
-			context.lineTo(point.x, point.y);
+			context.lineTo(point.X, point.Y);
 		});
 	}
 }
 
 export class Line extends SegmentPart {
 
-    startPoint: Point = new Point(0, 0);
-    endPoint: Point = new Point(0, 0);
+    startPoint: Point = {
+        X: 0,
+        Y: 0
+    };
+    endPoint: Point = {
+        X: 0,
+        Y: 0
+    };
 
     draw(canvas: any, context: any) {
 
-        context.moveTo(this.startPoint.x, this.startPoint.y);
-        context.lineTo(this.endPoint.x, this.endPoint.y);
+        context.moveTo(this.startPoint.X, this.startPoint.Y);
+        context.lineTo(this.endPoint.X, this.endPoint.Y);
     }
 }
 
 export class Arc extends SegmentPart {
 
-    centerPoint: Point = new Point(0, 0);
-    startPoint: Point = new Point(0, 0);
+    centerPoint: Point = {
+        X: 0,
+        Y: 0
+    };
+    startPoint: Point = {
+        X: 0,
+        Y: 0
+    };
     angle: number = 64;
     direction: 'clockwise';
 
@@ -61,7 +73,7 @@ export class Arc extends SegmentPart {
         console.log('endAngle');
         console.log(endAngle);
 
-        context.arc(this.centerPoint.x, this.centerPoint.y, radius, -startAngle, endAngle, this.direction.toLowerCase() == 'clockwise' ? true : false);
+        context.arc(this.centerPoint.X, this.centerPoint.Y, radius, -startAngle, endAngle, this.direction.toLowerCase() == 'clockwise' ? true : false);
     }
 
     getStartAngle(degree: number): number {
@@ -72,13 +84,13 @@ export class Arc extends SegmentPart {
 
     getEndAngle(centerPoint: Point, startPoint: Point): number {
 
-        let endAngle = Math.atan2(startPoint.y - centerPoint.y, startPoint.x - centerPoint.x);
+        let endAngle = Math.atan2(startPoint.Y - centerPoint.Y, startPoint.X - centerPoint.X);
         return endAngle;
     }
 
     getRadius(centerPoint: Point, startPoint: Point) {
 
-        let radius = Math.sqrt(Math.pow(startPoint.y - centerPoint.y, 2) + Math.pow(startPoint.x - centerPoint.x, 2));
+        let radius = Math.sqrt(Math.pow(startPoint.Y - centerPoint.Y, 2) + Math.pow(startPoint.X - centerPoint.X, 2));
         return radius;
     }
 
@@ -86,12 +98,12 @@ export class Arc extends SegmentPart {
 
         let radius = this.getRadius(centerPoint, startPoint);
         let angleRad = 2 * Math.PI * angle / 360;
-        let b = Math.atan2(startPoint.y - centerPoint.y, startPoint.x - centerPoint.x) + angleRad;
+        let b = Math.atan2(startPoint.Y - centerPoint.Y, startPoint.X - centerPoint.X) + angleRad;
 
-        let endPoint = new Point(
-            centerPoint.x + radius * Math.cos(b),
-            centerPoint.y + radius * Math.sin(b));
-
+        let endPoint = {
+            X: centerPoint.X + radius * Math.cos(b),
+            Y: centerPoint.Y + radius * Math.sin(b)
+        };
 
         console.log('PROVA endPoint');
         console.log(endPoint);

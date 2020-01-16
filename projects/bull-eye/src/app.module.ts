@@ -2,7 +2,7 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 
-import { BullEyeDataService } from './services/bull-eye-data.service';
+import { DrawableMapDataService } from './services/drawable-map-data.service';
 
 import { AppComponent } from './app.component';
 import { StressEchoComponent } from './components/stress-echo/stress-echo.component';
@@ -26,17 +26,17 @@ import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
       provide: APP_INITIALIZER,
       multi: true,
       useFactory: DataLoader,
-      deps: [BullEyeDataService],
+      deps: [DrawableMapDataService],
     },
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
 
-export function DataLoader(bullEyeDataService: BullEyeDataService) {
+export function DataLoader(drawableMapDataService: DrawableMapDataService) {
   return (): Promise<any> => {
     console.log('Data loading...');
 
-    return bullEyeDataService.preLoadBullEyes();
+    return drawableMapDataService.preLoadBullEyes();
   };
 }

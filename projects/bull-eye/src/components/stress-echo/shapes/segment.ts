@@ -2,7 +2,7 @@ import { EventManager } from './../../../event-aggregator/event-manager';
 
 import { Shape } from './shape';
 import { SegmentPart } from './segment-part';
-import { Point } from './point';
+import { Point } from '../../../services/drawing-map-models';
 
 export class Segment extends Shape {
 
@@ -16,7 +16,7 @@ export class Segment extends Shape {
 		this.parts.forEach((part: SegmentPart) => { part.draw(canvas, context) });
 		context.closePath();
 
-		return context.isPointInPath(point.x, point.y);
+		return context.isPointInPath(point.X, point.Y);
 	}
 
 	draw(canvas: any, context: any) {
