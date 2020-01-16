@@ -11,7 +11,7 @@
 
     <div class="section">
         <h3>Stress Echo</h3>
-        <stress-echo [bullEye]="selectedBullEye" (segmentScoreChanged)="segmentScoreChangedStream$.next($event)"></stress-echo>
+        <stress-echo [bullEye]="selectedBullEye" (segmentMouseWheel)="segmentMouseWheelStream$.next($event)" (segmentMouseClick)="segmentMouseClickStream$.next($event)"></stress-echo>
     </div>
 
     <div class="section">

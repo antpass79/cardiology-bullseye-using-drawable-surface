@@ -10,7 +10,9 @@ import { BullEye } from './shapes/bull-eye';
 })
 export class StressEchoComponent implements OnInit, OnChanges {
 	@Output()
-	segmentScoreChanged = new EventEmitter();
+	segmentMouseWheel = new EventEmitter();
+	@Output()
+	segmentMouseClick = new EventEmitter();
 
 	@Input()
 	bullEye: BullEye;
@@ -22,8 +24,11 @@ export class StressEchoComponent implements OnInit, OnChanges {
 		this.canvas = document.getElementById('canvas');
 		this.context = this.canvas.getContext('2d');
 
-		EventManager.getInstance().subscribe("segmentScoreChanged", (payload) => {
-			this.segmentScoreChanged.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair });
+		EventManager.getInstance().subscribe("segmentMouseWheel", (payload) => {
+			this.segmentMouseWheel.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, segment: payload.segment, mouseEvent: payload.mouseEvent });
+		});
+		EventManager.getInstance().subscribe("segmentMouseClick", (payload) => {
+			this.segmentMouseClick.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, segment: payload.segment, mouseEvent: payload.mouseEvent });
 		});
 
 		this.canvas.addEventListener('mousemove', (e: MouseEvent) => {

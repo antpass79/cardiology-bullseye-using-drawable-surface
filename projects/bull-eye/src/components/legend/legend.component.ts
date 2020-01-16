@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { EchoUtils } from '../stress-echo/utils/echo-utils';
-import { ScoreColorPair } from '../stress-echo/utils/score-color-pair';
 import { Subject } from 'rxjs';
+
+import { ScoreColorPairMapService, ScoreColorPair } from '../stress-echo/services/score-color-pair-map.service';
 
 @Component({
     selector: 'legend',
@@ -14,10 +14,13 @@ export class LegendComponent implements OnInit {
     @Output()
     select = new EventEmitter<ScoreColorPair>();
   
-    scores = [];
+    scoreColorPairs = [];
+
+    constructor(private scoreColorPairService: ScoreColorPairMapService) {
+    }
 
     ngOnInit() {
         this.selectStream$.subscribe((scoreColorPair: ScoreColorPair) => this.select.emit(scoreColorPair));
-        this.scores = Array.from(EchoUtils.getInstance().scoreColorPair.values());
+        this.scoreColorPairs = this.scoreColorPairService.scoreColorPairs;
     }
 }
