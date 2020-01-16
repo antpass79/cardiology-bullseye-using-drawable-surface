@@ -24,17 +24,16 @@ export class LineBuilder implements IShapeBuilder {
 
 export class ArcBuilder implements IShapeBuilder {
     build(points: Points): Shape {
-        let arc = new Arc();
-        arc.centerPoint = {
-            X: Number(points.Center.X),
-            Y: Number(points.Center.Y)
-        };
-        arc.startPoint = {
+        let arc = new Arc({
+            X: Number(points.Center.Point.X),
+            Y: Number(points.Center.Point.Y)
+        },
+        {
             X: Number(points.Start.Point.X),
             Y: Number(points.Start.Point.Y)
-        };
-        arc.angle = Number(points.Angle);
-        arc.direction = points.Direction;
+        },
+        points.Angle,
+        points.Direction);
 
         return arc;
     }

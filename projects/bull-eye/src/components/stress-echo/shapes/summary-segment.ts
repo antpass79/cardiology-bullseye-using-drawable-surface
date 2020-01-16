@@ -1,5 +1,6 @@
 import { Point } from '../../../services/drawing-map-models';
 import { Segment } from './segment';
+import { SegmentPart } from './segment-part';
 
 export class SummarySegment extends Segment {
 
@@ -13,17 +14,14 @@ export class SummarySegment extends Segment {
 	};
 
 	draw(canvas: any, context: any) {
-
 		context.beginPath();
 		context.fillStyle = this.fill;
 
 		context.moveTo(this.startPoint.X, this.startPoint.Y);
 
-		// this.parts[0].draw(canvas, context);
-		// this.parts[1].draw(canvas, context);
-		// this.parts[2].draw(canvas, context);
-		this.parts[2].draw(canvas, context);
-		//this.parts.forEach((part: SegmentPart) => { part.draw(canvas, context) });
+		this.parts.forEach((part: SegmentPart) => {
+			part.draw(canvas, context);
+		});
 
 		context.closePath();
 		context.stroke();

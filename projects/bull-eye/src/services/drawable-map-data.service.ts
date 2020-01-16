@@ -2,11 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { X2JS } from 'x2json';
 import { BullEye } from '../components/stress-echo/shapes/bull-eye';
-import { Line, Arc } from '../components/stress-echo/shapes/segment-part';
-import { SummarySegment } from '../components/stress-echo/shapes/summary-segment';
-import { Summary } from '../components/stress-echo/shapes/summary';
 import { ViewDescriptor, SegmentItem } from './drawing-map-models';
-import { SegmentBuilder } from './segment-services';
+import { SegmentBuilder } from './segment-builders';
 
 export enum BullEyeType {
 	
@@ -66,7 +63,6 @@ export class DrawableMapDataService {
 	private preLoad(filename: string): Promise<any> {
 		return this.load(filename)
 			.then((xml) => {
-
 				var x2js = new X2JS();
 				let viewDescriptor: ViewDescriptor = x2js.xml_str2json(xml).ViewDescriptor;
 

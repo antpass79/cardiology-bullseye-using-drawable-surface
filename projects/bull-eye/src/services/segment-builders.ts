@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { SegmentItem, Points } from "./drawing-map-models";
 import { Segment } from "../components/stress-echo/shapes/segment";
 import { SummarySegment } from "../components/stress-echo/shapes/summary-segment";
-import { PolygonBuilder,  LineBuilder, ArcBuilder } from "./shape-services";
+import { PolygonBuilder,  LineBuilder, ArcBuilder } from "./shape-builders";
 import { Shape } from "../components/stress-echo/shapes/shape";
 
 export interface ISegmentBuilder {
@@ -71,6 +71,7 @@ export class ArcPolygonSegmentBuilder implements ISegmentBuilder {
                     throw new Error('ShapeBuilder not supported');
             }
 
+//            if (shape && summarySegment.parts.length === 0)
             summarySegment.parts.push(shape);
         });
 

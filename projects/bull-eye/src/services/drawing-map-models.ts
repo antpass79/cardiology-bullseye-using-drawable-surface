@@ -17,7 +17,7 @@ export interface Points {
     _type: String;
 
     Point: Point[];
-    Center: Point;
+    Center: Center;
     Start: Start;
     Angle: number;
     Direction: String;
@@ -29,5 +29,9 @@ export interface Point {
 }
 
 export interface Start {
+    Point: Point;
+}
+
+export interface Center {
     Point: Point;
 }
