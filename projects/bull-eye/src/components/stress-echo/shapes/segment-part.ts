@@ -53,7 +53,7 @@ export class Arc extends SegmentPart {
         Y: 0
     };
     angle: number = 64;
-    direction: 'clockwise';
+    direction: String = 'clockwise';
 
     draw(canvas: any, context: any) {
 
@@ -61,17 +61,6 @@ export class Arc extends SegmentPart {
         let endPoint = this.getEndPoint(this.centerPoint, this.startPoint, this.angle);
         let startAngle = this.getStartAngle(this.angle);
         let endAngle = this.getEndAngle(this.centerPoint, this.startPoint);
-
-        console.log('radius');
-        console.log(radius);
-        console.log('startPoint');
-        console.log(this.startPoint);
-        console.log('endPoint');
-        console.log(endPoint);
-        console.log('startAngle');
-        console.log(startAngle);
-        console.log('endAngle');
-        console.log(endAngle);
 
         context.arc(this.centerPoint.X, this.centerPoint.Y, radius, -startAngle, endAngle, this.direction.toLowerCase() == 'clockwise' ? true : false);
     }

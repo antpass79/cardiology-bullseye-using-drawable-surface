@@ -37,6 +37,6 @@ export function DataLoader(drawableMapDataService: DrawableMapDataService) {
   return (): Promise<any> => {
     console.log('Data loading...');
 
-    return drawableMapDataService.preLoadBullEyes();
+    return drawableMapDataService.preLoadDrawableMaps();
   };
 }

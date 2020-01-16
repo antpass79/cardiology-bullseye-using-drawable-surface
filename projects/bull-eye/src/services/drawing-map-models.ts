@@ -8,7 +8,8 @@ export interface SegmentCollection {
 }
 
 export interface SegmentItem {
-    Points: Points;
+    StartPoint: Point;
+    Points: any; //Points | Points[];
     InternalPoints: Points;
 }
 

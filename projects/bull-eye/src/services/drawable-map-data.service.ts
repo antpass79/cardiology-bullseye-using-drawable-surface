@@ -6,7 +6,7 @@ import { Line, Arc } from '../components/stress-echo/shapes/segment-part';
 import { SummarySegment } from '../components/stress-echo/shapes/summary-segment';
 import { Summary } from '../components/stress-echo/shapes/summary';
 import { ViewDescriptor, SegmentItem } from './drawing-map-models';
-import { SegmentBuilderFactoryService } from './segment-builder-factory.service';
+import { SegmentBuilder } from './segment-services';
 
 export enum BullEyeType {
 	
@@ -39,10 +39,10 @@ export class DrawableMapDataService {
 		return this._bullEyes;
 	}
 
-	constructor(private http: Http, private segmentBuilderFactoryService: SegmentBuilderFactoryService) {
+	constructor(private http: Http, private segmentBuilder: SegmentBuilder) {
 	}
 
-	public async preLoadBullEyes(): Promise<void> {
+	public async preLoadDrawableMaps(): Promise<void> {
 		await this.preLoad('twoC_16.xml');
 		await this.preLoad('twoC_17.xml');
 		await this.preLoad('fourC_16.xml');
@@ -57,6 +57,7 @@ export class DrawableMapDataService {
 		await this.preLoad('SAX_MV_17.xml');
 		await this.preLoad('SAX_PM_16.xml');
 		await this.preLoad('SAX_PM_17.xml');
+		await this.preLoad('Summary_16.xml');
 		//this.preLoadSummary('Summary_16.xml');
 
 		return Promise.resolve();
@@ -69,7 +70,7 @@ export class DrawableMapDataService {
 				var x2js = new X2JS();
 				let viewDescriptor: ViewDescriptor = x2js.xml_str2json(xml).ViewDescriptor;
 
-				var bullEye = this.exctractBullEye(viewDescriptor);
+				var bullEye = this.exctractDrawableMap(viewDescriptor);
 
 				let imageName = viewDescriptor.PathImg + '.png';
 				let image = './assets/images/' + imageName;
@@ -87,87 +88,14 @@ export class DrawableMapDataService {
 			.then(response => response.text());
 	}
 
-	private preLoadSummary(filename: string): Promise<any> {
-		return this.load(filename)
-			.then((xml) => {
-
-				var x2js = new X2JS();
-				let viewDescriptor: ViewDescriptor = x2js.xml_str2json(xml).ViewDescriptor;
-
-				var summary = this.exctractSummary(viewDescriptor);
-
-				let imageName = viewDescriptor.PathImg + '.png';
-				let image = './assets/images/' + imageName;
-				//summary.setImageBackground(image);
-
-				let key = filename.slice(0, filename.indexOf('.xml'));
-				this._bullEyes.set(key, summary);
-			});
-	}
-
-	private exctractBullEye(viewDescriptor: ViewDescriptor): BullEye {
+	private exctractDrawableMap(viewDescriptor: ViewDescriptor): BullEye {
 		let bullEye: BullEye = new BullEye();
 
 		viewDescriptor.SegmentCollection.SegmentItem.forEach((segmentItem: SegmentItem) => {
-			let segmentBuilder = this.segmentBuilderFactoryService.create(segmentItem.Points._type);
-			let segment = segmentBuilder.build(segmentItem.Points);
+			let segment = this.segmentBuilder.build(segmentItem);
 			bullEye.segments.push(segment);
 		});
 
 		return bullEye;
-	}
-
-	private exctractSummary(viewDescriptor: ViewDescriptor): Summary {
-		let summary = new Summary();
-
-		viewDescriptor.SegmentCollection.SegmentItem.forEach((jsonSegment: any) => {
-
-			let summarySegment: SummarySegment = new SummarySegment();
-
-			summarySegment.startPoint = {
-				X: Number(jsonSegment.StartPoint.Point.X),
-				Y: Number(jsonSegment.StartPoint.Point.Y)
-			};
-			summarySegment.internalPoint = {
-				X: Number(jsonSegment.InternalPoints.X),
-				Y: Number(jsonSegment.InternalPoints.Y)
-			};
-
-			jsonSegment.Points.forEach((jsonPoint: any) => {
-
-				if (jsonPoint._type == 'line') {
-
-					let line = new Line();
-					line.startPoint = {
-						X: Number(jsonPoint.Point[0].X),
-						Y: Number(jsonPoint.Point[0].Y)
-					};
-					line.endPoint = {
-						X: Number(jsonPoint.Point[1].X),
-						Y: Number(jsonPoint.Point[1].Y)
-					};
-					summarySegment.parts.push(line);
-				}
-				if (jsonPoint._type == 'arc') {
-
-					let arc = new Arc();
-					arc.centerPoint = {
-						X: Number(jsonPoint.Center.Point.X),
-						Y: Number(jsonPoint.Center.Point.Y)
-					};
-					arc.startPoint = {
-						X: Number(jsonPoint.Start.Point.X),
-						Y: Number(jsonPoint.Start.Point.Y)
-					};
-					arc.angle = Number(jsonPoint.Angle);
-					arc.direction = jsonPoint.Direction;
-					summarySegment.parts.push(arc);
-				}
-			});
-
-			summary.segments.push(summarySegment);
-		});
-
-		return summary;
 	}
 };
