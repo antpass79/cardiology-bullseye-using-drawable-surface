@@ -1,8 +1,9 @@
-# cardiology-bullseye
+# cardiology-bullseye using drawable-surface
+
+the drawable-surface is a component that provides to create objects on a canvas. In order to show how it works, the bull-eye project is developed.
 
 Bullseye is a component used in echocardiology.
-This component is written in Angular 2 and updated to Angular 7.
-Refactoring must be done.
+This component is written in Angular 8.
 
 ## Run
 
