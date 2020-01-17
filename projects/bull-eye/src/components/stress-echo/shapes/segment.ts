@@ -1,59 +1,57 @@
 import { EventManager } from './../../../event-aggregator/event-manager';
 
-import { Shape } from './shape';
-import { SegmentPart } from './segment-part';
+import { IShape, Shape, ISurface } from './shape';
 import { Point } from '../../../services/drawing-map-models';
 import { ScoreColorPair, SegmentScore } from '../services/score-color-pair-map.service';
-import { Transform } from './transform';
 
 export class Segment extends Shape {
-	private _parts: SegmentPart[] = [];
-	get parts(): SegmentPart[] {
+	private _parts: IShape[] = [];
+	get parts(): IShape[] {
 		return this._parts;
 	}
 	scoreColorPair: ScoreColorPair = new ScoreColorPair(SegmentScore.Normal, 'greenyellow');
 
 	isMouseOver: boolean = false;
 
-	isPointInPath(canvas: any, context: any, point: Point, transform: Transform): boolean {
-		context.beginPath();
-		this.parts.forEach((part: SegmentPart) => { part.draw(canvas, context, transform) });
-		context.closePath();
+	isPointInPath(surface: ISurface, point: Point): boolean {
+		surface.context.beginPath();
+		this.parts.forEach((part: IShape) => { part.draw(surface) });
+		surface.context.closePath();
 
-		return context.isPointInPath(point.X, point.Y);
+		return surface.context.isPointInPath(point.X, point.Y);
 	}
 
-	draw(canvas: any, context: any, transform: Transform) {
-		context.beginPath();
-		context.fillStyle = this.scoreColorPair.color;
+	draw(surface: ISurface) {
+		surface.context.beginPath();
+		surface.context.fillStyle = <string>this.scoreColorPair.color;
 
-		this.parts.forEach((part: SegmentPart) => { part.draw(canvas, context, transform) });
+		this.parts.forEach((part: IShape) => { part.draw(surface) });
 
-		context.closePath();
-		context.stroke();
-		context.fill();
+		surface.context.closePath();
+		surface.context.stroke();
+		surface.context.fill();
 	}
 
-	mouseMove(canvas: any, e: MouseEvent) {
+	mouseMove(surface: ISurface, e: MouseEvent) {
 	}
 
-	mouseEnter(canvas: any, e: MouseEvent) {
+	mouseClick(surface: ISurface, e: MouseEvent) {
+		EventManager.getInstance().publish("segmentMouseClick", { eventName: "segmentMouseClick", segment: this, mouseEvent: e });
+	}
+
+	mouseUp(surface: ISurface, e: MouseEvent) {
+		surface.canvas.getContext('2d').fillStyle = 'blue';
+	}
+
+	mouseEnter(surface: ISurface, e: MouseEvent) {
 		this.isMouseOver = true;
 	}
 
-	mouseLeave(canvas: any, e: MouseEvent) {
+	mouseLeave(surface: ISurface, e: MouseEvent) {
 		this.isMouseOver = false;
 	}
 
-	mouseUp(canvas: any, e: MouseEvent) {
-		canvas.getContext('2d').fillStyle = 'blue';
-	}
-
-	mouseWheel(canvas: any, e: MouseWheelEvent) {
+	mouseWheel(surface: ISurface, e: MouseWheelEvent) {
 		EventManager.getInstance().publish("segmentMouseWheel", { eventName: "segmentMouseWheel", segment: this, mouseEvent: e });
-	}
-
-	mouseClick(canvas: any, e: MouseEvent) {
-		EventManager.getInstance().publish("segmentMouseClick", { eventName: "segmentMouseClick", segment: this, mouseEvent: e });
 	}
 }

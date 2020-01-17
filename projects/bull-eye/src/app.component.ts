@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { DrawableMapDataService, BullEyeType } from './services/drawable-map-data.service';
-import { BullEye } from './components/stress-echo/shapes/bull-eye';
+import { Picture } from './components/stress-echo/shapes/picture';
 import { ScoreColorPairMapService } from './components/stress-echo/services/score-color-pair-map.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
 
   bullEyeTypes = BullEyeType;
   events = [];
-  selectedBullEye: BullEye;
+  selectedBullEye: Picture;
 
   constructor(
     private drawableMapDataService: DrawableMapDataService,

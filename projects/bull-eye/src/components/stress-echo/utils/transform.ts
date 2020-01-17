@@ -10,6 +10,17 @@ export class Transform {
         return new Transform();
     }
 
+    static create(translateX: number, translateY: number, scaleX: number, scaleY: number): Transform {
+        let transform = new Transform();
+        
+        transform.translateX = translateX;
+        transform.translateY = translateY;
+        transform.scaleX = scaleX;
+        transform.scaleY = scaleY;
+
+        return transform;
+    }
+
     point(point: Point) {
         return {
             X: this.translateX + this.scaleX * point.X,

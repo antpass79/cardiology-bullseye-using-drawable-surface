@@ -1,30 +1,49 @@
 import { Point } from '../../../services/drawing-map-models';
-import { Transform } from './transform';
+import { Transform } from '../utils/transform';
 
-export class Shape {
-	draw(canvas: any, context: any, transform: Transform) { }
-	mouseUp(canvas: any, e: MouseEvent) { }
+export interface ISurface {
+    canvas: HTMLCanvasElement;
+    context: CanvasRenderingContext2D;
+    transform: Transform
+}
 
-	protected getMousePosition(canvas: any, e: MouseEvent): Point {
-		var rect = canvas.getBoundingClientRect();
+export interface IShape {
+    draw(surface: ISurface);
+
+    mouseMove(surface: ISurface, e: MouseEvent);
+    mouseClick(surface: ISurface, e: MouseEvent);
+    mouseUp(surface: ISurface, e: MouseEvent);
+    mouseEnter(surface: ISurface, e: MouseEvent);
+    mouseLeave(surface: ISurface, e: MouseEvent);
+    mouseWheel(surface: ISurface, e: MouseWheelEvent);
+
+    isPointInside(surface: ISurface, point: Point): boolean;
+}
+
+export class Shape implements IShape {
+    draw(surface: ISurface) {
+    }
+    mouseMove(surface: ISurface, e: MouseEvent) {
+    }
+    mouseClick(surface: ISurface, e: MouseEvent) {        
+    }
+    mouseUp(surface: ISurface, e: MouseEvent) {        
+    }
+    mouseEnter(surface: ISurface, e: MouseEvent) {
+    }
+    mouseLeave(surface: ISurface, e: MouseEvent) {        
+    }
+    mouseWheel(surface: ISurface, e: MouseWheelEvent) {        
+    }
+    isPointInside(surface: ISurface, point: Point): boolean {
+        return false;
+    }
+
+    protected getMousePosition(surface: ISurface, e: MouseEvent): Point {
+		var rect = surface.canvas.getBoundingClientRect();
 		return {
             X: e.clientX - rect.left,
             Y: e.clientY - rect.top
         };
 	}
-
-    get Points(): Point[] {
-        return null;
-    }
-
-    public isPointInside(canvas: any, points: Point[], location: Point): boolean {
-        var context = canvas.getContext('2d');
-        context.beginPath();
-
-        for (var i = 0; i < points.length; i++) {
-            context.lineTo(points[i].X, points[i].Y);
-        }
-
-        return context.isPointInPath(location.X, location.Y);
-    }
 }

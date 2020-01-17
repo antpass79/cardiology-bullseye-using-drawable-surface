@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { X2JS } from 'x2json';
-import { BullEye } from '../components/stress-echo/shapes/bull-eye';
+import { Picture } from '../components/stress-echo/shapes/picture';
 import { ViewDescriptor, SegmentItem } from './drawing-map-models';
 import { SegmentBuilder } from './segment-builders';
-import { ScoreColorPair, SegmentScore, ScoreColorPairMapService } from '../components/stress-echo/services/score-color-pair-map.service';
+import { SegmentScore, ScoreColorPairMapService } from '../components/stress-echo/services/score-color-pair-map.service';
 
 export enum BullEyeType {
 	
@@ -32,8 +32,8 @@ export enum BullEyeType {
 })
 export class DrawableMapDataService {
 
-	private _bullEyes = new Map<String, BullEye>();
-	get bullEyes(): Map<String, BullEye> {
+	private _bullEyes = new Map<String, Picture>();
+	get bullEyes(): Map<String, Picture> {
 		return this._bullEyes;
 	}
 
@@ -85,8 +85,8 @@ export class DrawableMapDataService {
 			.then(response => response.text());
 	}
 
-	private exctractDrawableMap(viewDescriptor: ViewDescriptor): BullEye {
-		let bullEye: BullEye = new BullEye();
+	private exctractDrawableMap(viewDescriptor: ViewDescriptor): Picture {
+		let bullEye: Picture = new Picture();
 
 		viewDescriptor.SegmentCollection.SegmentItem.forEach((segmentItem: SegmentItem) => {
 			let segment = this.segmentBuilder.build(segmentItem);

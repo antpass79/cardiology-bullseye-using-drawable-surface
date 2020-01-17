@@ -1,6 +1,8 @@
 import { Points, Point } from "./drawing-map-models";
 import { Shape } from "../components/stress-echo/shapes/shape";
-import { Arc, Line, Polygon } from "../components/stress-echo/shapes/segment-part";
+import { Line } from "../components/stress-echo/shapes/line";
+import { Arc } from "../components/stress-echo/shapes/arc";
+import { Polygon } from "../components/stress-echo/shapes/polygon";
 
 export interface IShapeBuilder {
     build(points: Points): Shape;
