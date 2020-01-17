@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 
-import { ScoreColorPairMapService, ScoreColorPair } from '../stress-echo/services/score-color-pair-map.service';
+import { ScoreColorPairMapService, ScoreColorPair } from '../../services/score-color-pair-map.service';
 
 @Component({
     selector: 'legend',

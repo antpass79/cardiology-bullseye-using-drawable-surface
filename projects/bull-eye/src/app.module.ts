@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import { DrawableMapDataService } from './services/drawable-map-data.service';
 
 import { AppComponent } from './app.component';
-import { StressEchoComponent } from './components/stress-echo/stress-echo.component';
+import { DrawableSurfaceComponent } from './drawable-surface/drawable-surface.component';
 import { EventListComponent } from './components/event-list/event-list.component';
 import { LegendComponent } from './components/legend/legend.component';
 import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
@@ -17,7 +17,7 @@ import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
   ],
   declarations: [
     AppComponent,
-    StressEchoComponent,
+    DrawableSurfaceComponent,
     EventListComponent,
     LegendComponent,
     EnumToArrayPipe

@@ -1,15 +1,13 @@
-import { EventManager } from './../../../event-aggregator/event-manager';
+import { EventManager } from '../../event-aggregator/event-manager';
 
 import { IShape, Shape, ISurface } from './shape';
-import { Point } from '../../../services/drawing-map-models';
-import { ScoreColorPair, SegmentScore } from '../services/score-color-pair-map.service';
+import { Point } from '../../services/drawing-map-models';
 
 export class Segment extends Shape {
 	private _parts: IShape[] = [];
 	get parts(): IShape[] {
 		return this._parts;
 	}
-	scoreColorPair: ScoreColorPair = new ScoreColorPair(SegmentScore.Normal, 'greenyellow');
 
 	isMouseOver: boolean = false;
 
@@ -23,7 +21,6 @@ export class Segment extends Shape {
 
 	draw(surface: ISurface) {
 		surface.context.beginPath();
-		surface.context.fillStyle = <string>this.scoreColorPair.color;
 
 		this.parts.forEach((part: IShape) => { part.draw(surface) });
 

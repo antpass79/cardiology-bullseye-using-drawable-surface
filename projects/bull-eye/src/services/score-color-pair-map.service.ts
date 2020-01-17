@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Segment, ISurface, IShape } from '../drawable-surface';
 
 export enum SegmentScore
 {
@@ -18,6 +19,21 @@ export enum SegmentScore
     //extended scores
     Min = 100,
     Max = 101
+}
+
+export class ScoreColorSegment extends Segment {
+    scoreColorPair: ScoreColorPair = new ScoreColorPair(SegmentScore.Normal, 'greenyellow');
+
+	draw(surface: ISurface) {
+		surface.context.beginPath();
+		surface.context.fillStyle = <string>this.scoreColorPair.color;
+
+		this.parts.forEach((part: IShape) => { part.draw(surface) });
+
+		surface.context.closePath();
+		surface.context.stroke();
+		surface.context.fill();
+	}
 }
 
 export class ScoreColorPair {

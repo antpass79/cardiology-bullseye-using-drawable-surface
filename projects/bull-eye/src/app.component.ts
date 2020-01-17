@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { DrawableMapDataService, BullEyeType } from './services/drawable-map-data.service';
-import { Picture } from './components/stress-echo/shapes/picture';
-import { ScoreColorPairMapService } from './components/stress-echo/services/score-color-pair-map.service';
+import { Picture } from './drawable-surface/shapes/picture';
+import { ScoreColorPairMapService } from './services/score-color-pair-map.service';
 
 @Component({
   selector: 'my-app',

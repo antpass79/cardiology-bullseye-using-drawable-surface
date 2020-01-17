@@ -1,5 +1,5 @@
 import { Shape, ISurface } from './shape';
-import { Point } from '../../../services/drawing-map-models';
+import { Point } from '../../services/drawing-map-models';
 
 export class Polygon extends Shape {
 

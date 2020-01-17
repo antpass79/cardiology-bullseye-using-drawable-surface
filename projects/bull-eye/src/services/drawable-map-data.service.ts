@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { X2JS } from 'x2json';
-import { Picture } from '../components/stress-echo/shapes/picture';
+import { Picture } from '../drawable-surface';
 import { ViewDescriptor, SegmentItem } from './drawing-map-models';
 import { SegmentBuilder } from './segment-builders';
-import { SegmentScore, ScoreColorPairMapService } from '../components/stress-echo/services/score-color-pair-map.service';
+import { SegmentScore, ScoreColorPairMapService } from '../services/score-color-pair-map.service';
 
 export enum BullEyeType {
 	

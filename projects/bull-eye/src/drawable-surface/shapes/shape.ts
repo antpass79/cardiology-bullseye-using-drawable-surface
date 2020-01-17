@@ -1,4 +1,4 @@
-import { Point } from '../../../services/drawing-map-models';
+import { Point } from '../../services/drawing-map-models';
 import { Transform } from '../utils/transform';
 
 export interface ISurface {

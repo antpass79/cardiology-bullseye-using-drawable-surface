@@ -1,15 +1,12 @@
 import { Points, Point } from "./drawing-map-models";
-import { Shape } from "../components/stress-echo/shapes/shape";
-import { Line } from "../components/stress-echo/shapes/line";
-import { Arc } from "../components/stress-echo/shapes/arc";
-import { Polygon } from "../components/stress-echo/shapes/polygon";
+import { IShape, Line, Arc, Polygon } from "../drawable-surface";
 
 export interface IShapeBuilder {
-    build(points: Points): Shape;
+    build(points: Points): IShape;
 }
 
 export class LineBuilder implements IShapeBuilder {
-    build(points: Points): Shape {
+    build(points: Points): IShape {
         let line = new Line();
         line.startPoint = {
             X: Number(points.Point[0].X),
@@ -25,7 +22,7 @@ export class LineBuilder implements IShapeBuilder {
 }
 
 export class ArcBuilder implements IShapeBuilder {
-    build(points: Points): Shape {
+    build(points: Points): IShape {
         let arc = new Arc({
             X: Number(points.Center.Point.X),
             Y: Number(points.Center.Point.Y)
@@ -42,7 +39,7 @@ export class ArcBuilder implements IShapeBuilder {
 }
 
 export class PolygonBuilder implements IShapeBuilder {
-    build(points: Points): Shape {
+    build(points: Points): IShape {
         let polygon: Polygon;
         let segmentPoints: Point[] = [];
 

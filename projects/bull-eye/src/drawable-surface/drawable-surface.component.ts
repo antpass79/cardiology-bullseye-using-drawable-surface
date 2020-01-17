@@ -1,28 +1,29 @@
-import { Component, OnInit, OnChanges, EventEmitter, Output, Input } from '@angular/core';
+import { Component, AfterContentInit, OnChanges, EventEmitter, Output, Input, ViewChild, ElementRef } from '@angular/core';
 
-import { EventManager } from './../../event-aggregator/event-manager';
+import { EventManager } from '../event-aggregator/event-manager';
 import { Picture } from './shapes/picture';
 import { Transform } from './utils/transform';
 import { ISurface } from './shapes/shape';
 
 @Component({
-	selector: 'stress-echo',
-	templateUrl: 'stress-echo.component.html',
-	styleUrls: ['stress-echo.component.css']
+	selector: 'drawable-surface',
+	templateUrl: 'drawable-surface.component.html',
+	styleUrls: ['drawable-surface.component.css']
 })
-export class StressEchoComponent implements ISurface, OnInit, OnChanges {
+export class DrawableSurfaceComponent implements ISurface, AfterContentInit, OnChanges {
 	@Output()
 	segmentMouseWheel = new EventEmitter();
 	@Output()
 	segmentMouseClick = new EventEmitter();
 
 	@Input()
-	bullEye: Picture;
+	picture: Picture;
 
-	private _canvas: HTMLCanvasElement;
+	@ViewChild("drawableCanvas", { static: true })
+    canvasElement: ElementRef<HTMLCanvasElement>;
 
 	get canvas(): HTMLCanvasElement {
-		return this._canvas;
+		return this.canvasElement.nativeElement;
 	}
 	get context(): CanvasRenderingContext2D {
 		return this.canvas.getContext('2d');;
@@ -30,19 +31,17 @@ export class StressEchoComponent implements ISurface, OnInit, OnChanges {
 	get transform(): Transform {
 		let transform: Transform = Transform.default();
 
-		if (this.bullEye && this.bullEye.backgroundImage) {
-			let scale = Math.min(this.canvas.width / this.bullEye.backgroundImage.width, this.canvas.height / this.bullEye.backgroundImage.height);
-			let x = (this.canvas.width / 2) - (this.bullEye.backgroundImage.width / 2) * scale;
-			let y = (this.canvas.height / 2) - (this.bullEye.backgroundImage.height / 2) * scale;	
+		if (this.picture && this.picture.backgroundImage) {
+			let scale = Math.min(this.canvas.width / this.picture.backgroundImage.width, this.canvas.height / this.picture.backgroundImage.height);
+			let x = (this.canvas.width / 2) - (this.picture.backgroundImage.width / 2) * scale;
+			let y = (this.canvas.height / 2) - (this.picture.backgroundImage.height / 2) * scale;	
 			transform = Transform.create(x, y, scale, scale);
 		}
 
 		return transform;
 	}
 
-	ngOnInit() {
-		this._canvas = <HTMLCanvasElement>document.getElementById('canvas');
-
+	ngAfterContentInit() {
 		EventManager.getInstance().subscribe("segmentMouseWheel", (payload) => {
 			this.segmentMouseWheel.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, segment: payload.segment, mouseEvent: payload.mouseEvent });
 		});
@@ -53,16 +52,12 @@ export class StressEchoComponent implements ISurface, OnInit, OnChanges {
 		this.canvas.addEventListener('mousemove', (e: MouseEvent) => {
 			this.mouseMove(e);
 		}, false);
-
 		this.canvas.addEventListener('mouseup', (e: MouseEvent) => {
 			this.mouseUp(e);
 		}, false);
-
-
 		this.canvas.addEventListener('mousewheel', (e: MouseWheelEvent) => {
 			this.mouseWheel(e);
 		}, false);
-
 		this.canvas.addEventListener('click', (e: MouseEvent) => {
 			this.mouseClick(e);
 		}, false);
@@ -73,24 +68,24 @@ export class StressEchoComponent implements ISurface, OnInit, OnChanges {
 	}
 
 	private draw() {
-		if (this.bullEye != null) {
-			this.bullEye.draw(this);
+		if (this.picture != null) {
+			this.picture.draw(this);
 		}
 	}
 
 	private mouseMove(e: MouseEvent) {
 		e.preventDefault();
 
-		if (this.bullEye != null) {
-			this.bullEye.mouseMove(this, e);			
+		if (this.picture != null) {
+			this.picture.mouseMove(this, e);			
 		}
 	}
 
 	private mouseClick(e: MouseEvent) {
 		e.preventDefault();
 
-		if (this.bullEye != null) {
-			this.bullEye.mouseClick(this, e);
+		if (this.picture != null) {
+			this.picture.mouseClick(this, e);
 			this.draw();
 		}
 	}
@@ -98,8 +93,8 @@ export class StressEchoComponent implements ISurface, OnInit, OnChanges {
 	private mouseUp(e: MouseEvent) {
 		e.preventDefault();
 
-		if (this.bullEye != null) {
-			this.bullEye.mouseUp(this, e);
+		if (this.picture != null) {
+			this.picture.mouseUp(this, e);
 			this.draw();
 		}
 	}
@@ -107,8 +102,8 @@ export class StressEchoComponent implements ISurface, OnInit, OnChanges {
 	private mouseWheel(e: WheelEvent) {
 		e.preventDefault();
 
-		if (this.bullEye != null) {
-			this.bullEye.mouseWheel(this, e);
+		if (this.picture != null) {
+			this.picture.mouseWheel(this, e);
 			this.draw();
 		}
 	}

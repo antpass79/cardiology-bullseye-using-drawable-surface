@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
 
 import { SegmentItem, Points } from "./drawing-map-models";
-import { Segment } from "../components/stress-echo/shapes/segment";
 import { PolygonBuilder, LineBuilder, ArcBuilder } from "./shape-builders";
-import { Shape } from "../components/stress-echo/shapes/shape";
+import { IShape } from "../drawable-surface";
+import { ScoreColorSegment } from "./score-color-pair-map.service";
 
 export interface ISegmentBuilder {
-    build(segmentItem: SegmentItem): Segment;
+    build(segmentItem: SegmentItem): ScoreColorSegment;
 }
 
 @Injectable({
@@ -29,7 +29,7 @@ export class SegmentBuilder implements ISegmentBuilder {
     constructor(private segmentBuilderFactoryService: SegmentBuilderFactory) {
     }
 
-    build(segmentItem: SegmentItem): Segment {
+    build(segmentItem: SegmentItem): ScoreColorSegment {
         let segmentBuilder = this.segmentBuilderFactoryService.create(segmentItem);
         return segmentBuilder.build(segmentItem);
     }
@@ -38,9 +38,9 @@ export class SegmentBuilder implements ISegmentBuilder {
 export class LinePolygonSegmentBuilder implements ISegmentBuilder {
     private polygonBuilder = new PolygonBuilder();
 
-    build(segmentItem: SegmentItem): Segment {
+    build(segmentItem: SegmentItem): ScoreColorSegment {
         let polygon = this.polygonBuilder.build(segmentItem.Points);
-        let segment = new Segment();
+        let segment = new ScoreColorSegment();
         segment.parts.push(polygon);
 
         return segment;
@@ -48,11 +48,11 @@ export class LinePolygonSegmentBuilder implements ISegmentBuilder {
 }
 
 export class ArcPolygonSegmentBuilder implements ISegmentBuilder {
-    build(segmentItem: SegmentItem): Segment {
-        let segment: Segment = new Segment();
+    build(segmentItem: SegmentItem): ScoreColorSegment {
+        let segment: ScoreColorSegment = new ScoreColorSegment();
 
         segmentItem.Points.forEach((points: Points) => {
-            let shape: Shape;
+            let shape: IShape;
 
             switch (points._type) {
                 case "line":
