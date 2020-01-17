@@ -1,6 +1,7 @@
 import { Shape } from './shape';
 import { Point } from '../../../services/drawing-map-models';
 import { MathService } from '../services/math.service';
+import { Transform } from './transform';
 
 export class SegmentPart extends Shape {
 }
@@ -15,9 +16,10 @@ export class Polygon extends SegmentPart {
 		return this.points;
 	}
 
-	draw(canvas: any, context: any) {
+	draw(canvas: any, context: any, transform: Transform) {
 		this.points.forEach((point: Point) => {
-			context.lineTo(point.X, point.Y);
+            let transformPoint = transform.point(point);
+			context.lineTo(transformPoint.X, transformPoint.Y);
 		});
 	}
 }
@@ -32,9 +34,12 @@ export class Line extends SegmentPart {
         Y: 0
     };
 
-    draw(canvas: any, context: any) {
-        context.moveTo(this.startPoint.X, this.startPoint.Y);
-        context.lineTo(this.endPoint.X, this.endPoint.Y);
+    draw(canvas: any, context: any, transform: Transform) {
+        let transformStart = transform.point(this.startPoint);
+        let transformEnd = transform.point(this.endPoint);
+
+        context.moveTo(transformStart.X, transformStart.Y);
+        context.lineTo(transformEnd.X, transformEnd.Y);
     }
 }
 
@@ -43,11 +48,14 @@ export class Arc extends SegmentPart {
         super();
     }
 
-    draw(canvas: any, context: any) {
-        let radius = MathService.radius(this.center, this.start);
-        let startAngle = MathService.angle(this.center, this.start);
+    draw(canvas: any, context: any, transform: Transform) {
+        let tranformCenter = transform.point(this.center);
+        let tranformstart = transform.point(this.start);
+
+        let radius = MathService.radius(tranformCenter, tranformstart);
+        let startAngle = MathService.angle(tranformCenter, tranformstart);
         let endAngle = startAngle + MathService.toRadians(this.angle);
 
-        context.arc(this.center.X, this.center.Y, radius, startAngle, endAngle, this.direction.toLowerCase() === 'counterclockwise' ? true : false);
+        context.arc(tranformCenter.X, tranformCenter.Y, radius, startAngle, endAngle, this.direction.toLowerCase() === 'counterclockwise' ? true : false);
     }
 }

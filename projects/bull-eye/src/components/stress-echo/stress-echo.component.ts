@@ -2,6 +2,7 @@ import { Component, OnInit, OnChanges, EventEmitter, Output, Input } from '@angu
 
 import { EventManager } from './../../event-aggregator/event-manager';
 import { BullEye } from './shapes/bull-eye';
+import { Transform } from './shapes/transform';
 
 @Component({
 	selector: 'stress-echo',
@@ -50,12 +51,13 @@ export class StressEchoComponent implements OnInit, OnChanges {
 	}
 
 	ngOnChanges() {
+		this.updateRenderingSettings();
 		this.draw();
 	}
 
 	private draw() {
 		if (this.bullEye != null) {
-			this.bullEye.draw(this.canvas, this.context);
+			this.bullEye.draw(this.canvas, this.context, this.bullEye.currentTransform);
 		}
 	}
 
@@ -94,4 +96,20 @@ export class StressEchoComponent implements OnInit, OnChanges {
 		}
 	}
 
+	private updateRenderingSettings() {
+		let transform: Transform = Transform.default();
+
+		if (this.bullEye && this.bullEye.backgroundImage) {
+			let scale = Math.min(this.canvas.width / this.bullEye.backgroundImage.width, this.canvas.height / this.bullEye.backgroundImage.height);
+			let x = (this.canvas.width / 2) - (this.bullEye.backgroundImage.width / 2) * scale;
+			let y = (this.canvas.height / 2) - (this.bullEye.backgroundImage.height / 2) * scale;	
+			transform = new Transform();
+			transform.translateX = x;
+			transform.translateY = y;
+			transform.scaleX = scale;
+			transform.scaleY = scale;
+
+			this.bullEye.currentTransform = transform;
+		}
+	}
 }

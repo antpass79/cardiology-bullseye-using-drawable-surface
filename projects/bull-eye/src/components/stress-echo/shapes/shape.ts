@@ -1,7 +1,8 @@
 import { Point } from '../../../services/drawing-map-models';
+import { Transform } from './transform';
 
 export class Shape {
-	draw(canvas: any, context: any) { }
+	draw(canvas: any, context: any, transform: Transform) { }
 	mouseUp(canvas: any, e: MouseEvent) { }
 
 	protected getMousePosition(canvas: any, e: MouseEvent): Point {
