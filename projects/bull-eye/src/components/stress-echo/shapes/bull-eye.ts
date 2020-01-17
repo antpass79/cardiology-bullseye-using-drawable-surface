@@ -4,7 +4,10 @@ import { Point } from '../../../services/drawing-map-models';
 
 export class BullEye extends Shape {
 	
-	segments = new Array<Segment>();
+	private _segments: Segment[] = [];
+	get segments(): Segment[] {
+		return this._segments;
+	}
 	private backgroundImage: HTMLImageElement = new Image();
 	isBackgroundImageLoaded: boolean = false;
 

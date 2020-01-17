@@ -1,12 +1,10 @@
 import { Point } from '../../../services/drawing-map-models';
 
 export class Shape {
-	
 	draw(canvas: any, context: any) { }
 	mouseUp(canvas: any, e: MouseEvent) { }
 
 	protected getMousePosition(canvas: any, e: MouseEvent): Point {
-		
 		var rect = canvas.getBoundingClientRect();
 		return {
             X: e.clientX - rect.left,
@@ -15,12 +13,10 @@ export class Shape {
 	}
 
     get Points(): Point[] {
-
         return null;
     }
 
     public isPointInside(canvas: any, points: Point[], location: Point): boolean {
-
         var context = canvas.getContext('2d');
         context.beginPath();
 

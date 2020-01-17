@@ -4,6 +4,7 @@ import { X2JS } from 'x2json';
 import { BullEye } from '../components/stress-echo/shapes/bull-eye';
 import { ViewDescriptor, SegmentItem } from './drawing-map-models';
 import { SegmentBuilder } from './segment-builders';
+import { ScoreColorPair, SegmentScore, ScoreColorPairMapService } from '../components/stress-echo/services/score-color-pair-map.service';
 
 export enum BullEyeType {
 	
@@ -36,7 +37,7 @@ export class DrawableMapDataService {
 		return this._bullEyes;
 	}
 
-	constructor(private http: Http, private segmentBuilder: SegmentBuilder) {
+	constructor(private http: Http, private scoreColorPairMapService: ScoreColorPairMapService, private segmentBuilder: SegmentBuilder) {
 	}
 
 	public async preLoadDrawableMaps(): Promise<void> {
@@ -89,6 +90,7 @@ export class DrawableMapDataService {
 
 		viewDescriptor.SegmentCollection.SegmentItem.forEach((segmentItem: SegmentItem) => {
 			let segment = this.segmentBuilder.build(segmentItem);
+			segment.scoreColorPair = this.scoreColorPairMapService.scoreColorPairs.find(scoreColorPair => scoreColorPair.score === SegmentScore.Normal);
 			bullEye.segments.push(segment);
 		});
 

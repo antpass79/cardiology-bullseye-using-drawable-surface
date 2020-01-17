@@ -63,7 +63,7 @@ export class StressEchoComponent implements OnInit, OnChanges {
 		e.preventDefault();
 
 		if (this.bullEye != null) {
-			this.bullEye.mouseMove(this.canvas, e);
+			this.bullEye.mouseMove(this.canvas, e);			
 		}
 	}
 
@@ -72,6 +72,7 @@ export class StressEchoComponent implements OnInit, OnChanges {
 
 		if (this.bullEye != null) {
 			this.bullEye.mouseClick(this.canvas, e);
+			this.draw();
 		}
 	}
 
@@ -80,6 +81,7 @@ export class StressEchoComponent implements OnInit, OnChanges {
 
 		if (this.bullEye != null) {
 			this.bullEye.mouseUp(this.canvas, e);
+			this.draw();
 		}
 	}
 
@@ -88,6 +90,7 @@ export class StressEchoComponent implements OnInit, OnChanges {
 
 		if (this.bullEye != null) {
 			this.bullEye.mouseWheel(this.canvas, e);
+			this.draw();
 		}
 	}
 

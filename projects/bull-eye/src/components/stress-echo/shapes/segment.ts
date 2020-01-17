@@ -3,11 +3,14 @@ import { EventManager } from './../../../event-aggregator/event-manager';
 import { Shape } from './shape';
 import { SegmentPart } from './segment-part';
 import { Point } from '../../../services/drawing-map-models';
+import { ScoreColorPair, SegmentScore } from '../services/score-color-pair-map.service';
 
 export class Segment extends Shape {
-
-	fill: string = 'transparent';
-	parts: Array<SegmentPart> = new Array<SegmentPart>();
+	private _parts: SegmentPart[] = [];
+	get parts(): SegmentPart[] {
+		return this._parts;
+	}
+	scoreColorPair: ScoreColorPair = new ScoreColorPair(SegmentScore.Normal, 'greenyellow');
 
 	isMouseOver: boolean = false;
 
@@ -21,7 +24,7 @@ export class Segment extends Shape {
 
 	draw(canvas: any, context: any) {
 		context.beginPath();
-		context.fillStyle = this.fill;
+		context.fillStyle = this.scoreColorPair.color;
 
 		this.parts.forEach((part: SegmentPart) => { part.draw(canvas, context) });
 

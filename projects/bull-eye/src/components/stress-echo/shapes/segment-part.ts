@@ -12,21 +12,17 @@ export class Polygon extends SegmentPart {
 	}
 
 	get Points(): Point[] {
-
 		return this.points;
 	}
 
 	draw(canvas: any, context: any) {
-
 		this.points.forEach((point: Point) => {
-
 			context.lineTo(point.X, point.Y);
 		});
 	}
 }
 
 export class Line extends SegmentPart {
-
     startPoint: Point = {
         X: 0,
         Y: 0

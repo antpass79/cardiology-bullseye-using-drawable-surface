@@ -12,7 +12,8 @@ import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
 
 @NgModule({
   imports: [
-    BrowserModule, HttpModule
+    BrowserModule,
+    HttpModule
   ],
   declarations: [
     AppComponent,

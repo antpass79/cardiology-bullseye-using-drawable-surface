@@ -21,8 +21,6 @@ export class AppComponent implements OnInit {
   events = [];
   selectedBullEye: BullEye;
 
-  private selectedScoreIndex = 0;
-
   constructor(
     private drawableMapDataService: DrawableMapDataService,
     private scoreColorPairMapService: ScoreColorPairMapService) {
@@ -35,23 +33,27 @@ export class AppComponent implements OnInit {
     this.clearStream$.subscribe(() => this.events = []);
 
     this.segmentMouseWheelStream$.subscribe(payload => {
-      if (payload.mouseEvent.deltaY < 0 && this.selectedScoreIndex < this.scoreColorPairMapService.scoreColorPairs.length - 1)
-        this.selectedScoreIndex++;
-      if (payload.mouseEvent.deltaY > 0 && this.selectedScoreIndex > 0)
-        this.selectedScoreIndex--;
+      let currentIndex = this.scoreColorPairMapService.scoreColorPairs.findIndex(scoreColorPair => scoreColorPair === payload.segment.scoreColorPair);
 
-      payload.segment.fill = this.scoreColorPairMapService.scoreColorPairs[this.selectedScoreIndex].color;
-      this.events.push(this.scoreColorPairMapService.scoreColorPairs[this.selectedScoreIndex].description);
+      if (payload.mouseEvent.deltaY < 0 && currentIndex < this.scoreColorPairMapService.scoreColorPairs.length - 1)
+        currentIndex++;
+      if (payload.mouseEvent.deltaY > 0 && currentIndex > 0)
+        currentIndex--;
+
+      payload.segment.scoreColorPair = this.scoreColorPairMapService.scoreColorPairs[currentIndex];
+      this.events.push(this.scoreColorPairMapService.scoreColorPairs[currentIndex].description);
     });
 
     this.segmentMouseClickStream$.subscribe(payload => {
-      if (this.selectedScoreIndex < this.scoreColorPairMapService.scoreColorPairs.length - 1)
-        this.selectedScoreIndex++;
-      else
-        this.selectedScoreIndex = 0;
+      let currentIndex = this.scoreColorPairMapService.scoreColorPairs.findIndex(scoreColorPair => scoreColorPair === payload.segment.scoreColorPair);
 
-      payload.segment.fill = this.scoreColorPairMapService.scoreColorPairs[this.selectedScoreIndex].color;
-      this.events.push(this.scoreColorPairMapService.scoreColorPairs[this.selectedScoreIndex].description);
+      if (currentIndex < this.scoreColorPairMapService.scoreColorPairs.length - 1)
+        currentIndex++;
+      else
+        currentIndex = 0;
+
+      payload.segment.scoreColorPair = this.scoreColorPairMapService.scoreColorPairs[currentIndex];
+      this.events.push(this.scoreColorPairMapService.scoreColorPairs[currentIndex].description);
     });
   }
 }

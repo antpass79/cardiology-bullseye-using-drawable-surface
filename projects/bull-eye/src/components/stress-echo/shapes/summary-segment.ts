@@ -3,7 +3,6 @@ import { Segment } from './segment';
 import { SegmentPart } from './segment-part';
 
 export class SummarySegment extends Segment {
-
 	startPoint: Point = {
 		X: 0,
 		Y: 0
@@ -15,7 +14,7 @@ export class SummarySegment extends Segment {
 
 	draw(canvas: any, context: any) {
 		context.beginPath();
-		context.fillStyle = this.fill;
+		context.fillStyle = this.scoreColorPair.color;
 
 		context.moveTo(this.startPoint.X, this.startPoint.Y);
 
