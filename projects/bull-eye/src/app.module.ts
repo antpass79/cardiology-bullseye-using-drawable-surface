@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import { DrawableMapDataService } from './services/drawable-map-data.service';
 
 import { AppComponent } from './app.component';
-import { DrawableSurfaceComponent } from './drawable-surface/drawable-surface.component';
+import { DrawableSurfaceModule } from '@antpass79/drawable-surface';
 import { EventListComponent } from './components/event-list/event-list.component';
 import { LegendComponent } from './components/legend/legend.component';
 import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
@@ -13,11 +13,11 @@ import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
 @NgModule({
   imports: [
     BrowserModule,
-    HttpModule
+    HttpModule,
+    DrawableSurfaceModule
   ],
   declarations: [
-    AppComponent,
-    DrawableSurfaceComponent,
+    AppComponent,    
     EventListComponent,
     LegendComponent,
     EnumToArrayPipe

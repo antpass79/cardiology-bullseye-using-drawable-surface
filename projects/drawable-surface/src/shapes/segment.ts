@@ -1,4 +1,4 @@
-import { EventManager } from '../../event-aggregator/event-manager';
+import { EventManager } from '../event-aggregator/event-manager';
 
 import { IShape, Shape, ISurface } from './shape';
 import { Point } from "./point";

@@ -10,3 +10,7 @@ export { Segment } from './shapes/segment';
 export { Picture } from './shapes/picture';
 
 export { Point } from './shapes/point';
+
+export { EventManager } from './event-aggregator/event-manager';
+export { IMessage, Message } from './event-aggregator/message';
+export { Subscription } from './event-aggregator/subscription';

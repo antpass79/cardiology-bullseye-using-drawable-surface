@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Segment, ISurface, IShape } from '../drawable-surface';
+import { Segment, ISurface, IShape } from '@antpass79/drawable-surface';
 
 export enum SegmentScore
 {

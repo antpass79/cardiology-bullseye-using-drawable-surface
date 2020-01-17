@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { X2JS } from 'x2json';
-import { Picture } from '../drawable-surface';
+import { Picture } from '@antpass79/drawable-surface';
 import { ViewDescriptor, SegmentItem } from './drawing-map-models';
 import { SegmentBuilder } from './segment-builders';
 import { SegmentScore, ScoreColorPairMapService } from '../services/score-color-pair-map.service';

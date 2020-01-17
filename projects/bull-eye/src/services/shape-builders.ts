@@ -1,5 +1,5 @@
 import { Points } from "./drawing-map-models";
-import { IShape, Line, Arc, Polygon, Point } from "../drawable-surface";
+import { IShape, Line, Arc, Polygon, Point } from '@antpass79/drawable-surface';
 
 export interface IShapeBuilder {
     build(points: Points): IShape;

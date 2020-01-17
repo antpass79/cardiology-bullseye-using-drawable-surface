@@ -1,9 +1,9 @@
 import { Component, AfterContentInit, OnChanges, EventEmitter, Output, Input, ViewChild, ElementRef } from '@angular/core';
 
 import { EventManager } from '../event-aggregator/event-manager';
-import { Picture } from './shapes/picture';
-import { Transform } from './utils/transform';
-import { ISurface } from './shapes/shape';
+import { Picture } from '../shapes/picture';
+import { Transform } from '../utils/transform';
+import { ISurface } from '../shapes/shape';
 
 @Component({
 	selector: 'drawable-surface',

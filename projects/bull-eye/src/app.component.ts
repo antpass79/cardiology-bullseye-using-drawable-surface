@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { DrawableMapDataService, BullEyeType } from './services/drawable-map-data.service';
-import { Picture } from './drawable-surface/shapes/picture';
+import { Picture } from '@antpass79/drawable-surface';
 import { ScoreColorPairMapService } from './services/score-color-pair-map.service';
 
 @Component({

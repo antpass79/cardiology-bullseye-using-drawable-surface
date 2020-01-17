@@ -1,4 +1,4 @@
-import { Point } from "../drawable-surface";
+import { Point } from '@antpass79/drawable-surface';
 
 export interface ViewDescriptor {
     PathImg: String;

@@ -30,6 +30,9 @@
             ],
             "@bull-eye/*": [
                 "src/*"
+            ],
+            "@antpass79/drawable-surface": [
+                "projects/drawable-surface/src/index"
             ]
         }
     }
