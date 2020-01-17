@@ -1,6 +1,6 @@
 import { Shape, ISurface } from './shape';
 import { Segment } from './segment';
-import { Point } from '../../services/drawing-map-models';
+import { Point } from "./point";
 
 export class Picture extends Shape {
 	private _segments: Segment[] = [];

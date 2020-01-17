@@ -1,7 +1,7 @@
 import { EventManager } from '../../event-aggregator/event-manager';
 
 import { IShape, Shape, ISurface } from './shape';
-import { Point } from '../../services/drawing-map-models';
+import { Point } from "./point";
 
 export class Segment extends Shape {
 	private _parts: IShape[] = [];

@@ -1,4 +1,4 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { DrawableSurfaceComponent } from './drawable-surface.component';
 
 @NgModule({

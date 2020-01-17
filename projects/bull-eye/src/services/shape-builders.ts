@@ -1,5 +1,5 @@
-import { Points, Point } from "./drawing-map-models";
-import { IShape, Line, Arc, Polygon } from "../drawable-surface";
+import { Points } from "./drawing-map-models";
+import { IShape, Line, Arc, Polygon, Point } from "../drawable-surface";
 
 export interface IShapeBuilder {
     build(points: Points): IShape;

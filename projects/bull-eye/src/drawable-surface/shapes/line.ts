@@ -1,5 +1,5 @@
 import { Shape, ISurface } from './shape';
-import { Point } from '../../services/drawing-map-models';
+import { Point } from "./point";
 
 export class Line extends Shape {
     startPoint: Point = {

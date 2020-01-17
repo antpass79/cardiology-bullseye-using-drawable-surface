@@ -1,4 +1,4 @@
-import { Point } from "projects/bull-eye/src/services/drawing-map-models";
+import { Point } from "../shapes/point";
 
 export class Transform {
     translateX: number = 1;

@@ -8,3 +8,5 @@ export { Arc } from './shapes/arc';
 export { Polygon } from './shapes/polygon';
 export { Segment } from './shapes/segment';
 export { Picture } from './shapes/picture';
+
+export { Point } from './shapes/point';

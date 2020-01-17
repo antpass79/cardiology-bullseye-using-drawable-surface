@@ -1,3 +1,5 @@
+import { Point } from "../drawable-surface";
+
 export interface ViewDescriptor {
     PathImg: String;
     SegmentCollection: SegmentCollection;
@@ -21,11 +23,6 @@ export interface Points {
     Start: Start;
     Angle: number;
     Direction: String;
-}
-
-export interface Point {
-    X: number;
-    Y: number;
 }
 
 export interface Start {
