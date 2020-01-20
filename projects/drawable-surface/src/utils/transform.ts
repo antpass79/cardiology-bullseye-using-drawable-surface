@@ -1,10 +1,10 @@
 import { Point } from "../shapes/point";
 
 export class Transform {
-    translateX: number = 1;
-    translateY: number = 1;
-    scaleX: number = 0;
-    scaleY: number = 0;
+    translateX: number = 0;
+    translateY: number = 0;
+    scaleX: number = 1;
+    scaleY: number = 1;
 
     static default(): Transform {
         return new Transform();

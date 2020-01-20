@@ -1,11 +1,10 @@
-import { Shape, ISurface } from './shape';
-import { Segment } from './segment';
-import { Point } from "./point";
+import { Shape, IShape, ISurface } from './shape';
+import { MouseService } from '../utils/mouse.service';
 
 export class Picture extends Shape {
-	private _segments: Segment[] = [];
-	get segments(): Segment[] {
-		return this._segments;
+	private _shapes: IShape[] = [];
+	get shapes(): IShape[] {
+		return this._shapes;
 	}
 
 	isBackgroundImageLoaded: boolean = false;
@@ -22,83 +21,100 @@ export class Picture extends Shape {
 		this.backgroundImage.src = image;
 	}
 
-	draw(surface: ISurface) {
-		this.prepareSurface(surface);
-		this.drawBackground(surface);
-		this.drawSegments(surface);
-	}
-
 	mouseMove(surface: ISurface, e: MouseEvent) {
-		var location = this.getMousePosition(surface, e);
-		let segment = this.getSegmentByPoint(surface, location);
-		if (segment)
-			segment.mouseMove(surface, e);
-
-		this.updateMouseOver(surface, e, segment);
+		let shape = this.getSelectedShape(surface, e);
+		if (shape)
+			shape.mouseMove(surface, e);
 	}
 
 	mouseClick(surface: ISurface, e: MouseEvent) {
-		var location = this.getMousePosition(surface, e);
-		let segment = this.getSegmentByPoint(surface, location);
-		if (segment)
-			segment.mouseClick(surface, e);
+		let shape = this.getSelectedShape(surface, e);
+		if (shape)
+			shape.mouseClick(surface, e);
+	}
+
+	mouseDoubleClick(surface: ISurface, e: MouseEvent) {
+		let shape = this.getSelectedShape(surface, e);
+		if (shape)
+			shape.mouseDoubleClick(surface, e);
+	}
+
+	mouseDown(surface: ISurface, e: MouseEvent) {
+		let shape = this.getSelectedShape(surface, e);
+		if (shape)
+			shape.mouseUp(surface, e);
 	}
 
 	mouseUp(surface: ISurface, e: MouseEvent) {
-		var location = this.getMousePosition(surface, e);
-		let segment = this.getSegmentByPoint(surface, location);
-		if (segment)
-			segment.mouseUp(surface, e);
+		let shape = this.getSelectedShape(surface, e);
+		if (shape)
+			shape.mouseUp(surface, e);
+	}
+
+	mouseEnter(surface: ISurface, e: MouseEvent) {
+		let shape = this.getSelectedShape(surface, e);
+		if (shape)
+			shape.mouseEnter(surface, e);
+	}
+
+	mouseLeave(surface: ISurface, e: MouseEvent) {
+		let shape = this.getSelectedShape(surface, e);
+		if (shape)
+			shape.mouseLeave(surface, e);
+	}
+
+	mouseOver(surface: ISurface, e: MouseEvent) {
+		let shape = this.getSelectedShape(surface, e);
+		if (shape)
+			shape.mouseOver(surface, e);
 	}
 
 	mouseWheel(surface: ISurface, e: MouseWheelEvent) {
-		var location = this.getMousePosition(surface, e);
-		let segment = this.getSegmentByPoint(surface, location);
-		if (segment != null)
-			segment.mouseWheel(surface, e);
+		let shape = this.getSelectedShape(surface, e);
+		if (shape)
+			shape.mouseWheel(surface, e);
 	}
 
-	private prepareSurface(surface: ISurface) {
-		surface.context.strokeStyle = "black";
-		surface.context.lineWidth = 1;
+	protected prepareSurface(surface: ISurface) {
+		surface.context.strokeStyle = this.appearance.strokeStyle;
+		surface.context.lineWidth = this.appearance.lineWidth;
 		surface.context.clearRect(0, 0, surface.canvas.width, surface.canvas.width);
 	}
-
-	private drawBackground(surface: ISurface) {
+	
+	protected drawSurface(surface: ISurface) {
 		if (this.isBackgroundImageLoaded) {
 			surface.context.drawImage(
 				this.backgroundImage,
 				surface.transform.translateX, surface.transform.translateY, surface.transform.scaleX * this.backgroundImage.width,
 				surface.transform.scaleY * this.backgroundImage.height);
 		}
+
+		this.shapes.forEach((shape: IShape) => shape.draw(surface));
 	}
 
-	private drawSegments(surface: ISurface) {
-		this.segments.forEach((segment: Segment) => segment.draw(surface));
-	}
+	// private updateMouseOver(surface: ISurface, e: MouseEvent, shape: IShape) {
+	// 	if (!shape) {
+	// 		if (this.shapes)
+	// 			this.shapes.forEach((shapeLeave) => shapeLeave.mouseLeave(surface, e));
 
-	private updateMouseOver(surface: ISurface, e: MouseEvent, segment: Segment) {
-		if (!segment) {
-			if (this.segments)
-				this.segments.forEach((segmentLeave) => segmentLeave.mouseLeave(surface, e));
+	// 		return;
+	// 	}
 
-			return;
-		}
+	// 	this.shapes.forEach((segmentLeave) => {
+	// 		if (segmentLeave.isMouseOver)
+	// 			segmentLeave.mouseLeave(surface, e);
+	// 	});
 
-		this.segments.forEach((segmentLeave) => {
-			if (segmentLeave.isMouseOver)
-				segmentLeave.mouseLeave(surface, e);
-		});
+	// 	shape.mouseEnter(surface, e);
+	// }
 
-		segment.mouseEnter(surface, e);
-	}
-
-	getSegmentByPoint(surface: ISurface, point: Point): Segment {
-		let segments = this.segments.filter((segment) => segment.isPointInPath(surface, point));
-		if (segments.length != 1) {
+	getSelectedShape(surface: ISurface, e: MouseEvent): IShape {
+		let point = MouseService.getPosition(surface, e);
+		let shapes = this.shapes.filter((segment) => segment.isPointInside(surface, point));
+		if (shapes.length !== 1) {
 			return null;
 		}
 
-		return segments[0];
+		return shapes[0];
 	}
 }

@@ -3,7 +3,7 @@
     <div class="section">
         <h3>Choose View</h3>
         <ul class="view-list">
-            <li *ngFor="let bullEyeType of bullEyeTypes | enumToArray" (click)="selectStream$.next(bullEyeType)">
+            <li *ngFor="let bullEyeType of bullEyeTypes | enumToArray" (click)="selectSurfaceStream$.next(bullEyeType)">
                 {{ bullEyeType }}
             </li>
         </ul>
@@ -11,12 +11,12 @@
 
     <div class="section">
         <h3>Stress Echo</h3>
-        <drawable-surface [picture]="selectedBullEye" (segmentMouseWheel)="segmentMouseWheelStream$.next($event)" (segmentMouseClick)="segmentMouseClickStream$.next($event)"></drawable-surface>
+        <drawable-surface #drawableSurface [picture]="selectedBullEye" (shapeMouseWheel)="shapeMouseWheelStream$.next($event)" (shapeMouseDoubleClick)="shapeMouseDoubleClickStream$.next($event)"></drawable-surface>
     </div>
 
     <div class="section">
         <h3>Legend</h3>
-        <legend></legend>
+        <legend (select)="selectScoreColorPairStream$.next($event)"></legend>
     </div>
 
     <div class="section">

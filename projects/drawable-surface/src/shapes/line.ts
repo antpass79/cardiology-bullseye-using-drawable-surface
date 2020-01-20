@@ -11,7 +11,7 @@ export class Line extends Shape {
         Y: 0
     };
 
-    draw(surface: ISurface) {
+    protected drawSurface(surface: ISurface) {
         let transformStart = surface.transform.point(this.startPoint);
         let transformEnd = surface.transform.point(this.endPoint);
 

@@ -41,7 +41,7 @@ export class LinePolygonSegmentBuilder implements ISegmentBuilder {
     build(segmentItem: SegmentItem): ScoreColorSegment {
         let polygon = this.polygonBuilder.build(segmentItem.Points);
         let segment = new ScoreColorSegment();
-        segment.parts.push(polygon);
+        segment.shapes.push(polygon);
 
         return segment;
     }
@@ -65,7 +65,7 @@ export class ArcPolygonSegmentBuilder implements ISegmentBuilder {
                     throw new Error('ShapeBuilder not supported');
             }
 
-            segment.parts.push(shape);
+            segment.shapes.push(shape);
         });
 
         return segment;

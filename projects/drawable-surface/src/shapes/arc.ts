@@ -7,7 +7,7 @@ export class Arc extends Shape {
         super();
     }
 
-    draw(surface: ISurface) {
+    protected drawSurface(surface: ISurface) {
         let tranformCenter = surface.transform.point(this.center);
         let tranformstart = surface.transform.point(this.start);
 

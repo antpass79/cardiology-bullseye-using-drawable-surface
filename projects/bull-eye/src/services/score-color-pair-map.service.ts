@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Segment, ISurface, IShape } from '@antpass79/drawable-surface';
+import { IShape, CompositeShape, ISurface } from '@antpass79/drawable-surface';
 
 export enum SegmentScore
 {
@@ -21,19 +21,15 @@ export enum SegmentScore
     Max = 101
 }
 
-export class ScoreColorSegment extends Segment {
-    scoreColorPair: ScoreColorPair = new ScoreColorPair(SegmentScore.Normal, 'greenyellow');
-
-	draw(surface: ISurface) {
-		surface.context.beginPath();
-		surface.context.fillStyle = <string>this.scoreColorPair.color;
-
-		this.parts.forEach((part: IShape) => { part.draw(surface) });
-
-		surface.context.closePath();
-		surface.context.stroke();
-		surface.context.fill();
-	}
+export class ScoreColorSegment extends CompositeShape {
+    private _scoreColorPair: ScoreColorPair = new ScoreColorPair(SegmentScore.Normal, 'greenyellow');
+    get scoreColorPair(): ScoreColorPair {
+        return this._scoreColorPair;
+    }
+    set scoreColorPair(scoreColorPair: ScoreColorPair) {
+        this._scoreColorPair = scoreColorPair;
+        this.appearance.fill = <string>this.scoreColorPair.color;
+    }
 }
 
 export class ScoreColorPair {

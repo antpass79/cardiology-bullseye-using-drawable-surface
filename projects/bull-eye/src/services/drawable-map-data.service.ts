@@ -89,9 +89,9 @@ export class DrawableMapDataService {
 		let bullEye: Picture = new Picture();
 
 		viewDescriptor.SegmentCollection.SegmentItem.forEach((segmentItem: SegmentItem) => {
-			let segment = this.segmentBuilder.build(segmentItem);
-			segment.scoreColorPair = this.scoreColorPairMapService.scoreColorPairs.find(scoreColorPair => scoreColorPair.score === SegmentScore.Normal);
-			bullEye.segments.push(segment);
+			let shape = this.segmentBuilder.build(segmentItem);
+			shape.scoreColorPair = this.scoreColorPairMapService.scoreColorPairs.find(scoreColorPair => scoreColorPair.score === SegmentScore.Normal);
+			bullEye.shapes.push(shape);
 		});
 
 		return bullEye;

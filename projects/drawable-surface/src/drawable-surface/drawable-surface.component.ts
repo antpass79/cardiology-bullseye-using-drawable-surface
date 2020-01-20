@@ -12,9 +12,23 @@ import { ISurface } from '../shapes/shape';
 })
 export class DrawableSurfaceComponent implements ISurface, AfterContentInit, OnChanges {
 	@Output()
-	segmentMouseWheel = new EventEmitter();
+	shapeMouseMove = new EventEmitter();
 	@Output()
-	segmentMouseClick = new EventEmitter();
+	shapeMouseClick = new EventEmitter();
+	@Output()
+	shapeMouseDoubleClick = new EventEmitter();
+	@Output()
+	shapeMouseDown = new EventEmitter();
+	@Output()
+	shapeMouseUp = new EventEmitter();
+	@Output()
+	shapeMouseEnter = new EventEmitter();
+	@Output()
+	shapeMouseLeave = new EventEmitter();
+	@Output()
+	shapeMouseOver = new EventEmitter();
+	@Output()
+	shapeMouseWheel = new EventEmitter();
 
 	@Input()
 	picture: Picture;
@@ -42,25 +56,61 @@ export class DrawableSurfaceComponent implements ISurface, AfterContentInit, OnC
 	}
 
 	ngAfterContentInit() {
-		EventManager.getInstance().subscribe("segmentMouseWheel", (payload) => {
-			this.segmentMouseWheel.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, segment: payload.segment, mouseEvent: payload.mouseEvent });
-		});
-		EventManager.getInstance().subscribe("segmentMouseClick", (payload) => {
-			this.segmentMouseClick.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, segment: payload.segment, mouseEvent: payload.mouseEvent });
-		});
-
 		this.canvas.addEventListener('mousemove', (e: MouseEvent) => {
 			this.mouseMove(e);
-		}, false);
-		this.canvas.addEventListener('mouseup', (e: MouseEvent) => {
-			this.mouseUp(e);
-		}, false);
-		this.canvas.addEventListener('mousewheel', (e: MouseWheelEvent) => {
-			this.mouseWheel(e);
 		}, false);
 		this.canvas.addEventListener('click', (e: MouseEvent) => {
 			this.mouseClick(e);
 		}, false);
+		this.canvas.addEventListener('dblclick', (e: MouseEvent) => {
+			this.mouseDoubleClick(e);
+		}, false);
+		this.canvas.addEventListener('mouseup', (e: MouseEvent) => {
+			this.mouseDown(e);
+		}, false);
+		this.canvas.addEventListener('mouseup', (e: MouseEvent) => {
+			this.mouseUp(e);
+		}, false);
+		this.canvas.addEventListener('mouseenter', (e: MouseEvent) => {
+			this.mouseEnter(e);
+		}, false);
+		this.canvas.addEventListener('mouseleave', (e: MouseEvent) => {
+			this.mouseLeave(e);
+		}, false);
+		this.canvas.addEventListener('mouseover', (e: MouseEvent) => {
+			this.mouseOver(e);
+		}, false);
+		this.canvas.addEventListener('mousewheel', (e: MouseWheelEvent) => {
+			this.mouseWheel(e);
+		}, false);
+
+		EventManager.getInstance().subscribe("shapeMouseMove", (payload) => {
+			this.shapeMouseMove.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, shape: payload.shape, mouseEvent: payload.mouseEvent });
+		});
+		EventManager.getInstance().subscribe("shapeMouseClick", (payload) => {
+			this.shapeMouseClick.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, shape: payload.shape, mouseEvent: payload.mouseEvent });
+		});
+		EventManager.getInstance().subscribe("shapeMouseDoubleClick", (payload) => {
+			this.shapeMouseDoubleClick.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, shape: payload.shape, mouseEvent: payload.mouseEvent });
+		});
+		EventManager.getInstance().subscribe("shapeMouseDown", (payload) => {
+			this.shapeMouseDown.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, shape: payload.shape, mouseEvent: payload.mouseEvent });
+		});
+		EventManager.getInstance().subscribe("shapeMouseUp", (payload) => {
+			this.shapeMouseUp.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, shape: payload.shape, mouseEvent: payload.mouseEvent });
+		});
+		EventManager.getInstance().subscribe("shapeMouseEnter", (payload) => {
+			this.shapeMouseEnter.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, shape: payload.shape, mouseEvent: payload.mouseEvent });
+		});
+		EventManager.getInstance().subscribe("shapeMouseLeave", (payload) => {
+			this.shapeMouseLeave.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, shape: payload.shape, mouseEvent: payload.mouseEvent });
+		});
+		EventManager.getInstance().subscribe("shapeMouseOver", (payload) => {
+			this.shapeMouseOver.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, shape: payload.shape, mouseEvent: payload.mouseEvent });
+		});
+		EventManager.getInstance().subscribe("shapeMouseWheel", (payload) => {
+			this.shapeMouseWheel.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, shape: payload.shape, mouseEvent: payload.mouseEvent });
+		});
 	}
 
 	ngOnChanges() {
@@ -90,6 +140,24 @@ export class DrawableSurfaceComponent implements ISurface, AfterContentInit, OnC
 		}
 	}
 
+	private mouseDoubleClick(e: MouseEvent) {
+		e.preventDefault();
+
+		if (this.picture != null) {
+			this.picture.mouseDoubleClick(this, e);
+			this.draw();
+		}
+	}
+
+	private mouseDown(e: MouseEvent) {
+		e.preventDefault();
+
+		if (this.picture != null) {
+			this.picture.mouseDown(this, e);
+			this.draw();
+		}
+	}
+
 	private mouseUp(e: MouseEvent) {
 		e.preventDefault();
 
@@ -99,7 +167,34 @@ export class DrawableSurfaceComponent implements ISurface, AfterContentInit, OnC
 		}
 	}
 
-	private mouseWheel(e: WheelEvent) {
+	private mouseEnter(e: MouseEvent) {
+		e.preventDefault();
+
+		if (this.picture != null) {
+			this.picture.mouseEnter(this, e);
+			this.draw();
+		}
+	}
+
+	private mouseLeave(e: MouseEvent) {
+		e.preventDefault();
+
+		if (this.picture != null) {
+			this.picture.mouseLeave(this, e);
+			this.draw();
+		}
+	}
+
+	private mouseOver(e: MouseEvent) {
+		e.preventDefault();
+
+		if (this.picture != null) {
+			this.picture.mouseOver(this, e);
+			this.draw();
+		}
+	}
+
+	private mouseWheel(e: MouseWheelEvent) {
 		e.preventDefault();
 
 		if (this.picture != null) {
