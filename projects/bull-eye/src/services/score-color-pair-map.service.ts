@@ -28,7 +28,7 @@ export class ScoreColorSegment extends CompositeShape {
     }
     set scoreColorPair(scoreColorPair: ScoreColorPair) {
         this._scoreColorPair = scoreColorPair;
-        this.appearance.fill = <string>this.scoreColorPair.color;
+        this.appearance.fill = this.scoreColorPair.color;
     }
 }
 
@@ -37,12 +37,12 @@ export class ScoreColorPair {
 	get description(): String {
 		return this._description;
 	}
-	private _color: String;
-	get color(): String {
+	private _color: string;
+	get color(): string {
 		return this._color;
 	}
 
-	constructor(public score: SegmentScore, color: String) {
+	constructor(public score: SegmentScore, color: string) {
 		this._description = SegmentScore[this.score];
 		this._color = color;
     }    

@@ -1,6 +1,6 @@
 import { Shape, ISurface } from './shape';
 import { Point } from "./point";
-import { MathService } from '../utils/math.service';
+import { MathService } from '../services/math.service';
 
 export class Arc extends Shape {
     constructor(private center: Point, private start: Point, private angle: number, private direction: String) {
@@ -15,6 +15,12 @@ export class Arc extends Shape {
         let startAngle = MathService.angle(tranformCenter, tranformstart);
         let endAngle = startAngle + MathService.toRadians(this.angle);
 
-        surface.context.arc(tranformCenter.X, tranformCenter.Y, radius, startAngle, endAngle, this.direction.toLowerCase() === 'counterclockwise' ? true : false);
+        surface.context.arc(
+            tranformCenter.X,
+            tranformCenter.Y,
+            radius,
+            startAngle,
+            endAngle,
+            this.direction.toLowerCase() === 'counterclockwise' ? true : false);
     }
 }

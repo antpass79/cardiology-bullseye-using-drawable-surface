@@ -15,7 +15,11 @@ export class Line extends Shape {
         let transformStart = surface.transform.point(this.startPoint);
         let transformEnd = surface.transform.point(this.endPoint);
 
-        surface.context.moveTo(transformStart.X, transformStart.Y);
-        surface.context.lineTo(transformEnd.X, transformEnd.Y);
+        surface.context.moveTo(
+            transformStart.X,
+            transformStart.Y);
+        surface.context.lineTo(
+            transformEnd.X,
+            transformEnd.Y);
     }
 }

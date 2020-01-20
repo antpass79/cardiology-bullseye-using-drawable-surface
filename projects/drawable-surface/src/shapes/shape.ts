@@ -1,5 +1,5 @@
 import { Point } from "./point";
-import { Transform } from '../utils/transform';
+import { Transform } from '../shapes/transform';
 import { EventManager } from "../event-aggregator/event-manager";
 import { Appearance } from "./appearance";
 import { Status } from "./status";
@@ -110,7 +110,7 @@ export class CompositeShape extends Shape {
 
     isPointInside(surface: ISurface, point: Point): boolean {
         surface.context.beginPath();
-        this.shapes.forEach((part: IShape) => { part.draw(surface) });
+        this.shapes.forEach((shape: IShape) => { shape.draw(surface) });
         surface.context.closePath();
 
         return surface.context.isPointInPath(point.X, point.Y);

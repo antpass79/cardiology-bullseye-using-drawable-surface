@@ -1,6 +1,7 @@
 export { DrawableSurfaceModule } from './drawable-surface.module';
+export { ResizeMode } from './drawable-surface/drawable-surface.component';
 
-export { Transform } from './utils/transform';
+export { Transform } from './shapes/transform';
 
 export { IShape, Shape, CompositeShape, ISurface } from './shapes/shape';
 export { Line } from './shapes/line';

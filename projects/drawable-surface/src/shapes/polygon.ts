@@ -16,7 +16,9 @@ export class Polygon extends Shape {
 	protected drawSurface(surface: ISurface) {
 		this.points.forEach((point: Point) => {
             let transformPoint = surface.transform.point(point);
-			surface.context.lineTo(transformPoint.X, transformPoint.Y);
+			surface.context.lineTo(
+				transformPoint.X,
+				transformPoint.Y);
 		});
 	}
 }

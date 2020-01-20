@@ -2,6 +2,6 @@
 .canvas {
     width: 700px;
     height: 700px;
-    background-color: transparent;
+    background: yellow;
     touch-action: manipulation;
 }

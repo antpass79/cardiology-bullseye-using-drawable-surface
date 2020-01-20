@@ -16,7 +16,6 @@ export class AppComponent implements OnInit {
   selectScoreColorPairStream$ = new Subject<ScoreColorPair>();
   clearStream$ = new Subject<any>();
 
-  shapeMouseDoubleClickStream$ = new Subject<any>();
   shapeMouseWheelStream$ = new Subject<any>();
 
   bullEyeTypes = BullEyeType;
@@ -38,19 +37,10 @@ export class AppComponent implements OnInit {
 
     this.selectScoreColorPairStream$.subscribe((scoreColorPair: ScoreColorPair) => {
       let selectedShapes = this.selectedBullEye.shapes.filter((shape: ScoreColorSegment) => shape.status.selected);
-      selectedShapes.forEach((shape: ScoreColorSegment) => shape.scoreColorPair = scoreColorPair);
-      this.selectedBullEye.draw(this.drawableSurface);
-    });
-    this.shapeMouseDoubleClickStream$.subscribe(payload => {
-      let currentIndex = this.scoreColorPairMapService.scoreColorPairs.findIndex(scoreColorPair => scoreColorPair === payload.shape.scoreColorPair);
-
-      if (currentIndex < this.scoreColorPairMapService.scoreColorPairs.length - 1)
-        currentIndex++;
-      else
-        currentIndex = 0;
-
-      payload.shape.scoreColorPair = this.scoreColorPairMapService.scoreColorPairs[currentIndex];
-      this.events.push(this.scoreColorPairMapService.scoreColorPairs[currentIndex].description);
+      selectedShapes.forEach((shape: ScoreColorSegment) => {
+        shape.scoreColorPair = scoreColorPair;
+        shape.draw(this.drawableSurface);
+      });
     });
 
     this.shapeMouseWheelStream$.subscribe(payload => {

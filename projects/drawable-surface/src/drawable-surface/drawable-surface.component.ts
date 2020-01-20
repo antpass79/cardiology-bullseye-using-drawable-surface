@@ -2,8 +2,13 @@ import { Component, AfterContentInit, OnChanges, EventEmitter, Output, Input, Vi
 
 import { EventManager } from '../event-aggregator/event-manager';
 import { Picture } from '../shapes/picture';
-import { Transform } from '../utils/transform';
+import { Transform } from '../shapes/transform';
 import { ISurface } from '../shapes/shape';
+
+export enum ResizeMode {
+	fit = 0,
+	fill = 1
+}
 
 @Component({
 	selector: 'drawable-surface',
@@ -33,6 +38,9 @@ export class DrawableSurfaceComponent implements ISurface, AfterContentInit, OnC
 	@Input()
 	picture: Picture;
 
+	@Input()
+	resizeMode: ResizeMode = ResizeMode.fit;
+
 	@ViewChild("drawableCanvas", { static: true })
     canvasElement: ElementRef<HTMLCanvasElement>;
 
@@ -40,19 +48,11 @@ export class DrawableSurfaceComponent implements ISurface, AfterContentInit, OnC
 		return this.canvasElement.nativeElement;
 	}
 	get context(): CanvasRenderingContext2D {
-		return this.canvas.getContext('2d');;
+		return this.canvas.getContext('2d');
 	}
+	private _transform: Transform = Transform.default();
 	get transform(): Transform {
-		let transform: Transform = Transform.default();
-
-		if (this.picture && this.picture.backgroundImage) {
-			let scale = Math.min(this.canvas.width / this.picture.backgroundImage.width, this.canvas.height / this.picture.backgroundImage.height);
-			let x = (this.canvas.width / 2) - (this.picture.backgroundImage.width / 2) * scale;
-			let y = (this.canvas.height / 2) - (this.picture.backgroundImage.height / 2) * scale;	
-			transform = Transform.create(x, y, scale, scale);
-		}
-
-		return transform;
+		return this._transform;
 	}
 
 	ngAfterContentInit() {
@@ -114,7 +114,23 @@ export class DrawableSurfaceComponent implements ISurface, AfterContentInit, OnC
 	}
 
 	ngOnChanges() {
+		this.updateTransform();
 		this.draw();
+	}
+
+	private updateTransform() {
+		let transform: Transform = Transform.default();
+
+		if (this.picture && this.picture.backgroundImage) {
+			let resizeFunc = this.resizeMode === ResizeMode.fit ? Math.min : Math.max;
+
+			let scale = resizeFunc(this.canvas.width / this.picture.backgroundImage.width, this.canvas.height / this.picture.backgroundImage.height);
+			let translateX = (this.canvas.width / 2) - (this.picture.backgroundImage.width / 2) * scale;
+			let translateY = (this.canvas.height / 2) - (this.picture.backgroundImage.height / 2) * scale;	
+			transform = Transform.create(translateX, translateY, scale, scale);
+		}
+
+		this._transform = transform;
 	}
 
 	private draw() {
