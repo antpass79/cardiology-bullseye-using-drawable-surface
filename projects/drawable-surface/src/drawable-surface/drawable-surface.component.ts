@@ -4,11 +4,8 @@ import { EventManager } from '../event-aggregator/event-manager';
 import { Picture } from '../shapes/picture';
 import { Transform } from '../shapes/transform';
 import { ISurface } from '../shapes/shape';
-
-export enum ResizeMode {
-	fit = 0,
-	fill = 1
-}
+import { PictureTransformFactory } from '../services/picture-trasform-factory';
+import { ResizeMode } from './resize-mode';
 
 @Component({
 	selector: 'drawable-surface',
@@ -39,7 +36,7 @@ export class DrawableSurfaceComponent implements ISurface, AfterContentInit, OnC
 	picture: Picture;
 
 	@Input()
-	resizeMode: ResizeMode = ResizeMode.fit;
+	resizeMode: ResizeMode = ResizeMode.none;
 
 	@ViewChild("drawableCanvas", { static: true })
     canvasElement: ElementRef<HTMLCanvasElement>;
@@ -65,7 +62,7 @@ export class DrawableSurfaceComponent implements ISurface, AfterContentInit, OnC
 		this.canvas.addEventListener('dblclick', (e: MouseEvent) => {
 			this.mouseDoubleClick(e);
 		}, false);
-		this.canvas.addEventListener('mouseup', (e: MouseEvent) => {
+		this.canvas.addEventListener('mousedown', (e: MouseEvent) => {
 			this.mouseDown(e);
 		}, false);
 		this.canvas.addEventListener('mouseup', (e: MouseEvent) => {
@@ -119,18 +116,12 @@ export class DrawableSurfaceComponent implements ISurface, AfterContentInit, OnC
 	}
 
 	private updateTransform() {
-		let transform: Transform = Transform.default();
+        let transform: Transform = Transform.default();
+        if (!this.picture || !this.picture.isBackgroundImageLoaded) {
+            return transform;
+        }
 
-		if (this.picture && this.picture.backgroundImage) {
-			let resizeFunc = this.resizeMode === ResizeMode.fit ? Math.min : Math.max;
-
-			let scale = resizeFunc(this.canvas.width / this.picture.backgroundImage.width, this.canvas.height / this.picture.backgroundImage.height);
-			let translateX = (this.canvas.width / 2) - (this.picture.backgroundImage.width / 2) * scale;
-			let translateY = (this.canvas.height / 2) - (this.picture.backgroundImage.height / 2) * scale;	
-			transform = Transform.create(translateX, translateY, scale, scale);
-		}
-
-		this._transform = transform;
+		this._transform = PictureTransformFactory.create(this.picture, this.picture.backgroundImage, this.canvas, this.resizeMode)
 	}
 
 	private draw() {

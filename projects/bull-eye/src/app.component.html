@@ -7,11 +7,16 @@
                 {{ bullEyeType }}
             </li>
         </ul>
+        <ul class="view-list">
+            <li *ngFor="let resizeMode of resizeModes | enumToArray" (click)="selectResizeModeStream$.next(resizeMode)">
+                {{ resizeMode }}
+            </li>
+        </ul>
     </div>
 
     <div class="section">
         <h3>Stress Echo</h3>
-        <drawable-surface #drawableSurface [picture]="selectedBullEye" (shapeMouseWheel)="shapeMouseWheelStream$.next($event)"></drawable-surface>
+        <drawable-surface #drawableSurface [picture]="selectedBullEye" [resizeMode]="selectedResizeMode" (shapeMouseWheel)="shapeMouseWheelStream$.next($event)"></drawable-surface>
     </div>
 
     <div class="section">

@@ -1,12 +1,8 @@
-import { Shape, IShape, ISurface } from './shape';
+import { IShape, CompositeShape, ISurface } from './shape';
 import { ShapeService } from '../services/shape.service';
+import { Rect } from './rect';
 
-export class Picture extends Shape {
-	private _shapes: IShape[] = [];
-	get shapes(): IShape[] {
-		return this._shapes;
-	}
-
+export class Picture extends CompositeShape {
 	isBackgroundImageLoaded: boolean = false;
 	private _backgroundImage: HTMLImageElement = new Image();
 	get backgroundImage(): HTMLImageElement {

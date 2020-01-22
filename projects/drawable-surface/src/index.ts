@@ -1,5 +1,5 @@
 export { DrawableSurfaceModule } from './drawable-surface.module';
-export { ResizeMode } from './drawable-surface/drawable-surface.component';
+export { ResizeMode } from './drawable-surface/resize-mode';
 
 export { Transform } from './shapes/transform';
 

@@ -12,4 +12,11 @@ export class MathService {
     static toRadians(degree: number): number {
         return degree * Math.PI / 180;
     }
+
+    static endPoint(center: Point, radius: number, angle: number): Point {
+        return {
+            X: center.X + radius * Math.cos(angle),
+            Y: center.Y + radius * Math.sin(angle)
+        };
+    }
 }

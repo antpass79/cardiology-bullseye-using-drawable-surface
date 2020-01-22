@@ -3,6 +3,7 @@ import { Transform } from '../shapes/transform';
 import { EventManager } from "../event-aggregator/event-manager";
 import { Appearance } from "./appearance";
 import { Status } from "./status";
+import { Rect } from "./rect";
 
 export interface ISurface {
     canvas: HTMLCanvasElement;
@@ -27,9 +28,10 @@ export interface IShape {
     mouseWheel(surface: ISurface, e: MouseWheelEvent);
 
     isPointInside(surface: ISurface, point: Point): boolean;
+    getGhost(): Rect;
 }
 
-export class Shape implements IShape {
+export abstract class Shape implements IShape {
     private _status = Status.default();;
     get status(): Status {
         return this._status;
@@ -84,12 +86,12 @@ export class Shape implements IShape {
     }
 
     isPointInside(surface: ISurface, point: Point): boolean {
-        surface.context.beginPath();
         this.draw(surface);
-        surface.context.closePath();
 
         return surface.context.isPointInPath(point.X, point.Y);
     }
+
+    abstract getGhost(): Rect;
 
     protected prepareSurface(surface: ISurface) {
         this.appearance.update(this.status);
@@ -109,11 +111,20 @@ export class CompositeShape extends Shape {
     }
 
     isPointInside(surface: ISurface, point: Point): boolean {
-        surface.context.beginPath();
-        this.shapes.forEach((shape: IShape) => { shape.draw(surface) });
-        surface.context.closePath();
+        this.draw(surface);
 
         return surface.context.isPointInPath(point.X, point.Y);
+    }
+
+    getGhost(): Rect {
+        return this.shapes.map(shape => shape.getGhost()).reduce((ghost1, ghost2) => {
+            return {
+                X1: Math.min(ghost1.X1, ghost2.X1),
+                Y1: Math.min(ghost1.Y1, ghost2.Y1),
+                X2: Math.max(ghost1.X2, ghost2.X2),
+                Y2: Math.max(ghost1.Y2, ghost2.Y2),
+            }
+        })
     }
 
     protected prepareSurface(surface: ISurface) {

@@ -5,6 +5,7 @@ import { DrawableMapDataService, BullEyeType } from './services/drawable-map-dat
 import { Picture } from '@antpass79/drawable-surface';
 import { ScoreColorPairMapService, ScoreColorPair, ScoreColorSegment } from './services/score-color-pair-map.service';
 import { DrawableSurfaceComponent } from 'projects/drawable-surface/src/drawable-surface/drawable-surface.component';
+import { ResizeMode } from 'projects/drawable-surface/src/drawable-surface/resize-mode';
 
 @Component({
   selector: 'my-app',
@@ -13,14 +14,19 @@ import { DrawableSurfaceComponent } from 'projects/drawable-surface/src/drawable
 })
 export class AppComponent implements OnInit {
   selectSurfaceStream$ = new Subject<BullEyeType>();
+  selectResizeModeStream$ = new Subject<ResizeMode>();
   selectScoreColorPairStream$ = new Subject<ScoreColorPair>();
   clearStream$ = new Subject<any>();
 
   shapeMouseWheelStream$ = new Subject<any>();
 
   bullEyeTypes = BullEyeType;
-  events = [];
   selectedBullEye: Picture;
+
+  resizeModes = ResizeMode;
+  selectedResizeMode = ResizeMode.none;
+
+  events = [];
 
   @ViewChild(DrawableSurfaceComponent, { static: true })
   drawableSurface: DrawableSurfaceComponent;
@@ -33,6 +39,9 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.selectSurfaceStream$.subscribe((bullEyeType: BullEyeType) => {
       this.selectedBullEye = this.drawableMapDataService.bullEyes.get(bullEyeType.toString());
+    });
+    this.selectResizeModeStream$.subscribe((resizeMode: ResizeMode) => {
+      this.selectedResizeMode = ResizeMode[resizeMode.toString()];
     });
 
     this.selectScoreColorPairStream$.subscribe((scoreColorPair: ScoreColorPair) => {

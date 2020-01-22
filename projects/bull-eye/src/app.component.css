@@ -18,9 +18,9 @@
     position: relative;
     left: 0;
     background-color: #EEE;
-    margin: .5em;
-    padding: .3em 0;
-    height: 1.6em;
+    margin: .3em;
+    padding: .2em 0;
+    height: 1.3em;
     border-radius: 4px;
   }
   .view-list li.selected:hover {
