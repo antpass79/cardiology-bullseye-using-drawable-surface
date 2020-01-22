@@ -37,7 +37,10 @@ export class DrawableMapDataService {
 		return this._bullEyes;
 	}
 
-	constructor(private http: Http, private scoreColorPairMapService: ScoreColorPairMapService, private segmentBuilder: SegmentBuilder) {
+	constructor(
+		private http: Http,
+		private scoreColorPairMapService: ScoreColorPairMapService,
+		private segmentBuilder: SegmentBuilder) {
 	}
 
 	public async preLoadDrawableMaps(): Promise<void> {
@@ -56,7 +59,6 @@ export class DrawableMapDataService {
 		await this.preLoad('SAX_PM_16.xml');
 		await this.preLoad('SAX_PM_17.xml');
 		await this.preLoad('Summary_16.xml');
-		//this.preLoadSummary('Summary_16.xml');
 
 		return Promise.resolve();
 	}
@@ -70,8 +72,8 @@ export class DrawableMapDataService {
 				var bullEye = this.exctractDrawableMap(viewDescriptor);
 
 				let imageName = viewDescriptor.PathImg + '.png';
-				let image = './assets/images/' + imageName;
-				bullEye.setImageBackground(image);
+				let imageSource = './assets/images/' + imageName;
+				bullEye.setImageBackgroundSource(imageSource);
 
 				let key = filename.slice(0, filename.indexOf('.xml'));
 				this._bullEyes.set(key, bullEye);

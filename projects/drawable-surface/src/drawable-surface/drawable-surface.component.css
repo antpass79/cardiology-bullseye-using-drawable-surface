@@ -1,7 +1,4 @@
 
 .canvas {
-    width: 700px;
-    height: 700px;
-    background: yellow;
     touch-action: manipulation;
 }

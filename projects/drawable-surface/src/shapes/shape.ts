@@ -87,7 +87,6 @@ export abstract class Shape implements IShape {
 
     isPointInside(surface: ISurface, point: Point): boolean {
         this.draw(surface);
-
         return surface.context.isPointInPath(point.X, point.Y);
     }
 
@@ -108,12 +107,6 @@ export class CompositeShape extends Shape {
     private _shapes: IShape[] = [];
     get shapes(): IShape[] {
         return this._shapes;
-    }
-
-    isPointInside(surface: ISurface, point: Point): boolean {
-        this.draw(surface);
-
-        return surface.context.isPointInPath(point.X, point.Y);
     }
 
     getGhost(): Rect {
@@ -137,7 +130,7 @@ export class CompositeShape extends Shape {
     }
 
     protected drawSurface(surface: ISurface) {
-        this.shapes.forEach((part: IShape) => { part.draw(surface) });
+        this.shapes.forEach((shape: IShape) => { shape.draw(surface) });
     }
 
     protected completeSurface(surface: ISurface) {

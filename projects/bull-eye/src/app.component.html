@@ -16,7 +16,7 @@
 
     <div class="section">
         <h3>Stress Echo</h3>
-        <drawable-surface #drawableSurface [picture]="selectedBullEye" [resizeMode]="selectedResizeMode" (shapeMouseWheel)="shapeMouseWheelStream$.next($event)"></drawable-surface>
+        <drawable-surface #drawableSurface [width]="500" [height]="500" [picture]="selectedBullEye" [resizeMode]="selectedResizeMode" (shapeMouseWheel)="shapeMouseWheelStream$.next($event)"></drawable-surface>
     </div>
 
     <div class="section">

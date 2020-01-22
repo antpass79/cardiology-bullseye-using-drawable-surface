@@ -36,6 +36,11 @@ export class DrawableSurfaceComponent implements ISurface, AfterContentInit, OnC
 	picture: Picture;
 
 	@Input()
+	width: number;
+	@Input()
+	height: number;
+
+	@Input()
 	resizeMode: ResizeMode = ResizeMode.none;
 
 	@ViewChild("drawableCanvas", { static: true })
@@ -53,34 +58,6 @@ export class DrawableSurfaceComponent implements ISurface, AfterContentInit, OnC
 	}
 
 	ngAfterContentInit() {
-		this.canvas.addEventListener('mousemove', (e: MouseEvent) => {
-			this.mouseMove(e);
-		}, false);
-		this.canvas.addEventListener('click', (e: MouseEvent) => {
-			this.mouseClick(e);
-		}, false);
-		this.canvas.addEventListener('dblclick', (e: MouseEvent) => {
-			this.mouseDoubleClick(e);
-		}, false);
-		this.canvas.addEventListener('mousedown', (e: MouseEvent) => {
-			this.mouseDown(e);
-		}, false);
-		this.canvas.addEventListener('mouseup', (e: MouseEvent) => {
-			this.mouseUp(e);
-		}, false);
-		this.canvas.addEventListener('mouseenter', (e: MouseEvent) => {
-			this.mouseEnter(e);
-		}, false);
-		this.canvas.addEventListener('mouseleave', (e: MouseEvent) => {
-			this.mouseLeave(e);
-		}, false);
-		this.canvas.addEventListener('mouseover', (e: MouseEvent) => {
-			this.mouseOver(e);
-		}, false);
-		this.canvas.addEventListener('mousewheel', (e: MouseWheelEvent) => {
-			this.mouseWheel(e);
-		}, false);
-
 		EventManager.getInstance().subscribe("shapeMouseMove", (payload) => {
 			this.shapeMouseMove.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, shape: payload.shape, mouseEvent: payload.mouseEvent });
 		});
@@ -115,6 +92,86 @@ export class DrawableSurfaceComponent implements ISurface, AfterContentInit, OnC
 		this.draw();
 	}
 
+	public mouseMove(e: MouseEvent) {
+		e.preventDefault();
+
+		if (this.picture != null) {
+			this.picture.mouseMove(this, e);			
+		}
+	}
+
+	public mouseClick(e: MouseEvent) {
+		e.preventDefault();
+
+		if (this.picture != null) {
+			this.picture.mouseClick(this, e);
+			this.draw();
+		}
+	}
+
+	public mouseDoubleClick(e: MouseEvent) {
+		e.preventDefault();
+
+		if (this.picture != null) {
+			this.picture.mouseDoubleClick(this, e);
+			this.draw();
+		}
+	}
+
+	public mouseDown(e: MouseEvent) {
+		e.preventDefault();
+
+		if (this.picture != null) {
+			this.picture.mouseDown(this, e);
+			this.draw();
+		}
+	}
+
+	public mouseUp(e: MouseEvent) {
+		e.preventDefault();
+
+		if (this.picture != null) {
+			this.picture.mouseUp(this, e);
+			this.draw();
+		}
+	}
+
+	public mouseEnter(e: MouseEvent) {
+		e.preventDefault();
+
+		if (this.picture != null) {
+			this.picture.mouseEnter(this, e);
+			this.draw();
+		}
+	}
+
+	public mouseLeave(e: MouseEvent) {
+		e.preventDefault();
+
+		if (this.picture != null) {
+			this.picture.mouseLeave(this, e);
+			this.draw();
+		}
+	}
+
+	public mouseOver(e: MouseEvent) {
+		e.preventDefault();
+
+		if (this.picture != null) {
+			this.picture.mouseOver(this, e);
+			this.draw();
+		}
+	}
+
+	public mouseWheel(e: MouseWheelEvent) {
+		e.preventDefault();
+
+		if (this.picture != null) {
+			this.picture.mouseWheel(this, e);
+			this.draw();
+		}
+	}
+
 	private updateTransform() {
         let transform: Transform = Transform.default();
         if (!this.picture || !this.picture.isBackgroundImageLoaded) {
@@ -127,86 +184,6 @@ export class DrawableSurfaceComponent implements ISurface, AfterContentInit, OnC
 	private draw() {
 		if (this.picture != null) {
 			this.picture.draw(this);
-		}
-	}
-
-	private mouseMove(e: MouseEvent) {
-		e.preventDefault();
-
-		if (this.picture != null) {
-			this.picture.mouseMove(this, e);			
-		}
-	}
-
-	private mouseClick(e: MouseEvent) {
-		e.preventDefault();
-
-		if (this.picture != null) {
-			this.picture.mouseClick(this, e);
-			this.draw();
-		}
-	}
-
-	private mouseDoubleClick(e: MouseEvent) {
-		e.preventDefault();
-
-		if (this.picture != null) {
-			this.picture.mouseDoubleClick(this, e);
-			this.draw();
-		}
-	}
-
-	private mouseDown(e: MouseEvent) {
-		e.preventDefault();
-
-		if (this.picture != null) {
-			this.picture.mouseDown(this, e);
-			this.draw();
-		}
-	}
-
-	private mouseUp(e: MouseEvent) {
-		e.preventDefault();
-
-		if (this.picture != null) {
-			this.picture.mouseUp(this, e);
-			this.draw();
-		}
-	}
-
-	private mouseEnter(e: MouseEvent) {
-		e.preventDefault();
-
-		if (this.picture != null) {
-			this.picture.mouseEnter(this, e);
-			this.draw();
-		}
-	}
-
-	private mouseLeave(e: MouseEvent) {
-		e.preventDefault();
-
-		if (this.picture != null) {
-			this.picture.mouseLeave(this, e);
-			this.draw();
-		}
-	}
-
-	private mouseOver(e: MouseEvent) {
-		e.preventDefault();
-
-		if (this.picture != null) {
-			this.picture.mouseOver(this, e);
-			this.draw();
-		}
-	}
-
-	private mouseWheel(e: MouseWheelEvent) {
-		e.preventDefault();
-
-		if (this.picture != null) {
-			this.picture.mouseWheel(this, e);
-			this.draw();
 		}
 	}
 }

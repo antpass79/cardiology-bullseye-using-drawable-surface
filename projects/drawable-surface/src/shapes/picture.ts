@@ -9,12 +9,12 @@ export class Picture extends CompositeShape {
 		return this._backgroundImage;
 	}
 
-	setImageBackground(image: string) {
+	setImageBackgroundSource(imageSource: string) {
 		this.backgroundImage.onload = (event: any) => {
 			this.isBackgroundImageLoaded = true;
 		};
 
-		this.backgroundImage.src = image;
+		this.backgroundImage.src = imageSource;
 	}
 
 	mouseMove(surface: ISurface, e: MouseEvent) {
@@ -72,8 +72,7 @@ export class Picture extends CompositeShape {
 	}
 
 	protected prepareSurface(surface: ISurface) {
-		surface.context.strokeStyle = this.appearance.strokeStyle;
-		surface.context.lineWidth = this.appearance.lineWidth;
+		super.prepareSurface(surface);
 		surface.context.clearRect(0, 0, surface.canvas.width, surface.canvas.width);
 	}
 	
