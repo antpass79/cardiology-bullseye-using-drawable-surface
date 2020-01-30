@@ -2,13 +2,16 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 
+import { DrawableSurfaceModule } from '@antpass79/drawable-surface';
+import { RendererCache } from '@antpass79/drawable-surface';
+
 import { DrawableMapDataService } from './services/drawable-map-data.service';
 
 import { AppComponent } from './app.component';
-import { DrawableSurfaceModule } from '@antpass79/drawable-surface';
 import { EventListComponent } from './components/event-list/event-list.component';
 import { LegendComponent } from './components/legend/legend.component';
 import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
+import { BullEyeRendererFactoryService } from './shapes/color-score-segment';
 
 @NgModule({
   imports: [
@@ -24,9 +27,14 @@ import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
   ],
   providers: [
     {
+      provide: RendererCache,
+      useClass: RendererCache,
+      deps: [BullEyeRendererFactoryService]
+    },
+    {
       provide: APP_INITIALIZER,
       multi: true,
-      useFactory: DataLoader,
+      useFactory: bullEyeDataLoader,
       deps: [DrawableMapDataService],
     },
   ],
@@ -34,7 +42,7 @@ import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
 })
 export class AppModule { }
 
-export function DataLoader(drawableMapDataService: DrawableMapDataService) {
+export function bullEyeDataLoader(drawableMapDataService: DrawableMapDataService) {
   return (): Promise<any> => {
     console.log('Data loading...');
 

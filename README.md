@@ -1,9 +1,8 @@
 # cardiology-bullseye using drawable-surface
 
-the drawable-surface is a component that provides to create objects on a canvas. In order to show how it works, the bull-eye project is developed.
+the drawable-surface is a component that provides a way to create objects on a canvas. In order to show how it works, the bull-eye app has been developed.
 
-Bullseye is a component used in echocardiology.
-This component is written in Angular 8.
+Bullseye is a component used in echocardiology. It shows sections of the heart, splitted in segments, and the physician can change each segment based on the issue of that segment.
 
 ## Run
 
@@ -17,16 +16,22 @@ Run the program
 
 ## How it works
 
-One the program is running, you can see 4 sections:
+Once the program run, you can see 4 sections:
 
-- Choose View: for choosing the view to show (not all work)
-- Strees Echo: through interactive component, you can change the color of each segment wheeling the mouse
-- Legend: the meaning of the colors
+- Choose View: for choosing the view to show (not all work) and define the size mode
+- Stress Echo: through interactive component, you can change the color of each segment wheeling the mouse or select different segments clicking on them
+- Legend: the meaning of the colors. Selected some segments it's possible to change together all them, clicking on an item of the legend
 - Events: events fired
 
-One the application runs, choosing a view on the left section, the related rappresentation will appear in the Stress Echo section. You can interact with each segment wheeling the mouse.
+## Redux Implementation
 
-## Some words on Kubernetes
+With the redux branch, the ngRx 8 library has been used to manage the state of the component.
+
+In order to split the state and the functionalities of single shape, the *mouse interaction handlers* and the *draw function* are put in two separated layers, *MouseHandler* and a hierarchy of *ShapeRenderer*.
+
+In this way *shape* contains only the state for drawing on canvas, points and appearance.
+
+## Some words on Kubernetes (TO BE UPDATED AFTER ADDING DRAWABLE_SURFACE PROJECT)
 
 The question is "What does this have to do with k8s"?
 
@@ -79,3 +84,8 @@ In the yaml file, add
         - name: <<yoursecret>>
 
 under Deployment definition (uncommented the lines).
+
+## References
+
+- <https://medium.com/@peterxjang/a-functional-canvas-approach-with-redux-ce59a369241b>
+- <https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/>

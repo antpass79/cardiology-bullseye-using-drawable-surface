@@ -1,6 +1,6 @@
 export interface Rect {
-    X1: number;
-    Y1: number;
-    X2: number;
-    Y2: number;
+    readonly X1: number;
+    readonly Y1: number;
+    readonly X2: number;
+    readonly Y2: number;
 }

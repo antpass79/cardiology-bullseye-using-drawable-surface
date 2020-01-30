@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { SegmentItem, Points } from "./drawing-map-models";
 import { PolygonBuilder, LineBuilder, ArcBuilder } from "./shape-builders";
 import { IShape } from '@antpass79/drawable-surface';
-import { ScoreColorSegment } from "./score-color-pair-map.service";
+import { ScoreColorSegment } from "../shapes/color-score-segment";
 
 export interface ISegmentBuilder {
     build(segmentItem: SegmentItem): ScoreColorSegment;

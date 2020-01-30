@@ -1,16 +1,10 @@
-import { Shape, ISurface } from './shape';
-import { Point } from "./point";
+import { Shape } from './shape';
 import { Rect } from './rect';
 
 export class Line extends Shape {
-    startPoint: Point = {
-        X: 0,
-        Y: 0
-    };
-    endPoint: Point = {
-        X: 0,
-        Y: 0
-    };
+    constructor(public readonly startPoint, public readonly endPoint) {
+        super('LINE_SHAPE');
+    }
 
 	getGhost(): Rect {
 		return {
@@ -20,16 +14,4 @@ export class Line extends Shape {
 			Y2: Math.max(this.startPoint.Y, this.endPoint.Y),
 		};
 	}
-
-    protected drawSurface(surface: ISurface) {
-        let transformStart = surface.transform.point(this.startPoint);
-        let transformEnd = surface.transform.point(this.endPoint);
-
-        surface.context.moveTo(
-            transformStart.X,
-            transformStart.Y);
-        surface.context.lineTo(
-            transformEnd.X,
-            transformEnd.Y);
-    }
 }

@@ -1,11 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 
-import { DrawableMapDataService, BullEyeType } from './services/drawable-map-data.service';
 import { Picture } from '@antpass79/drawable-surface';
-import { ScoreColorPairMapService, ScoreColorPair, ScoreColorSegment } from './services/score-color-pair-map.service';
-import { DrawableSurfaceComponent } from 'projects/drawable-surface/src/drawable-surface/drawable-surface.component';
-import { ResizeMode } from 'projects/drawable-surface/src/drawable-surface/resize-mode';
+import { DrawableSurfaceComponent } from '@antpass79/drawable-surface';
+import { ResizeMode } from '@antpass79/drawable-surface';
+import { ShapeWheelEvent } from '@antpass79/drawable-surface';
+
+import { DrawableMapDataService, BullEyeType } from './services/drawable-map-data.service';
+import { ScoreColorPairMapService, ScoreColorPair } from './services/score-color-pair-map.service';
+import { ScoreColorSegment } from './shapes/color-score-segment';
+import { ShapeWorkflowService } from 'projects/drawable-surface/src';
 
 @Component({
   selector: 'my-app',
@@ -18,7 +22,7 @@ export class AppComponent implements OnInit {
   selectScoreColorPairStream$ = new Subject<ScoreColorPair>();
   clearStream$ = new Subject<any>();
 
-  shapeMouseWheelStream$ = new Subject<any>();
+  shapeMouseWheelStream$ = new Subject<ShapeWheelEvent>();
 
   bullEyeTypes = BullEyeType;
   selectedBullEye: Picture;
@@ -33,7 +37,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private drawableMapDataService: DrawableMapDataService,
-    private scoreColorPairMapService: ScoreColorPairMapService) {
+    private scoreColorPairMapService: ScoreColorPairMapService,
+    private shapeWorkflowService: ShapeWorkflowService) {
   }
 
   ngOnInit() {
@@ -45,22 +50,23 @@ export class AppComponent implements OnInit {
     });
 
     this.selectScoreColorPairStream$.subscribe((scoreColorPair: ScoreColorPair) => {
-      let selectedShapes = this.selectedBullEye.shapes.filter((shape: ScoreColorSegment) => shape.status.selected);
+      let selectedShapes = this.selectedBullEye.shapes.filter((shape: ScoreColorSegment) => shape.state.selected);
       selectedShapes.forEach((shape: ScoreColorSegment) => {
-        shape.scoreColorPair = scoreColorPair;
-        shape.draw(this.drawableSurface);
+        this.shapeWorkflowService.changeProps(shape, scoreColorPair);
       });
     });
 
     this.shapeMouseWheelStream$.subscribe(payload => {
-      let currentIndex = this.scoreColorPairMapService.scoreColorPairs.findIndex(scoreColorPair => scoreColorPair === payload.shape.scoreColorPair);
+      let segment = payload.shape as ScoreColorSegment;
+
+      let currentIndex = this.scoreColorPairMapService.scoreColorPairs.findIndex(scoreColorPair => scoreColorPair.color === segment.props.color);
 
       if (payload.mouseEvent.deltaY < 0 && currentIndex < this.scoreColorPairMapService.scoreColorPairs.length - 1)
         currentIndex++;
       if (payload.mouseEvent.deltaY > 0 && currentIndex > 0)
         currentIndex--;
 
-      payload.shape.scoreColorPair = this.scoreColorPairMapService.scoreColorPairs[currentIndex];
+      this.shapeWorkflowService.changeProps(segment, this.scoreColorPairMapService.scoreColorPairs[currentIndex]);
       this.events.push(this.scoreColorPairMapService.scoreColorPairs[currentIndex].description);
     });
 

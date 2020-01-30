@@ -7,15 +7,14 @@ export interface IShapeBuilder {
 
 export class LineBuilder implements IShapeBuilder {
     build(points: Points): IShape {
-        let line = new Line();
-        line.startPoint = {
+        let line = new Line({
             X: Number(points.Point[0].X),
             Y: Number(points.Point[0].Y)
-        };
-        line.endPoint = {
+        },
+        {
             X: Number(points.Point[1].X),
             Y: Number(points.Point[1].Y)
-        };
+        });
 
         return line;
     }

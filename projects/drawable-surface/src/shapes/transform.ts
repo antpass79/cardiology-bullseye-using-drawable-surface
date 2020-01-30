@@ -1,30 +1,36 @@
 import { Point } from "../shapes/point";
 
-export class Transform {
-    translateX: number = 0;
-    translateY: number = 0;
-    scaleX: number = 1;
-    scaleY: number = 1;
+export interface Transform {
+    readonly translateX: number;
+    readonly translateY: number;
+    readonly scaleX: number;
+    readonly scaleY: number;
+}
 
+export class TransformService {
     static default(): Transform {
-        return new Transform();
+        return {
+            translateX: 0,
+            translateY: 0,
+            scaleX: 1,
+            scaleY: 1
+        };
     }
 
     static create(translateX: number, translateY: number, scaleX: number, scaleY: number): Transform {
-        let transform = new Transform();
-        
-        transform.translateX = translateX;
-        transform.translateY = translateY;
-        transform.scaleX = scaleX;
-        transform.scaleY = scaleY;
+        return {
+            translateX: translateX,
+            translateY: translateY,
+            scaleX: scaleX,
+            scaleY: scaleY
 
-        return transform;
+        };
     }
 
-    point(point: Point) {
+    static point(transform: Transform, point: Point) {
         return {
-            X: this.translateX + this.scaleX * point.X,
-            Y: this.translateY + this.scaleY * point.Y
+            X: transform.translateX + transform.scaleX * point.X,
+            Y: transform.translateY + transform.scaleY * point.Y
         };
     }
 }

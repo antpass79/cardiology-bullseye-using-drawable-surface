@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { CompositeShape } from '@antpass79/drawable-surface';
 
 export enum SegmentScore
 {
@@ -19,17 +18,6 @@ export enum SegmentScore
     //extended scores
     Min = 100,
     Max = 101
-}
-
-export class ScoreColorSegment extends CompositeShape {
-    private _scoreColorPair: ScoreColorPair = new ScoreColorPair(SegmentScore.Normal, 'greenyellow');
-    get scoreColorPair(): ScoreColorPair {
-        return this._scoreColorPair;
-    }
-    set scoreColorPair(scoreColorPair: ScoreColorPair) {
-        this._scoreColorPair = scoreColorPair;
-        this.appearance.fill = this.scoreColorPair.color;
-    }
 }
 
 export class ScoreColorPair {

@@ -1,4 +1,4 @@
 export interface Point {
-    X: number;
-    Y: number;
+    readonly X: number;
+    readonly Y: number;
 }

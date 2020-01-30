@@ -1,11 +1,16 @@
-import { Component, AfterContentInit, OnChanges, EventEmitter, Output, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, AfterContentInit, OnChanges, EventEmitter, Output, Input, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
 
-import { EventManager } from '../event-aggregator/event-manager';
 import { Picture } from '../shapes/picture';
-import { Transform } from '../shapes/transform';
 import { ISurface } from '../shapes/shape';
-import { PictureTransformFactory } from '../services/picture-trasform-factory';
 import { ResizeMode } from './resize-mode';
+import { PictureRenderer } from '../shape-renderer/picture-renderer';
+import { IRendererContext } from '../shape-renderer/renderer-context';
+import { IMouseHandler, MouseHandler } from '../shape-handler/mouse-handler';
+import { ShapeEvent } from '../shape-handler/shape-events';
+import { DrawableSurfaceState } from '../redux/states/drawable-surface';
+import { IMouseHandlerContext } from '../shape-handler/mouse-handler-context';
+import { WorkflowService } from '../services/workflow.service';
+import { RendererCache } from '../shape-renderer/renderer-cache';
 
 @Component({
 	selector: 'drawable-surface',
@@ -14,176 +19,146 @@ import { ResizeMode } from './resize-mode';
 })
 export class DrawableSurfaceComponent implements ISurface, AfterContentInit, OnChanges {
 	@Output()
-	shapeMouseMove = new EventEmitter();
+	shapeMouseMove = new EventEmitter<ShapeEvent>();
 	@Output()
-	shapeMouseClick = new EventEmitter();
+	shapeMouseClick = new EventEmitter<ShapeEvent>();
 	@Output()
-	shapeMouseDoubleClick = new EventEmitter();
+	shapeMouseDoubleClick = new EventEmitter<ShapeEvent>();
 	@Output()
-	shapeMouseDown = new EventEmitter();
+	shapeMouseDown = new EventEmitter<ShapeEvent>();
 	@Output()
-	shapeMouseUp = new EventEmitter();
+	shapeMouseUp = new EventEmitter<ShapeEvent>();
 	@Output()
-	shapeMouseEnter = new EventEmitter();
+	shapeMouseEnter = new EventEmitter<ShapeEvent>();
 	@Output()
-	shapeMouseLeave = new EventEmitter();
+	shapeMouseLeave = new EventEmitter<ShapeEvent>();
 	@Output()
-	shapeMouseOver = new EventEmitter();
+	shapeMouseOver = new EventEmitter<ShapeEvent>();
 	@Output()
-	shapeMouseWheel = new EventEmitter();
+	shapeMouseWheel = new EventEmitter<ShapeEvent>();
 
 	@Input()
 	picture: Picture;
-
 	@Input()
 	width: number;
 	@Input()
 	height: number;
-
 	@Input()
 	resizeMode: ResizeMode = ResizeMode.none;
 
 	@ViewChild("drawableCanvas", { static: true })
-    canvasElement: ElementRef<HTMLCanvasElement>;
-
+	canvasElement: ElementRef<HTMLCanvasElement>;
 	get canvas(): HTMLCanvasElement {
 		return this.canvasElement.nativeElement;
 	}
 	get context(): CanvasRenderingContext2D {
 		return this.canvas.getContext('2d');
 	}
-	private _transform: Transform = Transform.default();
-	get transform(): Transform {
-		return this._transform;
+
+	private pictureRenderer: PictureRenderer = new PictureRenderer();
+	private mouseHandler: IMouseHandler = new MouseHandler();
+
+	constructor(
+		private workflowService: WorkflowService,
+		private rendererCache: RendererCache) {
+		this.workflowService.drawableSurfaceWorkflowService.listenForEveryChanges().subscribe((state) => {
+			this.draw(state.drawableSurface);
+		});
 	}
 
 	ngAfterContentInit() {
-		EventManager.getInstance().subscribe("shapeMouseMove", (payload) => {
-			this.shapeMouseMove.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, shape: payload.shape, mouseEvent: payload.mouseEvent });
+		this.mouseHandler.mouseMoveChange.subscribe(shapeEvent => this.shapeMouseMove.emit(shapeEvent));
+		this.mouseHandler.mouseClickChange.subscribe(shapeEvent => {
+			this.workflowService.shapeWorkflowService.changeSelected(shapeEvent.shape, !shapeEvent.shape.state.selected);
+			this.shapeMouseClick.emit(shapeEvent);
 		});
-		EventManager.getInstance().subscribe("shapeMouseClick", (payload) => {
-			this.shapeMouseClick.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, shape: payload.shape, mouseEvent: payload.mouseEvent });
-		});
-		EventManager.getInstance().subscribe("shapeMouseDoubleClick", (payload) => {
-			this.shapeMouseDoubleClick.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, shape: payload.shape, mouseEvent: payload.mouseEvent });
-		});
-		EventManager.getInstance().subscribe("shapeMouseDown", (payload) => {
-			this.shapeMouseDown.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, shape: payload.shape, mouseEvent: payload.mouseEvent });
-		});
-		EventManager.getInstance().subscribe("shapeMouseUp", (payload) => {
-			this.shapeMouseUp.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, shape: payload.shape, mouseEvent: payload.mouseEvent });
-		});
-		EventManager.getInstance().subscribe("shapeMouseEnter", (payload) => {
-			this.shapeMouseEnter.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, shape: payload.shape, mouseEvent: payload.mouseEvent });
-		});
-		EventManager.getInstance().subscribe("shapeMouseLeave", (payload) => {
-			this.shapeMouseLeave.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, shape: payload.shape, mouseEvent: payload.mouseEvent });
-		});
-		EventManager.getInstance().subscribe("shapeMouseOver", (payload) => {
-			this.shapeMouseOver.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, shape: payload.shape, mouseEvent: payload.mouseEvent });
-		});
-		EventManager.getInstance().subscribe("shapeMouseWheel", (payload) => {
-			this.shapeMouseWheel.emit({ eventName: payload.eventName, scoreColorPair: payload.scoreColorPair, shape: payload.shape, mouseEvent: payload.mouseEvent });
-		});
+		this.mouseHandler.mouseDoubleClickChange.subscribe(shapeEvent => this.shapeMouseDoubleClick.emit(shapeEvent));
+		this.mouseHandler.mouseDownChange.subscribe(shapeEvent => this.shapeMouseDown.emit(shapeEvent));
+		this.mouseHandler.mouseUpChange.subscribe(shapeEvent => this.shapeMouseUp.emit(shapeEvent));
+		this.mouseHandler.mouseEnterChange.subscribe(shapeEvent => this.shapeMouseEnter.emit(shapeEvent));
+		this.mouseHandler.mouseLeaveChange.subscribe(shapeEvent => this.shapeMouseLeave.emit(shapeEvent));
+		this.mouseHandler.mouseOverChange.subscribe(shapeEvent => this.shapeMouseOver.emit(shapeEvent));
+		this.mouseHandler.mouseWheelChange.subscribe(shapeEvent => this.shapeMouseWheel.emit(shapeEvent));
 	}
 
-	ngOnChanges() {
-		this.updateTransform();
-		this.draw();
-	}
-
-	public mouseMove(e: MouseEvent) {
-		e.preventDefault();
-
-		if (this.picture != null) {
-			this.picture.mouseMove(this, e);			
+	ngOnChanges(changes: SimpleChanges) {
+		if (changes.picture) {
+			this.workflowService.drawableSurfaceWorkflowService.changePicture(this, changes.picture.currentValue);
+		}
+		if (changes.resizeMode) {
+			this.workflowService.drawableSurfaceWorkflowService.changeResizeMode(this, changes.resizeMode.currentValue);
+		}
+		if (changes.width) {
+			this.workflowService.drawableSurfaceWorkflowService.changeSize(this, {
+				width: changes.width.currentValue,
+				height: this.height
+			});
+		}
+		if (changes.height) {
+			this.workflowService.drawableSurfaceWorkflowService.changeSize(this, {
+				width: this.width,
+				height: changes.width.currentValue
+			});
 		}
 	}
 
-	public mouseClick(e: MouseEvent) {
-		e.preventDefault();
+	public async mouseMove(e: MouseEvent) {
+		this.mouseHandler.mouseMove(await this.buildMouseHandlerContext(e));
+	}
 
-		if (this.picture != null) {
-			this.picture.mouseClick(this, e);
-			this.draw();
+	public async mouseClick(e: MouseEvent) {
+		this.mouseHandler.mouseClick(await this.buildMouseHandlerContext(e));
+	}
+
+	public async mouseDoubleClick(e: MouseEvent) {
+		this.mouseHandler.mouseDoubleClick(await this.buildMouseHandlerContext(e));
+	}
+
+	public async mouseDown(e: MouseEvent) {
+		this.mouseHandler.mouseDown(await this.buildMouseHandlerContext(e));
+	}
+
+	public async mouseUp(e: MouseEvent) {
+		this.mouseHandler.mouseUp(await this.buildMouseHandlerContext(e));
+	}
+
+	public async mouseEnter(e: MouseEvent) {
+		this.mouseHandler.mouseEnter(await this.buildMouseHandlerContext(e));
+	}
+
+	public async mouseLeave(e: MouseEvent) {
+		this.mouseHandler.mouseLeave(await this.buildMouseHandlerContext(e));
+	}
+
+	public async mouseOver(e: MouseEvent) {
+		this.mouseHandler.mouseOver(await this.buildMouseHandlerContext(e));
+	}
+
+	public async mouseWheel(e: MouseWheelEvent) {
+		this.mouseHandler.mouseWheel(await this.buildMouseHandlerContext(e));
+	}
+
+	private async draw(state: DrawableSurfaceState) {
+		if (!state.picture || !state.picture.isBackgroundImageLoaded) {
+			return;
 		}
+
+		let rendererContext: IRendererContext = {
+			surface: this,
+			rendererCache: this.rendererCache,
+			state: state
+		};
+		this.pictureRenderer.draw(rendererContext, state.picture);
 	}
 
-	public mouseDoubleClick(e: MouseEvent) {
-		e.preventDefault();
-
-		if (this.picture != null) {
-			this.picture.mouseDoubleClick(this, e);
-			this.draw();
-		}
-	}
-
-	public mouseDown(e: MouseEvent) {
-		e.preventDefault();
-
-		if (this.picture != null) {
-			this.picture.mouseDown(this, e);
-			this.draw();
-		}
-	}
-
-	public mouseUp(e: MouseEvent) {
-		e.preventDefault();
-
-		if (this.picture != null) {
-			this.picture.mouseUp(this, e);
-			this.draw();
-		}
-	}
-
-	public mouseEnter(e: MouseEvent) {
-		e.preventDefault();
-
-		if (this.picture != null) {
-			this.picture.mouseEnter(this, e);
-			this.draw();
-		}
-	}
-
-	public mouseLeave(e: MouseEvent) {
-		e.preventDefault();
-
-		if (this.picture != null) {
-			this.picture.mouseLeave(this, e);
-			this.draw();
-		}
-	}
-
-	public mouseOver(e: MouseEvent) {
-		e.preventDefault();
-
-		if (this.picture != null) {
-			this.picture.mouseOver(this, e);
-			this.draw();
-		}
-	}
-
-	public mouseWheel(e: MouseWheelEvent) {
-		e.preventDefault();
-
-		if (this.picture != null) {
-			this.picture.mouseWheel(this, e);
-			this.draw();
-		}
-	}
-
-	private updateTransform() {
-        let transform: Transform = Transform.default();
-        if (!this.picture || !this.picture.isBackgroundImageLoaded) {
-            return transform;
-        }
-
-		this._transform = PictureTransformFactory.create(this.picture, this.picture.backgroundImage, this.canvas, this.resizeMode)
-	}
-
-	private draw() {
-		if (this.picture != null) {
-			this.picture.draw(this);
+	private async buildMouseHandlerContext(e: MouseEvent): Promise<IMouseHandlerContext> {
+		return {
+			mouseEvent: e,
+			rendererContext: {
+				surface: this,
+				state: await this.workflowService.drawableSurfaceWorkflowService.getStateAsync(),
+				rendererCache: this.rendererCache
+			}
 		}
 	}
 }
