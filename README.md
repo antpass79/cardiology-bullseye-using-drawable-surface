@@ -2,17 +2,26 @@
 
 the drawable-surface is a component that provides a way to create objects on a canvas. In order to show how it works, the bull-eye app has been developed.
 
-Bullseye is a component used in echocardiology. It shows sections of the heart, splitted in segments, and the physician can change each segment based on the issue of that segment.
+Bullseye is a component used in echocardiology. It shows sections of the heart, splitted in segments, and the physician can change each segment based on the issue, if there is one.
+
+## Projects
+
+In the infrastructure provided by angular-cli, there are 2 projects:
+
+- **drawable-surface**: the component for drawing on canvas
+- **bull-eye**: the app for showing how to use *drawable-surface*
 
 ## Run
 
-After to install all packages
+Follow the below steps to run the app:
 
-    npm install
+- Install the packages:
 
-Run the program
+        npm install
 
-    ng serve
+- Run the program:
+
+        ng serve
 
 ## How it works
 
@@ -20,14 +29,14 @@ Once the program run, you can see 4 sections:
 
 - Choose View: for choosing the view to show (not all work) and define the size mode
 - Stress Echo: through interactive component, you can change the color of each segment wheeling the mouse or select different segments clicking on them
-- Legend: the meaning of the colors. Selected some segments it's possible to change together all them, clicking on an item of the legend
-- Events: events fired
+- Legend: the meaning of the colors. Selecting some segments and clicking on an item of the legend, it's possible to change together all them
+- Events: it shows the events fired by the component
 
 ## Redux Implementation
 
 With the redux branch, the ngRx 8 library has been used to manage the state of the component.
 
-In order to split the state and the functionalities of single shape, the *mouse interaction handlers* and the *draw function* are put in two separated layers, *MouseHandler* and a hierarchy of *ShapeRenderer*.
+In order to split the state and the functionalities of a single shape, the *mouse interaction handlers* and the *draw function* are put in two separated layers, *MouseHandler* and a hierarchy of *ShapeRenderer*.
 
 In this way *shape* contains only the state for drawing on canvas, points and appearance.
 
