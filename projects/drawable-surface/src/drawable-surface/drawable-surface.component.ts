@@ -39,12 +39,20 @@ export class DrawableSurfaceComponent implements ISurface, AfterContentInit, OnC
 
 	@Input()
 	picture: Picture;
+	@Output()
+	pictureChange = new EventEmitter<Picture>();
 	@Input()
 	width: number;
+	@Output()
+	widthChange = new EventEmitter<number>();
 	@Input()
 	height: number;
+	@Output()
+	heightChange = new EventEmitter<number>();
 	@Input()
 	resizeMode: ResizeMode = ResizeMode.none;
+	@Output()
+	resizeModeChange = new EventEmitter<ResizeMode>();
 
 	@ViewChild("drawableCanvas", { static: true })
 	canvasElement: ElementRef<HTMLCanvasElement>;
@@ -62,6 +70,7 @@ export class DrawableSurfaceComponent implements ISurface, AfterContentInit, OnC
 		private workflowService: WorkflowService,
 		private rendererCache: RendererCache) {
 		this.workflowService.drawableSurfaceWorkflowService.listenForEveryChanges().subscribe((state) => {
+			this.updateProps(state.drawableSurface);
 			this.draw(state.drawableSurface);
 		});
 	}
@@ -81,9 +90,9 @@ export class DrawableSurfaceComponent implements ISurface, AfterContentInit, OnC
 		this.mouseHandler.mouseWheelChange.subscribe(shapeEvent => this.shapeMouseWheel.emit(shapeEvent));
 	}
 
-	ngOnChanges(changes: SimpleChanges) {
+	async ngOnChanges(changes: SimpleChanges) {
 		if (changes.picture) {
-			this.workflowService.drawableSurfaceWorkflowService.changePicture(this, changes.picture.currentValue);
+			this.workflowService.drawableSurfaceWorkflowService.changePicture(this, changes.picture.currentValue);			
 		}
 		if (changes.resizeMode) {
 			this.workflowService.drawableSurfaceWorkflowService.changeResizeMode(this, changes.resizeMode.currentValue);
@@ -136,6 +145,17 @@ export class DrawableSurfaceComponent implements ISurface, AfterContentInit, OnC
 
 	public async mouseWheel(e: MouseWheelEvent) {
 		this.mouseHandler.mouseWheel(await this.buildMouseHandlerContext(e));
+	}
+
+	private updateProps(state: DrawableSurfaceState) {
+		this.picture = state ? state.picture : undefined;
+		this.pictureChange.emit(this.picture);
+		this.resizeMode = state ? state.resizeMode : undefined;
+		this.resizeModeChange.emit(this.resizeMode);
+		this.width = state ? state.width : undefined;
+		this.widthChange.emit(this.width);
+		this.height = state ? state.height : undefined;
+		this.heightChange.emit(this.height);
 	}
 
 	private async draw(state: DrawableSurfaceState) {

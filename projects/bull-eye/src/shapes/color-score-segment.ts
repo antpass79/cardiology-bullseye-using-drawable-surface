@@ -9,15 +9,6 @@ import { RendererFactoryService } from "@antpass79/drawable-surface";
 import { ScoreColorPair, SegmentScore } from "../services/score-color-pair-map.service";
 
 export class ScoreColorSegment extends CompositeShape {
-    // private _scoreColorPair: ScoreColorPair = new ScoreColorPair(SegmentScore.Normal, 'greenyellow');
-    // get scoreColorPair(): ScoreColorPair {
-    //     return this._scoreColorPair;
-    // }
-    // set scoreColorPair(scoreColorPair: ScoreColorPair) {
-    //     this._scoreColorPair = scoreColorPair;
-    //     this.state.appearance.fill = this.scoreColorPair.color;
-    // }
-
     constructor() {
         super('SCORECOLORSEGMENT_SHAPE', new ScoreColorPair(SegmentScore.Normal, 'greenyellow'));
     }
