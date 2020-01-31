@@ -27,8 +27,20 @@ export class DrawableSurfaceWorkflowService {
         return state;
     }
 
-    public listenForEveryChanges(): Observable<{ drawableSurface: DrawableSurfaceState }> {
-        return this.store;
+    public listenForPicture(): Observable<Picture> {
+        return this.store.select(state => state.drawableSurface.picture);
+    }
+
+    public listenForResizeMode(): Observable<ResizeMode> {
+        return this.store.select(state => state.drawableSurface.resizeMode);
+    }
+
+    public listenForWidth(): Observable<number> {
+        return this.store.select(state => state.drawableSurface.width);
+    }
+
+    public listenForHeight(): Observable<number> {
+        return this.store.select(state => state.drawableSurface.height);
     }
 
     public changePicture(surface: ISurface, picture: Picture) {

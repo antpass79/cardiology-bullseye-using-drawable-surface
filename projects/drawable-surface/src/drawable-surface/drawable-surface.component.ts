@@ -69,9 +69,25 @@ export class DrawableSurfaceComponent implements ISurface, AfterContentInit, OnC
 	constructor(
 		private workflowService: WorkflowService,
 		private rendererCache: RendererCache) {
-		this.workflowService.drawableSurfaceWorkflowService.listenForEveryChanges().subscribe((state) => {
-			this.updateProps(state.drawableSurface);
-			this.draw(state.drawableSurface);
+		this.workflowService.drawableSurfaceWorkflowService.listenForPicture().subscribe(picture => {			
+			this.picture = picture;
+			this.pictureChange.emit(this.picture);
+			this.draw();
+		});
+		this.workflowService.drawableSurfaceWorkflowService.listenForResizeMode().subscribe(resizeMode => {
+			this.resizeMode = resizeMode;
+			this.resizeModeChange.emit(this.resizeMode);
+			this.draw();
+		});
+		this.workflowService.drawableSurfaceWorkflowService.listenForWidth().subscribe(width => {
+			this.width = width;
+			this.widthChange.emit(this.width);
+			this.draw();
+		});
+		this.workflowService.drawableSurfaceWorkflowService.listenForHeight().subscribe(height => {
+			this.height = height;
+			this.heightChange.emit(this.height);
+			this.draw();
 		});
 	}
 
@@ -92,7 +108,7 @@ export class DrawableSurfaceComponent implements ISurface, AfterContentInit, OnC
 
 	async ngOnChanges(changes: SimpleChanges) {
 		if (changes.picture) {
-			this.workflowService.drawableSurfaceWorkflowService.changePicture(this, changes.picture.currentValue);			
+			this.workflowService.drawableSurfaceWorkflowService.changePicture(this, changes.picture.currentValue);
 		}
 		if (changes.resizeMode) {
 			this.workflowService.drawableSurfaceWorkflowService.changeResizeMode(this, changes.resizeMode.currentValue);
@@ -147,28 +163,17 @@ export class DrawableSurfaceComponent implements ISurface, AfterContentInit, OnC
 		this.mouseHandler.mouseWheel(await this.buildMouseHandlerContext(e));
 	}
 
-	private updateProps(state: DrawableSurfaceState) {
-		this.picture = state ? state.picture : undefined;
-		this.pictureChange.emit(this.picture);
-		this.resizeMode = state ? state.resizeMode : undefined;
-		this.resizeModeChange.emit(this.resizeMode);
-		this.width = state ? state.width : undefined;
-		this.widthChange.emit(this.width);
-		this.height = state ? state.height : undefined;
-		this.heightChange.emit(this.height);
-	}
-
-	private async draw(state: DrawableSurfaceState) {
-		if (!state.picture || !state.picture.isBackgroundImageLoaded) {
+	private async draw() {
+		if (!this.picture || !this.picture.isBackgroundImageLoaded) {
 			return;
 		}
 
 		let rendererContext: IRendererContext = {
 			surface: this,
 			rendererCache: this.rendererCache,
-			state: state
+			state: await this.workflowService.drawableSurfaceWorkflowService.getStateAsync()
 		};
-		this.pictureRenderer.draw(rendererContext, state.picture);
+		this.pictureRenderer.draw(rendererContext, this.picture);
 	}
 
 	private async buildMouseHandlerContext(e: MouseEvent): Promise<IMouseHandlerContext> {
